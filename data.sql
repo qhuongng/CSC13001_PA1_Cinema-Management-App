@@ -1,0 +1,8 @@
+﻿CREATE TABLE [User] (
+  id INT NOT NULL IDENTITY(1,1),
+  userName VARCHAR(50) NOT NULL,
+  password VARCHAR(60) NOT NULL,
+  DOB DATE NOT NULL,
+  gender VARCHAR(10) NOT NULL,
+  isAdmin BIT NOT NULL
+);
