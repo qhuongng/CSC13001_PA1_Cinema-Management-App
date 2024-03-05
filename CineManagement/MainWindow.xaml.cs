@@ -17,9 +17,12 @@ namespace CineManagement
     /// </summary>
     public partial class MainWindow : Window
     {
+        public User user;
         public MainWindow()
-        {
+        {   
             InitializeComponent();
+            user = new User();
         }
+    
     }
 }

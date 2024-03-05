@@ -7,7 +7,21 @@
         mc:Ignorable="d"
         Title="Register" Height="350" Width="320">
     <Window.Resources>
-       
+        <ControlTemplate x:Key="validationTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Foreground="Red" FontSize="20" Text="! "/>
+                <AdornedElementPlaceholder/>
+            </StackPanel>
+        </ControlTemplate>
+        <Style x:Key="textBoxInError" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip"
+                     Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -26,7 +40,18 @@
         <Label Content="REGISTER" Grid.Row="0" Grid.ColumnSpan="2" Margin="0 5 0 20" HorizontalAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="DarkCyan"/>
         
         <Label Content="Username:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center"  Margin="5 0 0 0" VerticalAlignment="Center" />
-        <TextBox x:Name="txtUsername" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalContentAlignment="Center" VerticalAlignment="Center" Width="190" Height="27" />
+        <TextBox x:Name="txtUsername" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0" 
+                 VerticalContentAlignment="Center" VerticalAlignment="Center" Width="190" Height="27"
+                 Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                 Style="{StaticResource textBoxInError}">
+            <TextBox.Text>
+                <Binding Path="Text" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <local:formRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <Label Content="Password:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" Margin="5,20,0,0" VerticalAlignment="Center" />
         <PasswordBox x:Name="txtPassword" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalContentAlignment="Center" VerticalAlignment="Center" Width="190" Height="27"/>
@@ -38,7 +63,7 @@
         <RadioButton x:Name="rbMale" Content="Male" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" IsChecked="True" Margin="15,17,0,0" VerticalAlignment="Center" />
         <RadioButton x:Name="rbFemale" Content="Female" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="110,17,0,0" VerticalAlignment="Center" />
 
-        <Button x:Name="btnRegister" Content="Register" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Click="BtnRegister_Click" FontSize="15" BorderBrush="DarkCyan" FontWeight="Medium"  Background="DarkCyan" Margin="0 20 0 0"/>
+        <Button x:Name="btnRegister" Content="Register" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Click="BtnRegister_Click" FontSize="15" BorderBrush="DarkCyan" FontWeight="Medium"  Background="DarkCyan" Margin="0 20 0 0" Foreground="White"/>
         <Button x:Name="btnLogin" Content="Login" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 44 0 0" Click="BtnLogin_Click" BorderThickness="0" Background="White" Foreground="DarkCyan" />
     </Grid>
 </Window>

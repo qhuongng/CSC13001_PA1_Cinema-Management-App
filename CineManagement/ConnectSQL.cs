@@ -1,15 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
-public class BaseDbContext : DbContext
+namespace CineManagement
 {
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public class BaseDbContext : DbContext
     {
-        try
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=localhost;Initial Catalog=cinemaManagement;Persist Security Info=True;User ID=sa;Password=123456;Encrypt=True;Trust Server Certificate=True");
-        } catch (Exception ex)
-        {
-            Console.WriteLine("Failed to connect to database: " + ex.Message);
+            try
+            {
+                optionsBuilder.UseSqlServer(@"Data Source=localhost;Initial Catalog=cinemaManagement;Persist Security Info=True;User ID=sa;Password=123456;Encrypt=True;Trust Server Certificate=True");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to connect to database: " + ex.Message);
+            }
         }
     }
 }
