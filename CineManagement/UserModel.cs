@@ -29,90 +29,97 @@ namespace CineManagement
 
     public class UserManager
     {
-        private readonly UserDbContext _context;
-        public UserManager()
-        {
-            _context = new UserDbContext();
-        }
         public User addUser(User user) // if exists return null, else return this user
         {
-            var existingUser = _context.User.FirstOrDefault(x => x.userName == user.userName);
-            if (existingUser == null)
+            using (var _context = new UserDbContext())
             {
-                string hashPassword = PasswordHandler.hashPassword(user.password);
-                user.password = hashPassword;
-                _context.User.Add(user);
-                try
+                var existingUser = _context.User.FirstOrDefault(x => x.userName == user.userName);
+                if (existingUser == null)
                 {
-                    _context.SaveChanges();
-                    return user;
+                    string hashPassword = PasswordHandler.hashPassword(user.password);
+                    user.password = hashPassword;
+                    _context.User.Add(user);
+                    try
+                    {
+                        _context.SaveChanges();
+                        return user;
+                    }
+                    catch (DbUpdateException ex)
+                    {
+                        // Handle database update exception
+                        throw new Exception("An error occurred while saving the user.", ex);
+                    }
+
                 }
-                catch (DbUpdateException ex)
+                else
                 {
-                    // Handle database update exception
-                    throw new Exception("An error occurred while saving the user.", ex);
+                    throw new Exception("User name already exists!");
                 }
-
             }
-            else
-            {
-                throw new Exception("User name already exists!");
-            }
-
         }
         public User updateUser(User user)
         {
-            var existingUser = _context.User.FirstOrDefault(x => x.id == user.id);
-            if (existingUser != null)
+            using(var _context = new UserDbContext())
             {
-                existingUser.userName = user.userName;
-                existingUser.DOB = user.DOB;
-                existingUser.gender = user.gender;
-                existingUser.isAdmin = user.isAdmin;
-                existingUser.password = user.password;
-                try
+                var existingUser = _context.User.FirstOrDefault(x => x.id == user.id);
+                if (existingUser != null)
                 {
-                    _context.SaveChanges();
-                    return user;
+                    existingUser.userName = user.userName;
+                    existingUser.DOB = user.DOB;
+                    existingUser.gender = user.gender;
+                    existingUser.isAdmin = user.isAdmin;
+                    existingUser.password = user.password;
+                    try
+                    {
+                        _context.SaveChanges();
+                        return user;
+                    }
+                    catch (DbUpdateException ex)
+                    {
+                        throw new Exception("An error occurred while updating the user.", ex);
+                    }
                 }
-                catch (DbUpdateException ex)
+                else
                 {
-                    throw new Exception("An error occurred while updating the user.", ex);
+                    throw new Exception("User is not exists!");
                 }
-            }
-            else
-            {
-                throw new Exception("User is not exists!");
             }
         }
         public User GetUserByName(string userName)
         {
-            var existingUser = _context.User.FirstOrDefault(x => x.userName == userName);
-            if (existingUser != null)
+            using (var _context = new UserDbContext())
             {
-                return existingUser;
-            }
-            else
-            {
-                throw new Exception("User is not exists!");
+                var existingUser = _context.User.FirstOrDefault(x => x.userName == userName);
+                if (existingUser != null)
+                {
+                    return existingUser;
+                }
+                else
+                {
+                    throw new Exception("User is not exists!");
+                }
             }
         }
         public bool DeleteUserById(int id) 
         {
-            var existingUser= _context.User.FirstOrDefault(x => x.id == id);
-            if(existingUser != null)
+            using (var _context = new UserDbContext())
             {
-                try
+                var existingUser = _context.User.FirstOrDefault(x => x.id == id);
+                if (existingUser != null)
                 {
-                    _context.User.Remove(existingUser);
-                    _context.SaveChanges();
-                    return true;
-                } catch (DbUpdateException ex)
-                {
-                    throw new Exception("Delete user failed");
+                    try
+                    {
+                        _context.User.Remove(existingUser);
+                        _context.SaveChanges();
+                        return true;
+                    }
+                    catch (DbUpdateException ex)
+                    {
+                        throw new Exception("Delete user failed");
+                    }
                 }
+                else { throw new Exception("User is not exists!"); }
             }
-            else { throw new Exception("User is not exists!"); }
         }
     }
 

@@ -7,7 +7,7 @@ namespace CineManagement
         {
             try
             {
-                optionsBuilder.UseSqlServer(@"Data Source=localhost;Initial Catalog=cinemaManagement;Persist Security Info=True;User ID=sa;Password=123456;Encrypt=True;Trust Server Certificate=True");
+                optionsBuilder.UseSqlServer(@"Data Source=localhost;Initial Catalog=Dev;Persist Security Info=True;User ID=sa;Password=123;Encrypt=True;Trust Server Certificate=True");
             }
             catch (Exception ex)
             {
