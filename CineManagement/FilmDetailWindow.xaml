@@ -17,8 +17,12 @@
 
             <local:Navbar Grid.Row="0" />
 
-            <Rectangle Grid.Row="1" Height="300" HorizontalAlignment="Stretch" Fill="DarkCyan" />
-            <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Orientation="Vertical" Margin="20">
+            <Border Grid.Row="1" CornerRadius="10"
+                    BorderBrush="Transparent" Margin="15,0,15,0"
+                    BorderThickness="1" Background="DarkCyan">
+            </Border>
+            
+            <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Orientation="Vertical" Margin="35,0,35,0">
                 <TextBlock Text="Tên phim"
                            FontSize="52" FontWeight="Bold" Foreground="White"
                            Margin="0,0,0,10" />
@@ -90,10 +94,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Orientation="Vertical" Margin="10,0,0,0">
-                    <TextBlock Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-                               TextWrapping="Wrap" />
-
-                    <Grid Margin="0,20,10,0">
+                    <Grid Margin="0,0,10,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition Width="2*"></ColumnDefinition>

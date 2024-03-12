@@ -5,15 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:CineManagement"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="800">
     <Grid VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.7*"></ColumnDefinition>
-            <ColumnDefinition Width="0.75*"></ColumnDefinition>
-            <ColumnDefinition Width="0.75*"></ColumnDefinition>
             <ColumnDefinition Width="2*"></ColumnDefinition>
-            <ColumnDefinition Width="1.5*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="2.5*"></ColumnDefinition>
+            <ColumnDefinition Width="1.75*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Column="0" Margin="20,0,0,0" Text="CINEMANAGEMENT"
@@ -40,17 +40,40 @@
             </Button.Style>
         </Button>
 
-        <Button Grid.Column="2" Margin="5" Content="PHIM" Cursor="Hand">
+        <Border Grid.Column="2"
+                BorderBrush="Transparent" CornerRadius="10">
+            <Grid>
+                <!-- Rounded mask (stretches to fill Grid) -->
+                <Border Name="mask"
+                        Background="WhiteSmoke"
+                        CornerRadius="10" />
+
+                <!-- Main content container -->
+                <StackPanel>
+                    <!-- Use a VisualBrush of 'mask' as the opacity mask -->
+                    <StackPanel.OpacityMask>
+                        <VisualBrush Visual="{Binding ElementName=mask}"/>
+                    </StackPanel.OpacityMask>
+
+                    <TextBox x:Name="searchBox"
+                             Margin="10,3,0,0"
+                             HorizontalAlignment="Stretch"
+                             BorderBrush="Transparent" Background="WhiteSmoke" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Button Grid.Column="2" HorizontalAlignment="Right"
+                Cursor="Hand" Margin="0,0,10,0">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <TextBlock FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <ContentPresenter />
-                    </TextBlock>
+                    <iconPacks:PackIconMaterial Kind="Magnify"
+                            VerticalAlignment="Center" />
                 </ControlTemplate>
             </Button.Template>
             <Button.Style>
                 <Style TargetType="Button">
-                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="Foreground" Value="DarkCyan" />
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Foreground" Value="LightSalmon" />
@@ -60,24 +83,7 @@
             </Button.Style>
         </Button>
 
-        <TextBox x:Name="SearchBox" Grid.Column="3" 
-             VerticalAlignment="Center" HorizontalAlignment="Stretch"
-             Margin="5">
-        </TextBox>
-        <TextBlock Grid.Column="3" IsHitTestVisible="False" Text="Tìm kiếm phim ..." VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,3,0,0" Foreground="DarkGray">
-            <TextBlock.Style>
-                <Style TargetType="{x:Type TextBlock}">
-                    <Setter Property="Visibility" Value="Collapsed"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
-
-        <Button Grid.Column="4" Margin="0,0,20,0" Content="ĐĂNG NHẬP/ĐĂNG KÝ" Cursor="Hand">
+        <Button Grid.Column="3" Margin="0,0,20,0" Content="ĐĂNG NHẬP/ĐĂNG KÝ" Cursor="Hand">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <TextBlock FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center">
