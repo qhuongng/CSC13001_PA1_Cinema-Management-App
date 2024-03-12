@@ -10,19 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CineManagement
 {
     /// <summary>
-    /// Interaction logic for FilmDetailWindow.xaml
+    /// Interaction logic for MovieDetails.xaml
     /// </summary>
-    public partial class FilmDetailWindow : Window
+    public partial class MovieDetails : UserControl
     {
-        public FilmDetailWindow()
+        public MovieDetails()
         {
             InitializeComponent();
-            DataContext = this;
         }
     }
 }
