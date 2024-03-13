@@ -1,10 +1,7 @@
 ﻿using System.Windows.Controls;
 
-namespace CineManagement
+namespace CineManagement.Views
 {
-    /// <summary>
-    /// Interaction logic for Navbar.xaml
-    /// </summary>
     public partial class Navbar : UserControl
     {
         public Navbar()

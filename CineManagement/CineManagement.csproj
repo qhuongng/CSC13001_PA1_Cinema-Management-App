@@ -19,9 +19,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
-    <Folder Include="Views\" />
-  </ItemGroup>
-
 </Project>
