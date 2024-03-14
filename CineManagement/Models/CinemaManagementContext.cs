@@ -25,11 +25,19 @@ public partial class CinemaManagementContext : DbContext
 
     public virtual DbSet<Movie> Movies { get; set; }
 
+    public virtual DbSet<MovieInfo> MovieInfos { get; set; }
+
+    public virtual DbSet<Projector> Projectors { get; set; }
+
+    public virtual DbSet<Ticket> Tickets { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<Voucher> Vouchers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=cinemaManagement;User ID=sa;Password=123;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
+        => optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=cinemaManagement;User ID=sa;Password=123;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -157,23 +165,109 @@ public partial class CinemaManagementContext : DbContext
                     });
         });
 
+        modelBuilder.Entity<MovieInfo>(entity =>
+        {
+            entity.HasKey(e => e.MovieId).HasName("PK__MovieInf__42EB374E577B3823");
+
+            entity.Property(e => e.MovieId)
+                .ValueGeneratedNever()
+                .HasColumnName("movieId");
+            entity.Property(e => e.DailyShowtime).HasColumnName("dailyShowtime");
+            entity.Property(e => e.IsSelling).HasColumnName("isSelling");
+            entity.Property(e => e.MonthlyShowtime).HasColumnName("monthlyShowtime");
+            entity.Property(e => e.SoldTicket).HasColumnName("soldTicket");
+            entity.Property(e => e.TicketRevenue).HasColumnName("ticketRevenue");
+            entity.Property(e => e.WeeklyShowtime).HasColumnName("weeklyShowtime");
+
+            entity.HasOne(d => d.Movie).WithOne(p => p.MovieInfo)
+                .HasForeignKey<MovieInfo>(d => d.MovieId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__MovieInfo__movie__6FE99F9F");
+        });
+
+        modelBuilder.Entity<Projector>(entity =>
+        {
+            entity.HasKey(e => e.ProjectorId).HasName("PK__Projecto__836CBC8084051EEC");
+
+            entity.ToTable("Projector");
+
+            entity.Property(e => e.ProjectorId).HasColumnName("projectorId");
+            entity.Property(e => e.ProjectorInfo)
+                .HasColumnType("datetime")
+                .HasColumnName("projectorInfo");
+        });
+
+        modelBuilder.Entity<Ticket>(entity =>
+        {
+            entity.HasKey(e => e.TicketId).HasName("PK__Ticket__3333C610B4E8E13F");
+
+            entity.ToTable("Ticket");
+
+            entity.Property(e => e.TicketId).HasColumnName("ticketId");
+            entity.Property(e => e.MovieId).HasColumnName("movieId");
+            entity.Property(e => e.Price).HasColumnName("price");
+            entity.Property(e => e.ProjectorId).HasColumnName("projectorId");
+            entity.Property(e => e.SeatId)
+                .HasMaxLength(3)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("seatId");
+            entity.Property(e => e.UserId).HasColumnName("userId");
+
+            entity.HasOne(d => d.Movie).WithMany(p => p.Tickets)
+                .HasForeignKey(d => d.MovieId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Ticket__movieId__01142BA1");
+
+            entity.HasOne(d => d.Projector).WithMany(p => p.Tickets)
+                .HasForeignKey(d => d.ProjectorId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Ticket__projecto__02084FDA");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Tickets)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Ticket__userId__00200768");
+        });
+
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserName).HasName("PK__Users__66DCF95D36B1C3D9");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__CB9A1CFFCA2C0792");
 
-            entity.Property(e => e.UserName)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("userName");
+            entity.Property(e => e.UserId).HasColumnName("userId");
             entity.Property(e => e.Dob).HasColumnName("DOB");
             entity.Property(e => e.IsAdmin).HasColumnName("isAdmin");
             entity.Property(e => e.Password)
                 .HasMaxLength(60)
                 .IsUnicode(false)
                 .HasColumnName("password");
-            entity.Property(e => e.UserId)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("userId");
+            entity.Property(e => e.UserName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("userName");
+        });
+
+        modelBuilder.Entity<Voucher>(entity =>
+        {
+            entity.HasKey(e => e.VoucherId).HasName("PK__Voucher__F53389E997EE8D82");
+
+            entity.ToTable("Voucher");
+
+            entity.Property(e => e.VoucherId).HasColumnName("voucherId");
+            entity.Property(e => e.DiscountPercent).HasColumnName("discountPercent");
+            entity.Property(e => e.IsUsed).HasColumnName("isUsed");
+            entity.Property(e => e.TicketId).HasColumnName("ticketId");
+            entity.Property(e => e.UserId).HasColumnName("userId");
+
+            entity.HasOne(d => d.Ticket).WithMany(p => p.Vouchers)
+                .HasForeignKey(d => d.TicketId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Voucher__ticketI__05D8E0BE");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Vouchers)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Voucher__userId__04E4BC85");
         });
 
         OnModelCreatingPartial(modelBuilder);

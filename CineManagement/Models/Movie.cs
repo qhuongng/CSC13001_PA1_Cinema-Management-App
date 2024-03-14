@@ -25,6 +25,10 @@ public partial class Movie
 
     public virtual Director Director { get; set; } = null!;
 
+    public virtual MovieInfo? MovieInfo { get; set; }
+
+    public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
+
     public virtual ICollection<Actor> Actors { get; set; } = new List<Actor>();
 
     public virtual ICollection<Genre> Genres { get; set; } = new List<Genre>();
