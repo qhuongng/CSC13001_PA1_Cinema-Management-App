@@ -1,14 +1,26 @@
 ﻿using CineManagement.Models;
 using CineManagement.Services;
+using System.ComponentModel;
+using System.Windows.Threading;
 
 namespace CineManagement.ViewModel
 {
-    class Home
+    class HomeViewModel : INotifyPropertyChanged
     {
+        private bool showPopup;
+        private DispatcherTimer timer;
+
+        MovieService ms = new MovieService();
+
         public List<Movie> Movies { get; set; }
         public List<Byte[]> BannerPosters { get; set; }
 
-        MovieService ms = new MovieService();
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public void LoadAllMovies() {
             Movies = new List<Movie>();
