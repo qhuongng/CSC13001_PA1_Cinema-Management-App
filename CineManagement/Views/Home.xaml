@@ -37,7 +37,7 @@
                             BorderThickness="1"
                             Background="WhiteSmoke"
                             CornerRadius="10">
-                        <Grid Width="173"
+                        <Grid x:Name="Item" Width="173"
                               IsHitTestVisible="True" Cursor="Hand">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="100"></RowDefinition>
@@ -75,18 +75,38 @@
                                 <TextBlock Text="{Binding ReleaseYear, StringFormat={} {0}}" />
                             </StackPanel>
 
-                            <Popup x:Name="ElementPopup" IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver, Mode=OneWay}"
-                                   StaysOpen="True"
-                                   Placement="Center"
-                                   PlacementTarget="{x:Null}"  Focusable="False"
-                                   SnapsToDevicePixels="True">          
-                                <Border Background="LightSalmon" Width="320" Height="180" Cursor="Hand">
+                            <Popup x:Name="ElementPopup" StaysOpen="True" Placement="Center" PlacementTarget="{x:Null}"
+                                   PopupAnimation="Fade" Style="{StaticResource TooltipPopupStyle}"
+                                   Focusable="False" SnapsToDevicePixels="True" AllowsTransparency="True">          
+                                <Border Background="LightSalmon" CornerRadius="10"
+                                        Width="320" Height="180" Cursor="Hand">
                                     <TextBlock Text="Yay" HorizontalAlignment="Center"
                                                VerticalAlignment="Center" Focusable="False" />
                                 </Border>
                             </Popup>
                         </Grid>
                     </Border>
+
+                    <DataTemplate.Triggers>
+                        <Trigger SourceName="Item" Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard x:Name="bsb">
+                                    <Storyboard>
+                                        <BooleanAnimationUsingKeyFrames
+                                        Storyboard.TargetName="ElementPopup"
+                                        Storyboard.TargetProperty="IsOpen"
+                                        FillBehavior="HoldEnd"
+                                    >
+                                            <DiscreteBooleanKeyFrame KeyTime="0:0:1.5" Value="True"/>
+                                        </BooleanAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <StopStoryboard BeginStoryboardName="bsb"/>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </DataTemplate.Triggers>
                 </DataTemplate>
             </ListView.ItemTemplate>
 

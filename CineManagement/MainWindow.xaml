@@ -6,24 +6,27 @@
         xmlns:views="clr-namespace:CineManagement.Views"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        mc:Ignorable="d"
-        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        mc:Ignorable="d" IgnoreTaskbarOnMaximize="True"
+        UseNoneWindowStyle="True" AllowsTransparency="True" Background="Transparent"
         ResizeMode="CanResize" Height="600" Width="800"
         Title="CineManagement" ShowTitleBar="False" BorderBrush="Transparent" BorderThickness="0"
         ShowCloseButton="False" ShowMaxRestoreButton="False" ShowMinButton="False" WindowStartupLocation="CenterScreen">
     <Border BorderBrush="Transparent" BorderThickness="1"
-            Background="White" CornerRadius="10">
+            Background="White" CornerRadius="10" Margin="10">
+        <Border.Effect>
+            <DropShadowEffect Color="DarkGray" BlurRadius="10" Direction="-90" RenderingBias="Quality" ShadowDepth="1"/>
+        </Border.Effect>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Border Grid.Row="0" BorderBrush="Transparent"
-                    BorderThickness="0" Background="DarkCyan" CornerRadius="10,10,0,0">
+            <Border Grid.Row="0" MouseDown="HandleWindowDrag"
+                    Background="DarkCyan" CornerRadius="10,10,0,0">
                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                     <Button x:Name="closeWindowBtn" VerticalAlignment="Center" Height="15"
-                            Cursor="Hand" Margin="10,0,0,0">
+                            Cursor="Hand" Margin="10,0,0,0" Click="closeWindowBtn_Click">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <iconPacks:PackIconMaterial Kind="Close" Height="15" />
@@ -42,7 +45,7 @@
                     </Button>
 
                     <Button x:Name="fullSrcBtn" VerticalAlignment="Center" Height="15"
-                            Cursor="Hand" Margin="15,0,0,0">
+                            Cursor="Hand" Margin="15,0,0,0" Click="fullSrcBtn_Click">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <iconPacks:PackIconMaterial Kind="Fullscreen" Height="15" />
@@ -61,7 +64,7 @@
                     </Button>
 
                     <Button x:Name="minimizeBtn" VerticalAlignment="Center" Height="15"
-                            Cursor="Hand" Margin="15,0,0,0">
+                            Cursor="Hand" Margin="15,0,0,0" Click="minimizeBtn_Click">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <iconPacks:PackIconMaterial Kind="Minus" Height="15" />
