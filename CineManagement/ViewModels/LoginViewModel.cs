@@ -108,6 +108,7 @@ namespace CineManagement.ViewModels
                 {
                     var mainScreen = new MainWindow(user);
                     mainScreen.Show();
+                    IsViewVisible=false;
                 }
             } catch (Exception ex)
             {
