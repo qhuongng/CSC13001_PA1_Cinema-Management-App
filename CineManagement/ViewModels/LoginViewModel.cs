@@ -106,7 +106,8 @@ namespace CineManagement.ViewModels
                 user = userManager.CheckLogin(UsernameLogin,PasswordLogin);
                 if (user != null)
                 {
-                    IsViewVisible= false;
+                    var mainScreen = new MainWindow(user);
+                    mainScreen.Show();
                 }
             } catch (Exception ex)
             {

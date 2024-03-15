@@ -1,3 +1,5 @@
+using CineManagement.Models;
+using CineManagement.ViewModels;
 using MahApps.Metro.Controls;
 using System.Windows;
 using System.Windows.Input;
@@ -8,22 +10,21 @@ namespace CineManagement
     {
         Boolean IsFullScreen = false;
         WindowState OldWindowState;
+        User currentUser;
  
         public MainWindow()
         {   
             InitializeComponent();
-            var login = new Login();
-            login.Show();
-            if(login.IsVisible == false && login.IsLoaded)
-            {
-                login.Close();
-                System.Windows.MessageBox.Show(login.txtUserLogin.Text);
-            }
+        }
+        public MainWindow(User user)
+        {
+            InitializeComponent();
+            currentUser = user;
         }
 
         private void HomeViewControl_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.HomeViewModel homeViewModelObject = new ViewModel.HomeViewModel();
+            HomeViewModel homeViewModelObject = new ViewModels.HomeViewModel();
             homeViewModelObject.LoadAllMovies();
             homeViewModelObject.LoadBannerPosters();
 

@@ -3,26 +3,23 @@ using CineManagement.Services;
 using System.ComponentModel;
 using System.Windows.Threading;
 
-namespace CineManagement.ViewModel
+namespace CineManagement.ViewModels
 {
-    class HomeViewModel : INotifyPropertyChanged
+    class HomeViewModel : ViewModelBase
     {
+        public HomeViewModel() {
+            
+        }
         private bool showPopup;
         private DispatcherTimer timer;
-
         MovieService ms = new MovieService();
 
         public List<Movie> Movies { get; set; }
-        public List<Byte[]> BannerPosters { get; set; }
+        public List<byte[]> BannerPosters { get; set; }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void OnPropertyChanged(string propertyName)
+        public void LoadAllMovies()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public void LoadAllMovies() {
             Movies = new List<Movie>();
 
             List<Movie> movies = ms.getMovies();
@@ -31,7 +28,7 @@ namespace CineManagement.ViewModel
 
         public void LoadBannerPosters()
         {
-            BannerPosters = new List<Byte[]>();
+            BannerPosters = new List<byte[]>();
 
             for (int i = 0; i < 5; i++)
             {
