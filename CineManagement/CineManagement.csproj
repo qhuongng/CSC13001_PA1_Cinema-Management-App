@@ -9,6 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.4.10" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
     <None Remove="Image\backimg.jpg" />
     <None Remove="Image\calendar.png" />
     <None Remove="Image\key-icon.png" />
