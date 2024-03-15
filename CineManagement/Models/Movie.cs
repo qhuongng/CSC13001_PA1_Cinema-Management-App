@@ -24,7 +24,7 @@ public partial class Movie
     public virtual AgeRating CertificationNavigation { get; set; } = null!;
 
     public virtual Director Director { get; set; } = null!;
-
+  
     public virtual ICollection<Actor> Actors { get; set; } = new List<Actor>();
 
     public virtual ICollection<Genre> Genres { get; set; } = new List<Genre>();

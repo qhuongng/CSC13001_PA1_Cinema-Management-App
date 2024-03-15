@@ -21,7 +21,6 @@ namespace CineManagement.Services
                         movie.Actors = context.Entry(movie).Collection(m => m.Actors).Query().ToList();
                         movie.Genres = context.Entry(movie).Collection(m => m.Genres).Query().ToList();
                     }
-                    
                     return movies;
                 }
             }
@@ -40,6 +39,7 @@ namespace CineManagement.Services
                 else
                 {
                     movie.Actors = context.Entry(movie).Collection(m => m.Actors).Query().ToList();
+                    movie.Genres = context.Entry(movie).Collection(m => m.Genres).Query().ToList();
 
                     return movie;
                 }

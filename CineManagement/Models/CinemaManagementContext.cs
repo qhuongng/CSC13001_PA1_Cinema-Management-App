@@ -25,6 +25,7 @@ public partial class CinemaManagementContext : DbContext
 
     public virtual DbSet<Movie> Movies { get; set; }
 
+
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -36,6 +37,7 @@ public partial class CinemaManagementContext : DbContext
         modelBuilder.Entity<Actor>(entity =>
         {
             entity.HasKey(e => e.ActorId).HasName("PK__Actor__8332510B95A462E4");
+
 
             entity.ToTable("Actor");
 
@@ -50,7 +52,6 @@ public partial class CinemaManagementContext : DbContext
         modelBuilder.Entity<AgeRating>(entity =>
         {
             entity.HasKey(e => e.AgeId).HasName("PK__AgeRatin__D68D4907BD7F610F");
-
             entity.ToTable("AgeRating");
 
             entity.Property(e => e.AgeId)
@@ -91,7 +92,6 @@ public partial class CinemaManagementContext : DbContext
         modelBuilder.Entity<Movie>(entity =>
         {
             entity.HasKey(e => e.MovieId).HasName("PK__Movie__42EB374E215B9B3E");
-
             entity.ToTable("Movie");
 
             entity.Property(e => e.MovieId).HasColumnName("movieId");
@@ -112,12 +112,10 @@ public partial class CinemaManagementContext : DbContext
                 .HasForeignKey(d => d.Certification)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Movie__certifica__4222D4EF");
-
             entity.HasOne(d => d.Director).WithMany(p => p.Movies)
                 .HasForeignKey(d => d.DirectorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Movie__directorI__412EB0B6");
-
             entity.HasMany(d => d.Actors).WithMany(p => p.Movies)
                 .UsingEntity<Dictionary<string, object>>(
                     "MovieActor",
