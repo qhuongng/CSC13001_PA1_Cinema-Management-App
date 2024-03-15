@@ -23,7 +23,7 @@ namespace CineManagement
         }
         private void btnMinimize_Click(object sender, RoutedEventArgs e)
         {
-
+            this.WindowState = WindowState.Minimized;
         }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {

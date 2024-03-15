@@ -339,7 +339,7 @@
                 <StackPanel Width="225"
                             Grid.Row="1"
                             Orientation="Vertical"
-                            Margin="286,15,286,0" Grid.ColumnSpan="2">
+                            Margin="286,10,286,0" Grid.ColumnSpan="2">
 
                     <Image Source="/Image/logo.png"
                            Width="100" Height="100"/>
@@ -422,7 +422,7 @@
                                         FontSize="12"
                                         FontFamily="Montserrat"
                                         Cursor="Hand"                           
-                                        Margin="0,50,0,0">
+                                        Margin="0,40,0,0">
 
                                     <Button.Style>
                                         <Style TargetType="Button">
@@ -446,7 +446,22 @@
                                         </ControlTemplate>
                                     </Button.Template>
                                 </Button>
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Center"
+                                            Margin="0,10,0,0">
+                                    <TextBlock Text="Browse as Guest"
+                                               Foreground="LightGray"
+                                               FontSize="12"
+                                               FontWeight="Medium"
+                                               FontFamily="Montserrat"
+                                               Cursor="Hand"
+                                                Margin="8,0,0,0">
+                                        <TextBlock.InputBindings>
+                                            <MouseBinding Command="{Binding LoginAsGuestCommand, UpdateSourceTrigger=PropertyChanged}" MouseAction="LeftClick"/>
+                                        </TextBlock.InputBindings>
+                                    </TextBlock>
 
+                                </StackPanel>
                             </StackPanel>
                         </TabItem>
                         <TabItem Header="SIGN UP" Style="{DynamicResource TabItemStyle}">
@@ -459,7 +474,7 @@
                                            FontFamily="Montserrat"
                                            TextWrapping="Wrap"
                                            TextAlignment="Center"
-                                           Margin="0,18,0,0"/>
+                                           Margin="0,12,0,0"/>
 
                                 <TextBlock Text="Username"
                                            Foreground="LightGray"
@@ -528,7 +543,7 @@
                                                     AlignmentX="Left"/>
                                     </DatePicker.Background>
                                 </DatePicker>
-                                <Grid Margin="0 10 0 0">
+                                <Grid Margin="0 5 0 0">
                                     <TextBlock Text="{Binding ErrorMessageField, UpdateSourceTrigger=PropertyChanged}"
            Foreground="Red"
            FontSize="12"
@@ -553,7 +568,7 @@ TextWrapping="Wrap"/>
                                         FontSize="12"
                                         FontFamily="Montserrat"
                                         Cursor="Hand"                           
-                                        Margin="0,20,0,0"
+                                        Margin="0,18,0,0"
                                         >
 
                                     <Button.Style>
@@ -579,7 +594,22 @@ TextWrapping="Wrap"/>
                                     </Button.Template>
                                 </Button>
 
+                                <StackPanel Orientation="Horizontal"
+             HorizontalAlignment="Center"
+             Margin="0,8,0,0">
+                                    <TextBlock Text="Browse as Guest"
+                Foreground="LightGray"
+                FontSize="12"
+                FontWeight="Medium"
+                FontFamily="Montserrat"
+                Cursor="Hand"
+                 Margin="8,0,0,0">
+                                        <TextBlock.InputBindings>
+                                            <MouseBinding Command="{Binding LoginAsGuestCommand, UpdateSourceTrigger=PropertyChanged}" MouseAction="LeftClick"/>
+                                        </TextBlock.InputBindings>
+                                    </TextBlock>
 
+                                </StackPanel>
                             </StackPanel>
                         </TabItem>
                     </TabControl>
