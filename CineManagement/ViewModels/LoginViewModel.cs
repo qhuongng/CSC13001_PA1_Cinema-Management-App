@@ -51,21 +51,23 @@ namespace CineManagement.ViewModels
         {
             bool validData;
             DateTime temp;
+
             if(string.IsNullOrWhiteSpace(UsernameRegister) || string.IsNullOrWhiteSpace(PasswordRegister))
             {
                 ErrorMessageRegister = "";
                 ErrorMessageField = "* Please fill all blanks!";
                 validData = false;
-            } else if(Dob > new DateTime(2024,03,13))
+            } else if (Dob > new DateTime())
             {
                 ErrorMessageRegister = "";
-                ErrorMessageField = "* Value of birthday is unacceptable!";
+                ErrorMessageField = "* Invalid birthdate!";
                 validData = false;
             }
             else {
                 validData= true;
                 ErrorMessageField = "";
             }
+
             return validData;
         }
 
@@ -103,15 +105,15 @@ namespace CineManagement.ViewModels
         {
             try
             {
-                user = userManager.CheckLogin(UsernameLogin,PasswordLogin);
+                user = userManager.CheckLogin(UsernameLogin, PasswordLogin);
                 if (user != null)
                 {
                     var mainScreen = new MainWindow(user);
+                    _isViewVisible = false;
                     mainScreen.Show();
                 }
             } catch (Exception ex)
             {
-                
                 ErrorMessageLogin = "* " + ex.Message;
             }
         }

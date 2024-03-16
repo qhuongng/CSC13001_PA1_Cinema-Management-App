@@ -16,19 +16,11 @@ namespace CineManagement
         {   
             InitializeComponent();
         }
+
         public MainWindow(User user)
         {
             InitializeComponent();
             currentUser = user;
-        }
-
-        private void HomeViewControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            HomeViewModel homeViewModelObject = new ViewModels.HomeViewModel();
-            homeViewModelObject.LoadAllMovies();
-            homeViewModelObject.LoadBannerPosters();
-
-            homeViewControl.DataContext = homeViewModelObject;
         }
 
         private void closeWindowBtn_Click(object sender, RoutedEventArgs e)

@@ -16,6 +16,7 @@
     <Window.DataContext>
         <viewModel:LoginViewModel/>
     </Window.DataContext>
+    
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
         <Style x:Key="TabItemStyle" TargetType="TabItem">

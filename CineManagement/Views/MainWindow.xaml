@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:CineManagement.Views"
+        xmlns:viewModel="clr-namespace:CineManagement.ViewModels"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d" IgnoreTaskbarOnMaximize="True"
@@ -11,6 +12,7 @@
         ResizeMode="CanResize" Height="600" Width="800"
         Title="CineManagement" ShowTitleBar="False" BorderBrush="Transparent" BorderThickness="0"
         ShowCloseButton="False" ShowMaxRestoreButton="False" ShowMinButton="False" WindowStartupLocation="CenterScreen">
+
     <Border BorderBrush="Transparent" BorderThickness="1"
             Background="White" CornerRadius="10" Margin="10">
         <Border.Effect>
@@ -94,7 +96,7 @@
 
                     <views:Navbar Grid.Row="0" />
 
-                    <views:Home Grid.Row="1" x:Name="homeViewControl" Loaded="HomeViewControl_Loaded"/>
+                    <views:Home Grid.Row="1" />
 
                     <views:Footer Grid.Row="2" />
                 </Grid>

@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using CineManagement.ViewModels;
+using System.Windows.Controls;
 
 namespace CineManagement.Views
 {
@@ -7,7 +8,7 @@ namespace CineManagement.Views
         public Home()
         {
             InitializeComponent();
-            DataContext = this;
+            DataContext = new HomeViewModel();
         }
     }
 }
