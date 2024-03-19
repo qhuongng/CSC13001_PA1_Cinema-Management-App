@@ -40,6 +40,9 @@ namespace CineManagement.Services
                 {
                     movie.Actors = context.Entry(movie).Collection(m => m.Actors).Query().ToList();
                     movie.Genres = context.Entry(movie).Collection(m => m.Genres).Query().ToList();
+                    movie.MovieInfo = context.MovieInfos
+                        .Where(mi => mi.MovieId == movie.MovieId)
+                        .FirstOrDefault();
 
                     return movie;
                 }
