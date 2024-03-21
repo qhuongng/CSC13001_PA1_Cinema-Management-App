@@ -43,6 +43,7 @@ namespace CineManagement.Services
                     existingUser.Dob = user.Dob;
                     existingUser.IsAdmin = user.IsAdmin;
                     existingUser.Password = user.Password;
+
                     try
                     {
                         _context.SaveChanges();

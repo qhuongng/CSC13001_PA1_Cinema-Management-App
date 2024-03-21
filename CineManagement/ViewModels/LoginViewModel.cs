@@ -10,7 +10,7 @@ namespace CineManagement.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
-        public User user;
+        private User _user;
         private UserService userManager;
         private string _usernameLogin;
         private string _passwordLogin;
@@ -23,6 +23,7 @@ namespace CineManagement.ViewModels
         private string _errorMessageField;
         private bool _isViewVisible = true;
 
+        public User User { get => _user; set { _user = value; OnPropertyChanged(nameof(User)); } }
         public string UsernameLogin { get => _usernameLogin; set { _usernameLogin = value; OnPropertyChanged(nameof(UsernameLogin));} }
         public string PasswordLogin { get => _passwordLogin; set { _passwordLogin = value; OnPropertyChanged(nameof(PasswordLogin)); } }
         public string UsernameRegister { get => _usernameRegister; set { _usernameRegister = value; OnPropertyChanged(nameof(UsernameRegister)); } }
@@ -66,7 +67,7 @@ namespace CineManagement.ViewModels
                 ErrorMessageRegister = "";
                 ErrorMessageField = "* Please fill all blanks!";
                 validData = false;
-            } else if (Dob > new DateTime())
+            } else if (Dob > new DateTime(2024,03,13))
             {
                 ErrorMessageRegister = "";
                 ErrorMessageField = "* Invalid birthdate!";
@@ -82,13 +83,14 @@ namespace CineManagement.ViewModels
 
         private void ExecuteRegisterCommand(object obj)
         {
-            user = new User() { UserName = UsernameRegister, Password = PasswordRegister, Dob = DateOnly.FromDateTime(Dob), IsAdmin = false };
+            _user = new User() { UserName = UsernameRegister, Password = PasswordRegister, Dob = DateOnly.FromDateTime(Dob), IsAdmin = false };
             try
             {
-                bool checkSignUp = userManager.addUser(user);
+                bool checkSignUp = userManager.addUser(User);
+
                 if(checkSignUp == true)
                 {
-                    var mainScreen = new MainWindow(user);
+                    var mainScreen = new MainWindow(User);
                     mainScreen.Show();
                     IsViewVisible = false;
                 }
@@ -119,11 +121,10 @@ namespace CineManagement.ViewModels
         {
             try
             {
-                user = userManager.CheckLogin(UsernameLogin, PasswordLogin);
-                if (user != null)
+                _user = userManager.CheckLogin(UsernameLogin, PasswordLogin);
+                if (_user != null)
                 {
-                    var mainScreen = new MainWindow(user);
-                    _isViewVisible = false;
+                    var mainScreen = new MainWindow(User);
                     mainScreen.Show();
                     IsViewVisible=false;
                 }

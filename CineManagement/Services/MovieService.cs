@@ -1,4 +1,5 @@
 ﻿using CineManagement.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CineManagement.Services
 {
@@ -8,7 +9,7 @@ namespace CineManagement.Services
         {
             using (var context = new CinemaManagementContext())
             {
-                List<Movie> movies = context.Movies.ToList();
+                List<Movie> movies = context.Movies.Include(movie => movie.Director).ToList();
 
                 if (movies == null)
                 {
