@@ -22,10 +22,10 @@ namespace CineManagement
 
         public MainWindow(User user)
         {
-            InitializeComponent();
             currentUser = user;
-            DataContext = this;
 
+            InitializeComponent();
+            DataContext = this;
         }
 
         private void closeWindowBtn_Click(object sender, RoutedEventArgs e)

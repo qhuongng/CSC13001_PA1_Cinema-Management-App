@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using CineManagement.Models;
 using CineManagement.ViewModels;
 using UserControl = System.Windows.Controls.UserControl;
 
@@ -32,6 +33,13 @@ namespace CineManagement.Views
             MainWindow mw = (MainWindow)Window.GetWindow(this);
             mw.AllMoviesView.DataContext = new AllMoviesViewModel();
             mw.HideAllExcept(mw.Root, mw.AllMoviesView);
+        }
+
+        private void userBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mw = (MainWindow)Window.GetWindow(this);
+            mw.UserDetailsView.DataContext = new UserDetailViewModel(mw.currentUser);
+            mw.HideAllExcept(mw.Root, mw.UserDetailsView);
         }
     }
 }

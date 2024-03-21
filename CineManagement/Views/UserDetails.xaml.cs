@@ -21,10 +21,9 @@ namespace CineManagement.Views
     /// </summary>
     public partial class UserDetails : UserControl
     {
-        public UserDetails(User currentUser)
+        public UserDetails()
         {
             InitializeComponent();
-            DataContext = new UserDetailViewModel(currentUser);
         }
     }
 }

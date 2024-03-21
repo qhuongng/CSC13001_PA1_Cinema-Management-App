@@ -99,6 +99,7 @@
                         <views:Home Grid.Row="1" x:Name="HomeView" />
                         <views:MovieDetails Grid.Row="1" x:Name="MovieDetailsView" Visibility="Collapsed" />
                         <views:AllMovies Grid.Row="1" x:Name="AllMoviesView" Visibility="Collapsed" />
+                        <views:UserDetails Grid.Row="1" x:Name="UserDetailsView" Visibility="Collapsed" />
                     </Grid>
                     
                     <views:Footer Grid.Row="2" />

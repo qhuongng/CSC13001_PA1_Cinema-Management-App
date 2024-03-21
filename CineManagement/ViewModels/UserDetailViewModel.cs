@@ -46,7 +46,7 @@ namespace CineManagement.ViewModels
         public ICommand UpdateCommand { get; }
         public string UserName { get => _userName; set { _userName = value;OnPropertyChanged(nameof(UserName)); } }
         public string Password { get => _password; set { _password = value;OnPropertyChanged(nameof(Password)); } }
-        public DateTime Dob { get => _dob; set { _dob = value;OnPropertyChanged(nameof(Dob)); } }
+        public DateTime Dob { get => _dob; set { _dob = value; OnPropertyChanged(nameof(Dob)); } }
         public string ErrorMessage { get => _errorMessage; set { _errorMessage = value;OnPropertyChanged(nameof(ErrorMessage)); } }
         public bool IsViewVisible { get => _isViewVisible; set { _isViewVisible = value; OnPropertyChanged(nameof(IsViewVisible)); } }
 

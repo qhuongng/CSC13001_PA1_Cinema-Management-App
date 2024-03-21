@@ -254,12 +254,11 @@
                                 <TextBlock
                                 Text="Date of Birth" FontWeight="Medium"
                                 FontSize="20" 
-                                VerticalAlignment="Bottom" Margin="0 0 0 10"
-                                />
+                                VerticalAlignment="Bottom" Margin="0 0 0 0" />
                                 <DatePicker 
                                             x:Name="txtDobRegister"
                                             Style="{DynamicResource datepickerStyle}"
-                                            Text="{Binding Dob, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                          
+                                            Text="{Binding Dob, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"                                          
                                             FontSize="20"
                                             FontWeight="Medium"
                                             FontFamily="Montserrat"
