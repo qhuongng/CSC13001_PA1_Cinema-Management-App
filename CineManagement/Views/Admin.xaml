@@ -187,10 +187,6 @@ WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent"
 
         </Grid>
 
-        <Button x:Name="CloseApp"
-                Style="{StaticResource ExitApp}"
-                Click="CloseApp_Click" />
-
     </Grid>
 
 </Window>

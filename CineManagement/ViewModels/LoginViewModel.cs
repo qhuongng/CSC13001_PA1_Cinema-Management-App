@@ -11,7 +11,7 @@ namespace CineManagement.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
-        public User user;
+        private User _user;
         private UserService userManager;
         private string _usernameLogin;
         private string _passwordLogin;
@@ -24,6 +24,7 @@ namespace CineManagement.ViewModels
         private string _errorMessageField;
         private bool _isViewVisible = true;
 
+        public User User { get => _user; set { _user = value; OnPropertyChanged(nameof(User)); } }
         public string UsernameLogin { get => _usernameLogin; set { _usernameLogin = value; OnPropertyChanged(nameof(UsernameLogin));} }
         public string PasswordLogin { get => _passwordLogin; set { _passwordLogin = value; OnPropertyChanged(nameof(PasswordLogin)); } }
         public string UsernameRegister { get => _usernameRegister; set { _usernameRegister = value; OnPropertyChanged(nameof(UsernameRegister)); } }
@@ -52,49 +53,49 @@ namespace CineManagement.ViewModels
 
         private void ExecuteGuestLoginCommand(object obj)
         {
-            //var mainScreen = new MainWindow();
-            //mainScreen.Show();
-            //IsViewVisible = false;
-            user = userManager.CheckLogin(UsernameLogin,PasswordLogin);
-            if(user.IsAdmin == true)
-            {
-                var adminscreen = new Admin();
-                adminscreen.Show();
-                IsViewVisible = false;
-            }
+            var screen = new MainWindow();
+            screen.Show();
+            IsViewVisible = false;
+            //user = userManager.CheckLogin(UsernameLogin, PasswordLogin);
+            //var screen = new UserDetails(user);
+            //screen.Show();
         }
 
         private bool CanExecuteRegisterCommand(object obj)
         {
             bool validData;
             DateTime temp;
+
             if(string.IsNullOrWhiteSpace(UsernameRegister) || string.IsNullOrWhiteSpace(PasswordRegister))
             {
                 ErrorMessageRegister = "";
                 ErrorMessageField = "* Please fill all blanks!";
                 validData = false;
-            } else if(Dob > new DateTime(2024,03,13))
+            } else if(Dob >= DateTime.Today)
             {
                 ErrorMessageRegister = "";
-                ErrorMessageField = "* Value of birthday is unacceptable!";
+                ErrorMessageField = "* Invalid birthdate!";
                 validData = false;
             }
             else {
                 validData= true;
                 ErrorMessageField = "";
             }
+
             return validData;
         }
 
         private void ExecuteRegisterCommand(object obj)
         {
-            user = new User() { UserName = UsernameRegister, Password = PasswordRegister, Dob = DateOnly.FromDateTime(Dob), IsAdmin = false };
+            _user = new User() { UserName = UsernameRegister, Password = PasswordRegister, Dob = DateOnly.FromDateTime(Dob), IsAdmin = false };
             try
             {
-                bool checkSignUp = userManager.addUser(user);
+                bool checkSignUp = userManager.addUser(User);
+
                 if(checkSignUp == true)
                 {
-                    var mainScreen = new MainWindow(user);
+                    var mainScreen = new MainWindow();
+                    mainScreen.DataContext = new MainWindowViewModel(User);
                     mainScreen.Show();
                     IsViewVisible = false;
                 }
@@ -125,16 +126,16 @@ namespace CineManagement.ViewModels
         {
             try
             {
-                user = userManager.CheckLogin(UsernameLogin,PasswordLogin);
-                if (user != null)
+                _user = userManager.CheckLogin(UsernameLogin, PasswordLogin);
+                if (_user != null)
                 {
-                    var mainScreen = new MainWindow(user);
+                    var mainScreen = new MainWindow();
+                    mainScreen.DataContext = new MainWindowViewModel(User);
                     mainScreen.Show();
                     IsViewVisible=false;
                 }
             } catch (Exception ex)
             {
-                
                 ErrorMessageLogin = "* " + ex.Message;
             }
         }

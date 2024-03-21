@@ -6,28 +6,40 @@
              xmlns:local="clr-namespace:CineManagement.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <local:GenresToStringConverter x:Key="genreConverter" />
+        <local:ActorsToStringConverter x:Key="actorConverter" />
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="250"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" CornerRadius="10"
-                BorderBrush="Transparent" Margin="15,0,15,0"
-                BorderThickness="1" Background="DarkCyan">  
+        <Grid Grid.Row="0" Margin="20,0,20,0">
+            <Border CornerRadius="10">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding SelectedMovie.Poster}" Stretch="UniformToFill" />
+                </Border.Background>
+            </Border>
+
+            <Border CornerRadius="10" Background="Black"
+                    OpacityMask="{StaticResource HeaderBackgroundOpacityMask}" />
+
             <StackPanel VerticalAlignment="Bottom" Orientation="Vertical" Margin="35,0,35,0">
-                <TextBlock Text="{Binding MovieName}"
-                            FontSize="52" FontWeight="Bold" Foreground="White"
-                            Margin="0,0,0,10" />
+                <TextBlock Text="{Binding SelectedMovie.MovieName}"
+                             FontSize="52" FontWeight="Bold" Foreground="White" />
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                    <TextBlock Text="{Binding ImdbRating, StringFormat={}{0}/10 |}" Foreground="White" />
-                    <TextBlock Text="{Binding Certification, StringFormat={} {0} |}" Foreground="White" />
-                    <TextBlock Text="{Binding ReleaseYear, StringFormat={} {0}}" Foreground="White" />
+                    <TextBlock Text="{Binding SelectedMovie.ImdbRating, StringFormat={}{0}/10 |}" Foreground="White" />
+                    <TextBlock Text="{Binding SelectedMovie.Certification, StringFormat={} {0} |}" Foreground="White" />
+                    <TextBlock Text="{Binding SelectedMovie.ReleaseYear, StringFormat={} {0}}" Foreground="White" />
                 </StackPanel>
             </StackPanel>
-        </Border>
+        </Grid>
 
-        <Grid Grid.Row="2" Margin="15,30,15,30">
+        <Grid Grid.Row="2" Margin="20,30,20,30">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.5*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -43,23 +55,22 @@
 
                 <TextBlock Text="Ghế ngồi" Margin="0,0,0,10"
                    FontWeight="Bold" FontSize="18" />
-                <ListView Width="330"
-                  Margin="0,0,0,20"
-                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView x:Name="SeatChart" Width="330"
+                          Margin="0,0,0,20" SelectionMode="Multiple"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid Cursor="Hand">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="25"></RowDefinition>
+                                    <RowDefinition Height="30"></RowDefinition>
                                 </Grid.RowDefinitions>
 
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="25"></ColumnDefinition>
+                                    <ColumnDefinition Width="30"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <Rectangle x:Name="seat" Grid.Row="0" Fill="WhiteSmoke" />
-                                <TextBlock Grid.Row="0" Text="0"
-                                   VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <Rectangle x:Name="Seat" Grid.Row="0" Fill="WhiteSmoke" />
+                                <TextBlock x:Name="SeatIndex" Text="{Binding}" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -79,7 +90,6 @@
                             </Style.Triggers>
                         </Style>
                     </ListView.ItemContainerStyle>
-
                 </ListView>
 
                 <Button Width="350" Content="ĐẶT VÉ" />
@@ -100,24 +110,24 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0"
-                       Text="Đạo diễn" FontWeight="Bold" />
+                               Text="Đạo diễn" FontWeight="Bold" />
                     <TextBlock Grid.Row="0" Grid.Column="1"
-                       Text="{Binding Director}" Margin="0,0,0,10" />
+                               Text="{Binding SelectedMovie.Director.DirectorName}" Margin="0,0,0,10" />
 
                     <TextBlock Grid.Row="1" Grid.Column="0"
-                       Text="Thể loại" FontWeight="Bold" />
-                    <TextBlock Grid.Row="1" Grid.Column="1"
-                       Text="{Binding Genres}" Margin="0,0,0,10" />
+                               Text="Thể loại" FontWeight="Bold" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" TextWrapping="Wrap"
+                               Text="{Binding Path=SelectedMovie.Genres, Converter={StaticResource genreConverter}}" Margin="0,0,0,10" />
 
                     <TextBlock Grid.Row="2" Grid.Column="0"
-                       Text="Thời lượng" FontWeight="Bold" />
+                               Text="Thời lượng" FontWeight="Bold" />
                     <TextBlock Grid.Row="2" Grid.Column="1"
-                       Text="{Binding Duration}" Margin="0,0,0,10" />
+                               Text="{Binding SelectedMovie.Duration, StringFormat={}{0} phút}" Margin="0,0,0,10" />
 
                     <TextBlock Grid.Row="3" Grid.Column="0"
-                       Text="Diễn viên" FontWeight="Bold" />
-                    <TextBlock Grid.Row="3" Grid.Column="1"
-                       Text="{Binding Actors}" Margin="0,0,0,10" />
+                               Text="Diễn viên" FontWeight="Bold" />
+                    <TextBlock Grid.Row="3" Grid.Column="1" TextWrapping="Wrap"
+                               Text="{Binding Path=SelectedMovie.Actors, Converter={StaticResource actorConverter}}" Margin="0,0,0,10" />
                 </Grid>
             </StackPanel>
         </Grid>
