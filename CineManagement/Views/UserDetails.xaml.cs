@@ -19,28 +19,12 @@ namespace CineManagement.Views
     /// <summary>
     /// Interaction logic for UserDetails.xaml
     /// </summary>
-    public partial class UserDetails : Window
+    public partial class UserDetails : UserControl
     {
         public UserDetails(User currentUser)
         {
             InitializeComponent();
             DataContext = new UserDetailViewModel(currentUser);
-        }
-
-        private void btnMinimize_Click(object sender, RoutedEventArgs e)
-        {
-            this.WindowState = WindowState.Minimized;
-        }
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
-        }
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
     }
 }
