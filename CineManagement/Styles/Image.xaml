@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:uc="clr-namespace:CineManagement.UserControls">
+
+    <Style x:Key="Icon_Style"
+        TargetType="uc:BtnMenu">
+
+        <Setter Property="HorizontalAlignment"
+                Value="Left" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="Margin"
+                Value="35,0,0,0" />
+        <Setter Property="Visibility" 
+                Value="Visible"/>
+
+    </Style>
+
+</ResourceDictionary>

@@ -1,5 +1,6 @@
 ﻿using CineManagement.Models;
 using CineManagement.Services;
+using CineManagement.Views;
 using Prism.Commands;
 using System.ComponentModel;
 using System.Security;
@@ -51,9 +52,16 @@ namespace CineManagement.ViewModels
 
         private void ExecuteGuestLoginCommand(object obj)
         {
-            var mainScreen = new MainWindow();
-            mainScreen.Show();
-            IsViewVisible = false;
+            //var mainScreen = new MainWindow();
+            //mainScreen.Show();
+            //IsViewVisible = false;
+            user = userManager.CheckLogin(UsernameLogin,PasswordLogin);
+            if(user.IsAdmin == true)
+            {
+                var adminscreen = new Admin();
+                adminscreen.Show();
+                IsViewVisible = false;
+            }
         }
 
         private bool CanExecuteRegisterCommand(object obj)
