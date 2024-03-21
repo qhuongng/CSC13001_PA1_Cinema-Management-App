@@ -1,5 +1,6 @@
 ﻿using CineManagement.Models;
 using CineManagement.Services;
+using CineManagement.Views;
 using Prism.Commands;
 using System.ComponentModel;
 using System.Security;
@@ -52,9 +53,12 @@ namespace CineManagement.ViewModels
 
         private void ExecuteGuestLoginCommand(object obj)
         {
-            var mainScreen = new MainWindow();
-            mainScreen.Show();
+            var screen = new MainWindow();
+            screen.Show();
             IsViewVisible = false;
+            //user = userManager.CheckLogin(UsernameLogin, PasswordLogin);
+            //var screen = new UserDetails(user);
+            //screen.Show();
         }
 
         private bool CanExecuteRegisterCommand(object obj)
@@ -67,7 +71,7 @@ namespace CineManagement.ViewModels
                 ErrorMessageRegister = "";
                 ErrorMessageField = "* Please fill all blanks!";
                 validData = false;
-            } else if (Dob > new DateTime(2024,03,13))
+            } else if(Dob >= DateTime.Today)
             {
                 ErrorMessageRegister = "";
                 ErrorMessageField = "* Invalid birthdate!";

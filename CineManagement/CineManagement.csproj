@@ -14,9 +14,11 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
     <None Remove="Image\backimg.jpg" />
     <None Remove="Image\calendar.png" />
+    <None Remove="Image\edit.png" />
     <None Remove="Image\key-icon.png" />
     <None Remove="Image\logo.png" />
     <None Remove="Image\user-icon.png" />
+    <None Remove="Image\user.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,9 +35,11 @@
   <ItemGroup>
     <Resource Include="Image\backimg.jpg" />
     <Resource Include="Image\calendar.png" />
+    <Resource Include="Image\edit.png" />
     <Resource Include="Image\key-icon.png" />
     <Resource Include="Image\logo.png" />
     <Resource Include="Image\user-icon.png" />
+    <Resource Include="Image\user.png" />
   </ItemGroup>
 
 </Project>
