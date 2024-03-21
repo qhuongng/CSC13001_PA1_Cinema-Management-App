@@ -34,6 +34,7 @@ namespace CineManagement.ViewModels
         // command
         public ICommand LoginCommand { get; }
         public ICommand RegisterCommand { get; }
+        public ICommand LoginAsGuestCommand { get; }
         public string ErrorMessageRegister { get => _errorMessageRegister; set { _errorMessageRegister = value; OnPropertyChanged(nameof(ErrorMessageRegister)); } }
 
         public string ErrorMessageLogin { get => _errorMessageLogin; set { _errorMessageLogin = value; OnPropertyChanged(nameof(ErrorMessageLogin)); } }
@@ -44,7 +45,15 @@ namespace CineManagement.ViewModels
         {
             userManager = new UserService();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
-            RegisterCommand = new ViewModelCommand(ExecuteRegisterCommand, CanExecuteRegisterCommand);            
+            RegisterCommand = new ViewModelCommand(ExecuteRegisterCommand, CanExecuteRegisterCommand);
+            LoginAsGuestCommand = new ViewModelCommand(ExecuteGuestLoginCommand);
+        }
+
+        private void ExecuteGuestLoginCommand(object obj)
+        {
+            var mainScreen = new MainWindow();
+            mainScreen.Show();
+            IsViewVisible = false;
         }
 
         private bool CanExecuteRegisterCommand(object obj)
@@ -77,7 +86,12 @@ namespace CineManagement.ViewModels
             try
             {
                 bool checkSignUp = userManager.addUser(user);
-                IsViewVisible = false;
+                if(checkSignUp == true)
+                {
+                    var mainScreen = new MainWindow(user);
+                    mainScreen.Show();
+                    IsViewVisible = false;
+                }
             } catch (Exception ex)
             {
                 ErrorMessageRegister = "* "+ ex.Message;
@@ -111,6 +125,7 @@ namespace CineManagement.ViewModels
                     var mainScreen = new MainWindow(user);
                     _isViewVisible = false;
                     mainScreen.Show();
+                    IsViewVisible=false;
                 }
             } catch (Exception ex)
             {

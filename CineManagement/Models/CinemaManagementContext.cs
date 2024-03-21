@@ -132,11 +132,11 @@ public partial class CinemaManagementContext : DbContext
                     r => r.HasOne<Actor>().WithMany()
                         .HasForeignKey("ActorId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__MovieActo__actor__49C3F6B7"),
+                        .HasConstraintName("FK__MovieActo__actor__4D94879B"),
                     l => l.HasOne<Movie>().WithMany()
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__MovieActo__movie__48CFD27E"),
+                        .HasConstraintName("FK__MovieActo__movie__4CA06362"),
                     j =>
                     {
                         j.HasKey("MovieId", "ActorId").HasName("PK__MovieAct__EAD8125EC2140611");
@@ -151,11 +151,11 @@ public partial class CinemaManagementContext : DbContext
                     r => r.HasOne<Genre>().WithMany()
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__MovieGenr__genre__45F365D3"),
+                        .HasConstraintName("FK__MovieGenr__genre__49C3F6B7"),
                     l => l.HasOne<Movie>().WithMany()
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__MovieGenr__movie__44FF419A"),
+                        .HasConstraintName("FK__MovieGenr__movie__48CFD27E"),
                     j =>
                     {
                         j.HasKey("MovieId", "GenreId").HasName("PK__MovieGen__712E7026CBB996EE");
@@ -163,6 +163,38 @@ public partial class CinemaManagementContext : DbContext
                         j.IndexerProperty<int>("MovieId").HasColumnName("movieId");
                         j.IndexerProperty<int>("GenreId").HasColumnName("genreId");
                     });
+        });
+
+        modelBuilder.Entity<MovieInfo>(entity =>
+        {
+            entity.HasKey(e => e.MovieId).HasName("PK__MovieInf__42EB374E577B3823");
+
+            entity.Property(e => e.MovieId)
+                .ValueGeneratedNever()
+                .HasColumnName("movieId");
+            entity.Property(e => e.DailyShowtime).HasColumnName("dailyShowtime");
+            entity.Property(e => e.IsSelling).HasColumnName("isSelling");
+            entity.Property(e => e.MonthlyShowtime).HasColumnName("monthlyShowtime");
+            entity.Property(e => e.SoldTicket).HasColumnName("soldTicket");
+            entity.Property(e => e.TicketRevenue).HasColumnName("ticketRevenue");
+            entity.Property(e => e.WeeklyShowtime).HasColumnName("weeklyShowtime");
+
+            entity.HasOne(d => d.Movie).WithOne(p => p.MovieInfo)
+                .HasForeignKey<MovieInfo>(d => d.MovieId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__MovieInfo__movie__6FE99F9F");
+        });
+
+        modelBuilder.Entity<Projector>(entity =>
+        {
+            entity.HasKey(e => e.ProjectorId).HasName("PK__Projecto__836CBC8084051EEC");
+
+            entity.ToTable("Projector");
+
+            entity.Property(e => e.ProjectorId).HasColumnName("projectorId");
+            entity.Property(e => e.ProjectorInfo)
+                .HasColumnType("datetime")
+                .HasColumnName("projectorInfo");
         });
 
         modelBuilder.Entity<MovieInfo>(entity =>
