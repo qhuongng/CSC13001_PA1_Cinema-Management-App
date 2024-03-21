@@ -20,6 +20,14 @@
                 <Setter Property="WindowTransitionsEnabled" Value="True" />
             </Style>
 
+            <LinearGradientBrush x:Key="HeaderBackgroundOpacityMask"
+                     StartPoint="0,0"
+                     EndPoint="0,1">
+                <GradientStop Color="#00FFFFFF" Offset="0"/>
+                <GradientStop Color="#808b8680" Offset="0.667"/>
+                <GradientStop Color="#FF000000" Offset="1"/>
+            </LinearGradientBrush>
+
             <Style TargetType="{x:Type TextBox}">
                 <Setter Property="Template">
                     <Setter.Value>
