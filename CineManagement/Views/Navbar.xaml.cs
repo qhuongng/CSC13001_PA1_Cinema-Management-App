@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Net.Http;
+using System.Windows;
 using CineManagement.Models;
 using CineManagement.ViewModels;
 using UserControl = System.Windows.Controls.UserControl;
@@ -38,7 +39,9 @@ namespace CineManagement.Views
         private void userBtn_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mw = (MainWindow)Window.GetWindow(this);
-            mw.UserDetailsView.DataContext = new UserDetailViewModel(mw.currentUser);
+            MainWindowViewModel vm = (MainWindowViewModel)Window.GetWindow(this).DataContext;
+
+            mw.UserDetailsView.DataContext = new UserDetailViewModel(vm);
             mw.HideAllExcept(mw.Root, mw.UserDetailsView);
         }
     }

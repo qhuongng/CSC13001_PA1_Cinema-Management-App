@@ -71,8 +71,7 @@
                             </StackPanel>
 
                             <Popup x:Name="ElementPopup" StaysOpen="True" Placement="Center" PlacementTarget="{x:Null}"
-                           PopupAnimation="Fade" Style="{StaticResource TooltipPopupStyle}"
-                           Focusable="False" SnapsToDevicePixels="True" AllowsTransparency="True">
+                                   PopupAnimation="Fade" Focusable="False" SnapsToDevicePixels="True" AllowsTransparency="True">
                                 <Border Background="LightSalmon" CornerRadius="10"
                                 Width="320" Height="180" Cursor="Hand">
                                     <TextBlock Text="Yay" HorizontalAlignment="Center"
@@ -88,11 +87,10 @@
                                 <BeginStoryboard x:Name="bsb">
                                     <Storyboard>
                                         <BooleanAnimationUsingKeyFrames
-                                Storyboard.TargetName="ElementPopup"
-                                Storyboard.TargetProperty="IsOpen"
-                                FillBehavior="HoldEnd"
-                            >
-                                            <DiscreteBooleanKeyFrame KeyTime="0:0:1.5" Value="True"/>
+                                            Storyboard.TargetName="ElementPopup"
+                                            Storyboard.TargetProperty="IsOpen"
+                                            FillBehavior="HoldEnd">
+                                            <DiscreteBooleanKeyFrame KeyTime="0:0:1.0" Value="True"/>
                                         </BooleanAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </BeginStoryboard>

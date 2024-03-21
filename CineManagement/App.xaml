@@ -47,42 +47,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
-            <Style x:Key="TooltipPopupStyle" TargetType="Popup">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding PlacementTarget.IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
-                        <DataTrigger.EnterActions>
-                            <BeginStoryboard x:Name="OpenPopupStoryBoard" >
-                                <Storyboard>
-                                    <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsOpen" FillBehavior="HoldEnd">
-                                        <DiscreteBooleanKeyFrame KeyTime="0:0:3.00" Value="True"/>
-                                    </BooleanAnimationUsingKeyFrames>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </DataTrigger.EnterActions>
-                        <DataTrigger.ExitActions>
-                            <PauseStoryboard BeginStoryboardName="OpenPopupStoryBoard"/>
-                            <BeginStoryboard x:Name="ClosePopupStoryBoard">
-                                <Storyboard>
-                                    <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsOpen" FillBehavior="HoldEnd">
-                                        <DiscreteBooleanKeyFrame KeyTime="0:0:3" Value="False"/>
-                                    </BooleanAnimationUsingKeyFrames>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </DataTrigger.ExitActions>
-                    </DataTrigger>
-
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Trigger.EnterActions>
-                            <PauseStoryboard BeginStoryboardName="ClosePopupStoryBoard" />
-                        </Trigger.EnterActions>
-                        <Trigger.ExitActions>
-                            <PauseStoryboard BeginStoryboardName="OpenPopupStoryBoard"/>
-                            <ResumeStoryboard BeginStoryboardName="ClosePopupStoryBoard" />
-                        </Trigger.ExitActions>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

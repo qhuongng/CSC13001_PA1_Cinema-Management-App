@@ -94,7 +94,8 @@ namespace CineManagement.ViewModels
 
                 if(checkSignUp == true)
                 {
-                    var mainScreen = new MainWindow(User);
+                    var mainScreen = new MainWindow();
+                    mainScreen.DataContext = new MainWindowViewModel(User);
                     mainScreen.Show();
                     IsViewVisible = false;
                 }
@@ -128,7 +129,8 @@ namespace CineManagement.ViewModels
                 _user = userManager.CheckLogin(UsernameLogin, PasswordLogin);
                 if (_user != null)
                 {
-                    var mainScreen = new MainWindow(User);
+                    var mainScreen = new MainWindow();
+                    mainScreen.DataContext = new MainWindowViewModel(User);
                     mainScreen.Show();
                     IsViewVisible=false;
                 }

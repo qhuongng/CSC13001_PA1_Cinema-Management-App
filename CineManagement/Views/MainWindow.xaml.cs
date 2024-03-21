@@ -1,9 +1,7 @@
-using CineManagement.Models;
 using MahApps.Metro.Controls;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace CineManagement
 {
@@ -11,21 +9,10 @@ namespace CineManagement
     {
         bool IsFullScreen = false;
         WindowState OldWindowState;
-
-        public User currentUser { get; set; }
  
         public MainWindow()
         {   
             InitializeComponent();
-            DataContext = this;
-        }
-
-        public MainWindow(User user)
-        {
-            currentUser = user;
-
-            InitializeComponent();
-            DataContext = this;
         }
 
         private void closeWindowBtn_Click(object sender, RoutedEventArgs e)

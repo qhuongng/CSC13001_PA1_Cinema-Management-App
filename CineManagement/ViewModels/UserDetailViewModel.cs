@@ -1,11 +1,6 @@
 ﻿using CineManagement.Models;
 using CineManagement.Services;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace CineManagement.ViewModels
@@ -30,11 +25,11 @@ namespace CineManagement.ViewModels
     }
     public class UserDetailViewModel : ViewModelBase
     {
-        public User user, tempUser;
+        public User user { get; set; }
         private UserService userManage;
         private TicketService ticketManage;
         private ObservableCollection<TicketInfo> ticketInfoList;
-        
+        public MainWindowViewModel vm { get; set; }
 
         private string _userName;
         private string _password;
@@ -54,25 +49,25 @@ namespace CineManagement.ViewModels
 
         public ObservableCollection<TicketInfo> TicketInfoList { get => ticketInfoList; set => ticketInfoList = value; }
 
-        public UserDetailViewModel(User currentUser)
+        public UserDetailViewModel(MainWindowViewModel viewModel)
         {
-            user = currentUser;
+            vm = viewModel;
+            user = vm.CurrentUser;
             userManage = new UserService();
             ticketManage = new TicketService();
             ticketInfoList = new ObservableCollection<TicketInfo>();
             UpdateCommand = new ViewModelCommand(ExecuteUpdateCommand);
-            _userName = currentUser.UserName;
-            _password = currentUser.Password;
-            _dob = currentUser.Dob.ToDateTime(new TimeOnly(00,00));
+            _userName = user.UserName;
+            _password = user.Password;
+            _dob = user.Dob.ToDateTime(new TimeOnly(00,00));
             // set up data for ticket
             ticketManage = new TicketService();
 
-            foreach(Ticket ticket in currentUser.Tickets)
+            foreach(Ticket ticket in user.Tickets)
             {
                 Ticket preticket = ticketManage.GetTicketInfo(ticket.TicketId);
                 ticketInfoList.Add(new TicketInfo(preticket.Movie.Poster, preticket.Movie.MovieName, preticket.Projector.ProjectorInfo, preticket.Movie.Duration, preticket.SeatId, preticket.Price));
             }
-
         }
 
         private void ExecuteUpdateCommand(object obj)
@@ -100,6 +95,7 @@ namespace CineManagement.ViewModels
                     user.Password = Password;
                     user.Dob = DateOnly.FromDateTime(Dob);
                     userManage.updateUser(user);
+                    vm.CurrentUser = user;
                     ErrorMessage = "";
                     SuccessMessage = "* Update successfully";
                 }
