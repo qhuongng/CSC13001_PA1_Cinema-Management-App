@@ -38,8 +38,7 @@
 
                 <!--search textbox-->
                 <Grid>
-                    <TextBlock Margin="40 0 15 0" VerticalAlignment="Center" Foreground="DimGray" Panel.ZIndex="1" IsHitTestVisible="False" Text="Search here..." 
-                           Visibility="{Binding ElementName=myTxtBox}"/>
+                    <TextBlock Margin="40 0 15 0" VerticalAlignment="Center" Foreground="DimGray" Panel.ZIndex="1" IsHitTestVisible="False" Text="Search here..."/>
                     <TextBox x:Name="myTxtBox" Style="{StaticResource searchTextBox}"/>
                     <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Foreground="DimGray" 
                            Margin="15 0 0 0" HorizontalAlignment="left"/>
@@ -110,7 +109,7 @@
                                             </StackPanel>
                                             
                                             <StackPanel Grid.Column="3" Orientation="Vertical" Margin="0 5 0 5">
-                                                <TextBlock FontSize="10" Text="{Binding Price, StringFormat=\{0\} VNĐ} " Margin="0 15 0 0"/>
+                                                <TextBlock FontSize="10" Margin="0 15 0 0" Text="{Binding Price, StringFormat=\{0\} VNĐ}"/>
                                             </StackPanel>
 
                                         </Grid>

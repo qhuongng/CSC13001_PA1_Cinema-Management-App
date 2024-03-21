@@ -129,10 +129,20 @@ namespace CineManagement.ViewModels
                 _user = userManager.CheckLogin(UsernameLogin, PasswordLogin);
                 if (_user != null)
                 {
-                    var mainScreen = new MainWindow();
-                    mainScreen.DataContext = new MainWindowViewModel(User);
-                    mainScreen.Show();
-                    IsViewVisible=false;
+                    if(_user.IsAdmin == false)
+                    {
+                        var mainScreen = new MainWindow();
+                        mainScreen.DataContext = new MainWindowViewModel(User);
+                        mainScreen.Show();
+                        IsViewVisible = false;
+                    }
+                    else
+                    {
+                        var mainScreen = new Admin();
+                        mainScreen.DataContext = new NavigationVM();
+                        mainScreen.Show();
+                        IsViewVisible=false;
+                    }
                 }
             } catch (Exception ex)
             {
