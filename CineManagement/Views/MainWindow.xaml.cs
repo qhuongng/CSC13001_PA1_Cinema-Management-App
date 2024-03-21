@@ -1,26 +1,31 @@
 using CineManagement.Models;
-using CineManagement.ViewModels;
 using MahApps.Metro.Controls;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace CineManagement
 {
     public partial class MainWindow : MetroWindow
     {
-        Boolean IsFullScreen = false;
+        bool IsFullScreen = false;
         WindowState OldWindowState;
-        User currentUser;
+
+        public User currentUser { get; set; }
  
         public MainWindow()
         {   
             InitializeComponent();
+            DataContext = this;
         }
 
         public MainWindow(User user)
         {
             InitializeComponent();
             currentUser = user;
+            DataContext = this;
+
         }
 
         private void closeWindowBtn_Click(object sender, RoutedEventArgs e)
@@ -57,6 +62,26 @@ namespace CineManagement
         {
             if (e.ChangedButton == MouseButton.Left)
                 DragMove();
+        }
+
+        public void HideAllExcept(UIElement parent, UIElement visibleElement)
+        {
+            var childNumber = VisualTreeHelper.GetChildrenCount(parent);
+
+            for (var i = 0; i < childNumber; i++)
+            {
+                var uiElement = VisualTreeHelper.GetChild(parent, i) as UIElement;
+
+                if (uiElement != null && uiElement == visibleElement)
+                {
+                    visibleElement.Visibility = Visibility.Visible;
+                }
+
+                if (uiElement != null && uiElement != visibleElement)
+                {
+                    uiElement.Visibility = Visibility.Collapsed;
+                }
+            }
         }
     }
 }
