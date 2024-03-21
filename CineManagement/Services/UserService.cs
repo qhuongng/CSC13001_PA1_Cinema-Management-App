@@ -43,6 +43,7 @@ namespace CineManagement.Services
                     existingUser.Dob = user.Dob;
                     existingUser.IsAdmin = user.IsAdmin;
                     existingUser.Password = user.Password;
+
                     try
                     {
                         _context.SaveChanges();
@@ -66,7 +67,11 @@ namespace CineManagement.Services
                 var existingUser = _context.Users.FirstOrDefault(x => x.UserName == name);
                 if (existingUser != null)
                 {
-                    if(password.Equals(existingUser.Password)) return existingUser;
+                    if(password.Equals(existingUser.Password))
+                    {
+                        existingUser.Tickets = _context.Entry(existingUser).Collection(m => m.Tickets).Query().ToList();
+                        return existingUser;
+                    }
                     else
                     {
                         throw new Exception("Invalid Password!");

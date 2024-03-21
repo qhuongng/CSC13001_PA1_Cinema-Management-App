@@ -1,34 +1,18 @@
-using CineManagement.Models;
-using CineManagement.ViewModels;
 using MahApps.Metro.Controls;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace CineManagement
 {
     public partial class MainWindow : MetroWindow
     {
-        Boolean IsFullScreen = false;
+        bool IsFullScreen = false;
         WindowState OldWindowState;
-        User currentUser;
  
         public MainWindow()
         {   
             InitializeComponent();
-        }
-        public MainWindow(User user)
-        {
-            InitializeComponent();
-            currentUser = user;
-        }
-
-        private void HomeViewControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            HomeViewModel homeViewModelObject = new ViewModels.HomeViewModel();
-            homeViewModelObject.LoadAllMovies();
-            homeViewModelObject.LoadBannerPosters();
-
-            homeViewControl.DataContext = homeViewModelObject;
         }
 
         private void closeWindowBtn_Click(object sender, RoutedEventArgs e)
@@ -65,6 +49,26 @@ namespace CineManagement
         {
             if (e.ChangedButton == MouseButton.Left)
                 DragMove();
+        }
+
+        public void HideAllExcept(UIElement parent, UIElement visibleElement)
+        {
+            var childNumber = VisualTreeHelper.GetChildrenCount(parent);
+
+            for (var i = 0; i < childNumber; i++)
+            {
+                var uiElement = VisualTreeHelper.GetChild(parent, i) as UIElement;
+
+                if (uiElement != null && uiElement == visibleElement)
+                {
+                    visibleElement.Visibility = Visibility.Visible;
+                }
+
+                if (uiElement != null && uiElement != visibleElement)
+                {
+                    uiElement.Visibility = Visibility.Collapsed;
+                }
+            }
         }
     }
 }

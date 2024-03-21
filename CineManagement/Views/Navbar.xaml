@@ -14,11 +14,31 @@
             <ColumnDefinition Width="1.75*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Column="0" Margin="20,0,0,0" Text="CINEMANAGEMENT"
-               FontSize="16" FontWeight="ExtraBold" Foreground="DarkCyan"
-               HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <Button x:Name="Logo" Grid.Column="0" Margin="20,0,0,0"
+                Content="CINEMANAGEMENT" Cursor="Hand"
+                HorizontalAlignment="Left" VerticalAlignment="Center" Click="Logo_Click">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <TextBlock FontWeight="ExtraBold" HorizontalAlignment="Center" VerticalAlignment="Center">
+             <ContentPresenter />
+                    </TextBlock>
+                </ControlTemplate>
+            </Button.Template>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Foreground" Value="DarkCyan" />
+                    <Setter Property="FontSize" Value="16" />
+                    <Setter Property="FontWeight" Value="ExtraBold" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Foreground" Value="LightSalmon" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
 
-        <Button Grid.Column="1" Margin="5" Content="MUA VÉ" Cursor="Hand">
+        <Button x:Name="buyBtn" Grid.Column="1" Margin="5" Content="MUA VÉ" Cursor="Hand" Click="buyBtn_Click">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <TextBlock FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -81,7 +101,7 @@
             </Button.Style>
         </Button>
 
-        <Button Grid.Column="3" Margin="0,0,20,0" Content="ĐĂNG NHẬP/ĐĂNG KÝ" Cursor="Hand">
+        <Button x:Name="loginBtn" Grid.Column="3" Margin="0,0,20,0" Content="ĐĂNG NHẬP/ĐĂNG KÝ" Cursor="Hand" Click="loginBtn_Click">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <TextBlock FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -91,11 +111,39 @@
             </Button.Template>
             <Button.Style>
                 <Style TargetType="Button">
+                    <Setter Property="Visibility" Value="Collapsed" />
                     <Setter Property="Foreground" Value="Black" />
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Foreground" Value="LightSalmon" />
                         </Trigger>
+                        <DataTrigger Binding="{Binding CurrentUser}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <Button Grid.Column="3" Margin="0,0,20,0" Content="{Binding CurrentUser.UserName}" Cursor="Hand" Click="userBtn_Click">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <TextBlock FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <ContentPresenter />
+                    </TextBlock>
+                </ControlTemplate>
+            </Button.Template>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Setter Property="Foreground" Value="Black" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Foreground" Value="LightSalmon" />
+                        </Trigger>
+                        <DataTrigger Binding="{Binding CurrentUser}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Button.Style>

@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewModel="clr-namespace:CineManagement.ViewModels" xmlns:customcontrols="clr-namespace:CineManagement.CustomControls"
+        xmlns:viewModel="clr-namespace:CineManagement.ViewModels"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:customcontrols="clr-namespace:CineManagement.CustomControls"
         mc:Ignorable="d"
         Title="LoginView" Height="550" Width="800"
         WindowStyle="None"
@@ -16,6 +18,7 @@
     <Window.DataContext>
         <viewModel:LoginViewModel/>
     </Window.DataContext>
+    
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
         <Style x:Key="TabItemStyle" TargetType="TabItem">
@@ -276,64 +279,48 @@
                         <ColumnDefinition Width="5"/>
                     </Grid.ColumnDefinitions>
                     <Button x:Name="btnMinimize"                           
-                            BorderThickness="0"
-                            Content="-"
-                            Foreground="White"
-                            FontSize="16"
-                            FontFamily="Montserrat"
+                            VerticalAlignment="Center" Height="15"
+                            HorizontalAlignment="Center"
                             Cursor="Hand"
                             Grid.Column="1"
                             Click="btnMinimize_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <iconPacks:PackIconMaterial Kind="Minus" Height="15" />
+                            </ControlTemplate>
+                        </Button.Template>
                         <Button.Style>
                             <Style TargetType="Button">
-                                <Setter Property="Background" Value="#28AEED"/>
+                                <Setter Property="Foreground" Value="White" />
                                 <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#278BEF"/>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Foreground" Value="LightSalmon" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="18" Height="18"
-                                        CornerRadius="9"
-                                        Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center"
-                                                      HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
                     </Button>
                     <Button x:Name="btnClose"                          
-                            BorderThickness="0"
-                            Content="X"
-                            Foreground="White"
-                            FontSize="12"
-                            FontFamily="Montserrat"
-                            Cursor="Hand"
+                         VerticalAlignment="Center" Height="15"
+                            HorizontalAlignment="Center"
+                            Cursor="Hand" 
                             Grid.Column="2"
                             Click="btnClose_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <iconPacks:PackIconMaterial Kind="Close" Height="15" />
+                            </ControlTemplate>
+                        </Button.Template>
                         <Button.Style>
                             <Style TargetType="Button">
-                                <Setter Property="Background" Value="#DA34AE"/>
+                                <Setter Property="Foreground" Value="White" />
                                 <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#C62DAE"/>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Foreground" Value="LightSalmon" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="18" Height="18"
-                                        CornerRadius="9"
-                                        Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center"
-                                                      HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
                     </Button>
                 </Grid>
                 <StackPanel Width="225"
@@ -405,12 +392,12 @@
                                                         Margin="0,15,0,0"
                                                         TextWrapping="Wrap"/>
                                     <TextBlock Text="{Binding ErrorMessageLogin, UpdateSourceTrigger=PropertyChanged}"
-                    Foreground="Red"
-                    FontSize="12"
-                    FontWeight="Medium"
-                    FontFamily="Montserrat"                             
-                    Margin="0,15,0,0"
-                    TextWrapping="Wrap"/>
+                                                Foreground="Red"
+                                                FontSize="12"
+                                                FontWeight="Medium"
+                                                FontFamily="Montserrat"                             
+                                                Margin="0,15,0,0"
+                                                TextWrapping="Wrap"/>       
                                 </Grid>
 
 
@@ -545,19 +532,19 @@
                                 </DatePicker>
                                 <Grid Margin="0 5 0 0">
                                     <TextBlock Text="{Binding ErrorMessageField, UpdateSourceTrigger=PropertyChanged}"
-           Foreground="Red"
-           FontSize="12"
-           FontWeight="Medium"
-           FontFamily="Montserrat"                             
-           Margin="0,10,0,0"
-           TextWrapping="Wrap"/>
+                                               Foreground="Red"
+                                               FontSize="12"
+                                               FontWeight="Medium"
+                                               FontFamily="Montserrat"                             
+                                               Margin="0,10,0,0"
+                                               TextWrapping="Wrap"/>
                                     <TextBlock Text="{Binding ErrorMessageRegister, UpdateSourceTrigger=PropertyChanged}"
-Foreground="Red"
-FontSize="12"
-FontWeight="Medium"
-FontFamily="Montserrat"                             
-Margin="0,10,0,0"
-TextWrapping="Wrap"/>
+                                                Foreground="Red"
+                                                FontSize="12"
+                                                FontWeight="Medium"
+                                                FontFamily="Montserrat"                             
+                                                Margin="0,10,0,0"
+                                                TextWrapping="Wrap"/>
                                 </Grid>
 
                                 <Button x:Name="btnRegister"
@@ -595,15 +582,15 @@ TextWrapping="Wrap"/>
                                 </Button>
 
                                 <StackPanel Orientation="Horizontal"
-             HorizontalAlignment="Center"
-             Margin="0,8,0,0">
-                                    <TextBlock Text="Browse as Guest"
-                Foreground="LightGray"
-                FontSize="12"
-                FontWeight="Medium"
-                FontFamily="Montserrat"
-                Cursor="Hand"
-                 Margin="8,0,0,0">
+                                     HorizontalAlignment="Center"
+                                     Margin="0,8,0,0">
+                                                        <TextBlock Text="Browse as Guest"
+                                        Foreground="LightGray"
+                                        FontSize="12"
+                                        FontWeight="Medium"
+                                        FontFamily="Montserrat"
+                                        Cursor="Hand"
+                                         Margin="8,0,0,0">  
                                         <TextBlock.InputBindings>
                                             <MouseBinding Command="{Binding LoginAsGuestCommand, UpdateSourceTrigger=PropertyChanged}" MouseAction="LeftClick"/>
                                         </TextBlock.InputBindings>
