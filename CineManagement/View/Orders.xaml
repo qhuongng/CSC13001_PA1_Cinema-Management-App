@@ -45,7 +45,7 @@
                 <!--Buton-->
                 <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="15 0 0 0 ">
                     <TextBlock VerticalAlignment="Center" Foreground="DimGray" Panel.ZIndex="2" IsHitTestVisible="False" Text="Choose film: " Visibility="{Binding ElementName=myCbBox}"/>
-                    <ComboBox x:Name="myCbBox" Style="{StaticResource theComboBox}" ItemContainerStyle="{DynamicResource theComboBoxItem}">
+                    <ComboBox Width="150" x:Name="myCbBox" Style="{StaticResource theComboBox}" ItemContainerStyle="{DynamicResource theComboBoxItem}">
                         <ComboBoxItem>Available</ComboBoxItem>
                         <ComboBoxItem>Busy</ComboBoxItem>
                         <ComboBoxItem>On Duty</ComboBoxItem>
