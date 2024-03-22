@@ -1,0 +1,110 @@
+﻿<mah:MetroWindow x:Class="CineManagement.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:CineManagement.Views"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d" IgnoreTaskbarOnMaximize="True"
+        UseNoneWindowStyle="True" AllowsTransparency="True" Background="Transparent"
+        ResizeMode="CanResize" Height="600" Width="800"
+        Title="CineManagement" ShowTitleBar="False" BorderBrush="Transparent" BorderThickness="0"
+        ShowCloseButton="False" ShowMaxRestoreButton="False" ShowMinButton="False" WindowStartupLocation="CenterScreen">
+
+    <Border BorderBrush="Transparent" BorderThickness="1"
+            Background="White" CornerRadius="10" Margin="10">
+        <Border.Effect>
+            <DropShadowEffect Color="DarkGray" BlurRadius="10" Direction="-90" RenderingBias="Quality" ShadowDepth="1"/>
+        </Border.Effect>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" MouseDown="HandleWindowDrag"
+                    Background="DarkCyan" CornerRadius="10,10,0,0">
+                <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                    <Button x:Name="closeWindowBtn" VerticalAlignment="Center" Height="15"
+                            Cursor="Hand" Margin="10,0,0,0" Click="closeWindowBtn_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <iconPacks:PackIconMaterial Kind="Close" Height="15" />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Foreground" Value="White" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Foreground" Value="LightSalmon" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button x:Name="fullSrcBtn" VerticalAlignment="Center" Height="15"
+                            Cursor="Hand" Margin="15,0,0,0" Click="fullSrcBtn_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <iconPacks:PackIconMaterial Kind="Fullscreen" Height="15" />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Foreground" Value="White" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Foreground" Value="LightSalmon" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button x:Name="minimizeBtn" VerticalAlignment="Center" Height="15"
+                            Cursor="Hand" Margin="15,0,0,0" Click="minimizeBtn_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <iconPacks:PackIconMaterial Kind="Minus" Height="15" />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Foreground" Value="White" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Foreground" Value="LightSalmon" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <ScrollViewer Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="150"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <views:Navbar Grid.Row="0" />
+
+                    <Grid x:Name="Root" Grid.Row="1">
+                        <views:Home Grid.Row="1" x:Name="HomeView" />
+                        <views:MovieDetails Grid.Row="1" x:Name="MovieDetailsView" Visibility="Collapsed" />
+                        <views:AllMovies Grid.Row="1" x:Name="AllMoviesView" Visibility="Collapsed" />
+                        <views:UserDetails Grid.Row="1" x:Name="UserDetailsView" Visibility="Collapsed" />
+                    </Grid>
+                    
+                    <views:Footer Grid.Row="2" />
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</mah:MetroWindow>
