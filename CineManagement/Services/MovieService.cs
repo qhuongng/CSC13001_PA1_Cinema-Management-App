@@ -9,7 +9,9 @@ namespace CineManagement.Services
         {
             using (var context = new CinemaManagementContext())
             {
-                List<Movie> movies = context.Movies.Include(movie => movie.Director).ToList();
+                List<Movie> movies = context.Movies.Include(movie => movie.Director)
+                                                   .Include(movie => movie.MovieInfo)
+                                                   .ToList();
 
                 if (movies == null)
                 {

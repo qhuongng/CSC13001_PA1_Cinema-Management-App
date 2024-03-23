@@ -5,25 +5,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:viewModel="clr-namespace:CineManagement.ViewModels"
              xmlns:local="clr-namespace:CineManagement.Views"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800">
+             d:DesignHeight="1000" d:DesignWidth="800">
     <UserControl.DataContext>
         <viewModel:HomeViewModel/>
     </UserControl.DataContext>
-    
-    <UserControl.Resources>
-        <local:ItemsLimiter x:Key="ItemsLimiter" />
-    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="400"></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
         <mah:FlipView x:Name="posterBanner" SelectedItem="{Binding SelectedMovie}"
-                      ItemsSource="{Binding Path=Movies, Converter={StaticResource ItemsLimiter}, ConverterParameter=5}"
+                      ItemsSource="{Binding Path=BannerMovies}"
                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                       IsBannerEnabled="False" MouseHoverBorderEnabled="False"
                       Margin="20,0,20,20">
@@ -38,104 +36,280 @@
             </mah:FlipView.ItemTemplate>
         </mah:FlipView>
 
-        <ListView x:Name="movieList" Grid.Row="1" Margin="20,30,20,0"
-                  ItemsSource="{Binding Movies}"
-                  HorizontalAlignment="Center"
-                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="movieList_SelectionChanged">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Border x:Name="ItemBorder" BorderBrush="Transparent"
-                            BorderThickness="1"
-                            Background="WhiteSmoke"
-                            CornerRadius="10">
-                        <Grid x:Name="Item" Width="173"
-                              IsHitTestVisible="True" Cursor="Hand">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="100"></RowDefinition>
-                                <RowDefinition Height="30"></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="20,30,20,0">
+            <TextBlock Text="Phim top doanh thu"
+                   VerticalAlignment="Center" Margin="0,0,0,20"
+                   FontSize="20" FontWeight="Bold" />
 
-                            <Border Grid.Row="0" CornerRadius="10,10,0,0">
-                                <Border.Background>
-                                    <ImageBrush ImageSource="{Binding Poster}" Stretch="UniformToFill" />
-                                </Border.Background>
-                            </Border>
+            <DockPanel x:Name="BestSellingMovieList">
+                <Button DockPanel.Dock="Left" HorizontalAlignment="Right"
+                        Cursor="Hand" Margin="0,0,15,0" Click="HandleCarouselScrollLeft">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <iconPacks:PackIconMaterial Kind="ArrowLeftThick" VerticalAlignment="Center" />
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Foreground" Value="DarkCyan" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Foreground" Value="LightSalmon" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
 
-                            <TextBlock Grid.Row="1" Text="{Binding MovieName}"
-                                       Margin="7,7,7,0" VerticalAlignment="Center"
-                                       TextWrapping="Wrap" FontWeight="Bold" />
+                <Button DockPanel.Dock="Right" HorizontalAlignment="Right"
+                        Cursor="Hand" Margin="15,0,0,0" Click="HandleCarouselScrollRight">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <iconPacks:PackIconMaterial Kind="ArrowRightThick" VerticalAlignment="Center" />
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Foreground" Value="DarkCyan" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Foreground" Value="LightSalmon" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
 
-                            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="7">
-                                <TextBlock Text="{Binding Duration, StringFormat={}{0} phút |}" />
-                                <TextBlock Text="{Binding Certification, StringFormat={} {0} |}" />
-                                <TextBlock Text="{Binding ReleaseYear, StringFormat={} {0}}" />
-                            </StackPanel>
+                <ListView ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                          ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                          ItemsSource="{Binding BestSellingMovies}" SelectionChanged="movieList_SelectionChanged">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border x:Name="ItemBorder" BorderBrush="Transparent"
+                                    BorderThickness="1"
+                                    Background="WhiteSmoke"
+                                    CornerRadius="10">
+                                <Grid x:Name="Item" Width="173" IsHitTestVisible="True" Cursor="Hand">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="100"></RowDefinition>
+                                        <RowDefinition Height="30"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
 
-                            <Popup x:Name="ElementPopup" StaysOpen="True" Placement="Center" PlacementTarget="{x:Null}"
-                                   PopupAnimation="Fade" Focusable="False" SnapsToDevicePixels="True" AllowsTransparency="True">
-                                <Border Background="LightSalmon" CornerRadius="10"
-                                        Width="320" Height="180" Cursor="Hand" Margin="7">
-                                    <TextBlock Text="Yay" HorizontalAlignment="Center"
-                                               VerticalAlignment="Center" Focusable="False" />
-                                    <Border.Effect>
-                                        <DropShadowEffect Color="DarkGray" BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1" />
-                                    </Border.Effect>
-                                </Border>
-                            </Popup>
-                        </Grid>
-                    </Border>
-                    <DataTemplate.Triggers>
-                        <Trigger SourceName="Item" Property="IsMouseOver" Value="True">
-                            <Setter TargetName="ItemBorder" Property="Background" Value="PowderBlue"></Setter>
-                            <Trigger.EnterActions>
-                                <BeginStoryboard x:Name="bsb">
-                                    <Storyboard>
-                                        <BooleanAnimationUsingKeyFrames
-                                            Storyboard.TargetName="ElementPopup"
-                                            Storyboard.TargetProperty="IsOpen"
-                                            FillBehavior="HoldEnd">
-                                            <DiscreteBooleanKeyFrame KeyTime="0:0:1.0" Value="True"/>
-                                        </BooleanAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <StopStoryboard BeginStoryboardName="bsb"/>
-                            </Trigger.ExitActions>
-                        </Trigger>
-                    </DataTemplate.Triggers>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+                                    <Border Grid.Row="0" CornerRadius="10,10,0,0">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding Poster}" Stretch="UniformToFill" />
+                                        </Border.Background>
+                                    </Border>
 
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="Padding" Value="0" />
-                    <Setter Property="Margin" Value="5,0,5,20" />
+                                    <TextBlock Grid.Row="1" Text="{Binding MovieName}"
+                                               Margin="7,7,7,0" VerticalAlignment="Center"
+                                               TextWrapping="Wrap" FontWeight="Bold" />
 
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="ListViewItem">
-                                <Grid Background="{TemplateBinding Background}">
-                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}" />
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="7">
+                                        <TextBlock Text="{Binding Duration, StringFormat={}{0} phút |}" />
+                                        <TextBlock Text="{Binding Certification, StringFormat={} {0} |}" />
+                                        <TextBlock Text="{Binding ReleaseYear, StringFormat={} {0}}" />
+                                    </StackPanel>
+
+                                    <Popup x:Name="ElementPopup" StaysOpen="True" Placement="Center" PlacementTarget="{x:Null}"
+                                           PopupAnimation="Fade" Focusable="False" SnapsToDevicePixels="True" AllowsTransparency="True">
+                                        <Border Background="LightSalmon" CornerRadius="10"
+                                                Width="320" Height="180" Cursor="Hand" Margin="7">
+                                            <TextBlock Text="Yay" HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center" Focusable="False" />
+                                            <Border.Effect>
+                                                <DropShadowEffect Color="DarkGray" BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1" />
+                                            </Border.Effect>
+                                        </Border>
+                                    </Popup>
                                 </Grid>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListView.ItemContainerStyle>
+                            </Border>
+                            <DataTemplate.Triggers>
+                                <Trigger SourceName="Item" Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="ItemBorder" Property="Background" Value="PowderBlue"></Setter>
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard x:Name="bsb">
+                                            <Storyboard>
+                                                <BooleanAnimationUsingKeyFrames
+                                                    Storyboard.TargetName="ElementPopup"
+                                                    Storyboard.TargetProperty="IsOpen"
+                                                    FillBehavior="HoldEnd">
+                                                    <DiscreteBooleanKeyFrame KeyTime="0:0:1.0" Value="True"/>
+                                                </BooleanAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <StopStoryboard BeginStoryboardName="bsb"/>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
 
-            <ListView.Template>
-                <ControlTemplate>
-                    <ItemsPresenter />
-                </ControlTemplate>
-            </ListView.Template>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="Margin" Value="5,0,5,20" />
 
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel />
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-        </ListView>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListViewItem">
+                                        <Grid Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <local:SmoothScrollingWrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+            </DockPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Vertical" Margin="20,30,20,30">
+            <TextBlock Text="Phim đang chiếu"
+                   VerticalAlignment="Center" Margin="0,0,0,20"
+                   FontSize="20" FontWeight="Bold" />
+
+            <DockPanel x:Name="CurrentMovieList">
+                <Button DockPanel.Dock="Left" HorizontalAlignment="Right"
+                        Cursor="Hand" Margin="0,0,15,0" Click="HandleCarouselScrollLeft">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <iconPacks:PackIconMaterial Kind="ArrowLeftThick" VerticalAlignment="Center" />
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Foreground" Value="DarkCyan" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Foreground" Value="LightSalmon" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+                <Button DockPanel.Dock="Right" HorizontalAlignment="Right"
+                        Cursor="Hand" Margin="15,0,0,0" Click="HandleCarouselScrollRight">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <iconPacks:PackIconMaterial Kind="ArrowRightThick" VerticalAlignment="Center" />
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Foreground" Value="DarkCyan" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Foreground" Value="LightSalmon" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+                <ListView ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                          ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                          ItemsSource="{Binding CurrentlyInCinesMovies}" SelectionChanged="movieList_SelectionChanged">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border x:Name="ItemBorder" BorderBrush="Transparent"
+                                    BorderThickness="1"
+                                    Background="WhiteSmoke"
+                                    CornerRadius="10">
+                                <Grid x:Name="Item" Width="173" IsHitTestVisible="True" Cursor="Hand">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="100"></RowDefinition>
+                                        <RowDefinition Height="30"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Border Grid.Row="0" CornerRadius="10,10,0,0">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding Poster}" Stretch="UniformToFill" />
+                                        </Border.Background>
+                                    </Border>
+
+                                    <TextBlock Grid.Row="1" Text="{Binding MovieName}"
+                                               Margin="7,7,7,0" VerticalAlignment="Center"
+                                               TextWrapping="Wrap" FontWeight="Bold" />
+
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="7">
+                                        <TextBlock Text="{Binding Duration, StringFormat={}{0} phút |}" />
+                                        <TextBlock Text="{Binding Certification, StringFormat={} {0} |}" />
+                                        <TextBlock Text="{Binding ReleaseYear, StringFormat={} {0}}" />
+                                    </StackPanel>
+
+                                    <Popup x:Name="ElementPopup" StaysOpen="True" Placement="Center" PlacementTarget="{x:Null}"
+                                           PopupAnimation="Fade" Focusable="False" SnapsToDevicePixels="True" AllowsTransparency="True">
+                                        <Border Background="LightSalmon" CornerRadius="10"
+                                                Width="320" Height="180" Cursor="Hand" Margin="7">
+                                            <TextBlock Text="Yay" HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center" Focusable="False" />
+                                            <Border.Effect>
+                                                <DropShadowEffect Color="DarkGray" BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1" />
+                                            </Border.Effect>
+                                        </Border>
+                                    </Popup>
+                                </Grid>
+                            </Border>
+                            <DataTemplate.Triggers>
+                                <Trigger SourceName="Item" Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="ItemBorder" Property="Background" Value="PowderBlue"></Setter>
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard x:Name="bsb">
+                                            <Storyboard>
+                                                <BooleanAnimationUsingKeyFrames
+                                                    Storyboard.TargetName="ElementPopup"
+                                                    Storyboard.TargetProperty="IsOpen"
+                                                    FillBehavior="HoldEnd">
+                                                    <DiscreteBooleanKeyFrame KeyTime="0:0:1.0" Value="True"/>
+                                                </BooleanAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <StopStoryboard BeginStoryboardName="bsb"/>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="Margin" Value="5,0,5,20" />
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListViewItem">
+                                        <Grid Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <local:SmoothScrollingWrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+            </DockPanel>
+        </StackPanel>
     </Grid>
 </UserControl>
