@@ -12,6 +12,7 @@
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
+    <None Remove="Clips\trailer.mp4" />
     <None Remove="Image\backimg.jpg" />
     <None Remove="Image\calendar.png" />
     <None Remove="Image\edit.png" />
@@ -33,6 +34,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Clips\trailer.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Image\backimg.jpg" />
     <Resource Include="Image\calendar.png" />
     <Resource Include="Image\edit.png" />

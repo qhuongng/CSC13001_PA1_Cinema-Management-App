@@ -58,11 +58,11 @@
                             </StackPanel>
 
                             <Popup x:Name="ElementPopup" StaysOpen="True" Placement="Center" PlacementTarget="{x:Null}"
-                                   PopupAnimation="Fade" Focusable="False" SnapsToDevicePixels="True" AllowsTransparency="True">
-                                <Border Background="LightSalmon" CornerRadius="10"
-                                        Width="320" Height="180" Cursor="Hand" Margin="7">
-                                    <TextBlock Text="Yay" HorizontalAlignment="Center"
-                                       VerticalAlignment="Center" Focusable="False" />
+                                   PopupAnimation="Fade" Focusable="False" SnapsToDevicePixels="True" AllowsTransparency="True"
+                                   Opened="ElementPopup_Opened" Closed="ElementPopup_Closed">
+                                <Border Background="Transparent"
+                                        Width="320" Height="180" Cursor="Hand" Margin="5">
+                                    <MediaElement LoadedBehavior="Manual" MediaFailed="HandleFail" UnloadedBehavior="Stop" IsMuted="False" />
                                     <Border.Effect>
                                         <DropShadowEffect Color="DarkGray" BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1" />
                                     </Border.Effect>

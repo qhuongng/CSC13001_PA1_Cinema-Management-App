@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Controls.Primitives;
 
 namespace CineManagement.Views
 {
@@ -117,6 +118,23 @@ namespace CineManagement.Views
             }
 
             return null;
+        }
+
+        private void ElementPopup_Opened(object sender, EventArgs e)
+        {
+            Popup popup = sender as Popup;
+            MediaElement trailer = FindChild<MediaElement>(popup.Child);
+            trailer.Source = new Uri("pack://siteoforigin:,,,/Clips/trailer.mp4");
+
+            trailer.Play();
+        }
+
+        private void ElementPopup_Closed(object sender, EventArgs e)
+        {
+            Popup popup = sender as Popup;
+            MediaElement trailer = FindChild<MediaElement>(popup.Child);
+
+            trailer.Stop();
         }
     }
 
