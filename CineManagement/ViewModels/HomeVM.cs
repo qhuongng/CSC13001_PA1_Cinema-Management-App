@@ -127,12 +127,7 @@ namespace CineManagement.ViewModels
         {
             userName = user.UserName;
             MessageBox.Show(UserName);
-            UserCommand = new ViewModelCommand(ExecutedLoadProfile);
         }
-
-        private void ExecutedLoadProfile(object obj)
-        {
-            var profileAmin = new 
-        }
+        
     }
 }
