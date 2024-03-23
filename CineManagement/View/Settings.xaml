@@ -4,9 +4,116 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CineManagement.View"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             d:DesignHeight="760" d:DesignWidth="980">
+    <Border CornerRadius="10" Background="White">
+        <ScrollViewer>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="250"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="20 20 20 10">
+                    <TextBlock  VerticalAlignment="Center" Foreground="DimGray" Panel.ZIndex="1" IsHitTestVisible="False" Text="Chỉnh Sửa Chi Tiết Đạo Diễn và Diễn Viên" 
+                                   FontSize="20" FontWeight="SemiBold"/>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1"  HorizontalAlignment="Right">
+                        <TextBlock VerticalAlignment="Center" Foreground="DimGray" Panel.ZIndex="2" IsHitTestVisible="False" Text="Chọn Film: " Visibility="{Binding ElementName=myCbBox}"/>
+                        <ComboBox Width="150" x:Name="myCbBox" Style="{StaticResource theComboBox}" ItemContainerStyle="{DynamicResource theComboBoxItem}">
+                            <ComboBoxItem>Available</ComboBoxItem>
+                            <ComboBoxItem>Busy</ComboBoxItem>
+                            <ComboBoxItem>On Duty</ComboBoxItem>
+                            <ComboBoxItem>On Meeting</ComboBoxItem>
+                            <ComboBoxItem>On Vacation</ComboBoxItem>
+                            <ComboBoxItem>On Weekend</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="20 20 20 20">
+                    <Border CornerRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Border.Background>
+                            <ImageBrush ImageSource="{Binding SelectedMovie.Poster}" Stretch="UniformToFill" />
+                        </Border.Background>
+                    </Border>
+
+                    <Border CornerRadius="10" Background="Black"
+                         OpacityMask="{StaticResource HeaderBackgroundOpacityMask}" />
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200 "/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="200 "/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+                            <TextBlock Text="Đạo Diễn" FontSize="28" FontWeight="SemiBold" Margin="20 20 0 0" Foreground="#121518" HorizontalAlignment="Left"/>
+                            <Canvas Margin="0 10 0 0">
+                                <Line X1="20" X2="900" Stroke="DimGray" StrokeThickness="3"/>
+                            </Canvas>
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Tên Đạo Diễn: " FontSize="20" Margin="20" FontWeight="SemiBold"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="Tên Đạo Diễn: " FontSize="20" Margin="20"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Mô Tả: " FontSize="20" Margin="20" FontWeight="SemiBold"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="13 Giải Oscars" FontSize="20" Margin="20"/>
+
+                        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="3">
+                            <TextBlock Text="Dàn Diễn Viên" FontSize="28" FontWeight="SemiBold" Margin="0 20 0 0" Foreground="#121518" HorizontalAlignment="Left"/>
+                            <Canvas Margin="0 10 0 0">
+                                <Line X1="20" X2="940" Stroke="DimGray" StrokeThickness="3"/>
+                            </Canvas>
+                        </StackPanel>
+
+                        <ListView Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="5" Margin="0 10 0 0">
+                            <ListViewItem Grid.Column="3" Grid.Row="1" FontSize="20" Grid.ColumnSpan="2">
+                                <TextBlock Text="Diễn Viên 1: " FontSize="20" FontWeight="SemiBold"/>
+                            </ListViewItem>
+                            <ListViewItem Grid.Column="3" Grid.Row="3" FontSize="20" Grid.ColumnSpan="2">
+                                <TextBlock Text="Diễn Viên 2: " FontSize="20" FontWeight="SemiBold"/>
+                            </ListViewItem>
+                            <ListViewItem Grid.Column="3" Grid.Row="5" FontSize="20" Grid.ColumnSpan="2">
+                                <TextBlock Text="Diễn Viên 3: " FontSize="20" FontWeight="SemiBold"/>
+                            </ListViewItem>
+                            <ListViewItem Grid.Column="3" Grid.Row="7" FontSize="20" Grid.ColumnSpan="2">
+                                <TextBlock Text="Diễn Viên 4: " FontSize="20" FontWeight="SemiBold"/>
+                            </ListViewItem>
+                            <ListViewItem Grid.Column="3" Grid.Row="9" FontSize="20" Grid.ColumnSpan="2">
+                                <TextBlock Text="Diễn Viên 5: " FontSize="20" FontWeight="SemiBold"/>
+                            </ListViewItem>
+
+                        </ListView>
+                        <Button Style="{StaticResource addButton}" Margin="0 0 0 0" Background="DarkCyan" Grid.Row="10" Grid.ColumnSpan="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Pencil" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
+                                <TextBlock Text="Chỉnh sửa"/>
+                            </StackPanel>
+                        </Button>
+
+                    </Grid>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+    </Border>
 </UserControl>
+

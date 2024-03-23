@@ -4,9 +4,109 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CineManagement.View"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             d:DesignHeight="760" d:DesignWidth="980">
+    <Border CornerRadius="10" Background="White">
+        <ScrollViewer>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="250"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="20 20 20 10">
+                    <TextBlock  VerticalAlignment="Center" Foreground="DimGray" Panel.ZIndex="1" IsHitTestVisible="False" Text="Chỉnh Sửa Suất Chiếu" 
+                                   FontSize="20" FontWeight="SemiBold"/>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1"  HorizontalAlignment="Right">
+                        <TextBlock VerticalAlignment="Center" Foreground="DimGray" Panel.ZIndex="2" IsHitTestVisible="False" Text="Chọn Film: " Visibility="{Binding ElementName=myCbBox}"/>
+                        <ComboBox Width="150" x:Name="myCbBox" Style="{StaticResource theComboBox}" ItemContainerStyle="{DynamicResource theComboBoxItem}">
+                            <ComboBoxItem>Available</ComboBoxItem>
+                            <ComboBoxItem>Busy</ComboBoxItem>
+                            <ComboBoxItem>On Duty</ComboBoxItem>
+                            <ComboBoxItem>On Meeting</ComboBoxItem>
+                            <ComboBoxItem>On Vacation</ComboBoxItem>
+                            <ComboBoxItem>On Weekend</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="20 20 20 20">
+                    <Border CornerRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Border.Background>
+                            <ImageBrush ImageSource="{Binding SelectedMovie.Poster}" Stretch="UniformToFill" />
+                        </Border.Background>
+                    </Border>
+
+                    <Border CornerRadius="10" Background="Black"
+                         OpacityMask="{StaticResource HeaderBackgroundOpacityMask}" />
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200 "/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="200 "/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+                            <TextBlock Text="Ngày Chiếu" FontSize="28" FontWeight="SemiBold" Margin="20 20 0 0" Foreground="#121518" HorizontalAlignment="Left"/>
+                            <Canvas Margin="0 10 0 0">
+                                <Line X1="20" X2="900" Stroke="DimGray" StrokeThickness="3"/>
+                            </Canvas>
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Chọn Ngày Chiếu: " FontSize="20" Margin="20"/>
+                        <Grid Grid.Row="1" Grid.Column="1">
+                            <Calendar Height="170" HorizontalAlignment="Left" Margin="18,20,0,0"  
+                                      Name="calendar1" VerticalAlignment="Top" Width="180" />
+                        </Grid>
+
+                        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="3">
+                            <TextBlock Text="Thời Gian Chiếu" FontSize="28" FontWeight="SemiBold" Margin="0 20 0 0" Foreground="#121518" HorizontalAlignment="Left"/>
+                            <Canvas Margin="0 10 0 0">
+                                <Line X1="20" X2="940" Stroke="DimGray" StrokeThickness="3"/>
+                            </Canvas>
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="1" Grid.Column="3" Text="Chọn Giờ Chiếu: " FontSize="20" Margin="0 20"/>
+                        <Grid Grid.Row="1" Grid.Column="4">
+                            <MD:TimePicker Is24Hours="True"
+                               WithSeconds="False"
+                               FontSize="25"
+                               VerticalContentAlignment="Bottom"
+                               Height="35"
+                               MD:ValidationAssist.FontSize="0.001"
+                               x:Name="_movieTime"
+                               Focusable="False">
+                            </MD:TimePicker>
+                        </Grid>
+
+                        <Button Style="{StaticResource addButton}" Margin="0 0 0 0" Background="DarkCyan" Grid.Row="10" Grid.ColumnSpan="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Pencil" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
+                                <TextBlock Text="Chỉnh sửa"/>
+                            </StackPanel>
+                        </Button>
+
+                    </Grid>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+    </Border>
 </UserControl>
+
+
+
