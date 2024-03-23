@@ -139,7 +139,7 @@ namespace CineManagement.ViewModels
                     else
                     {
                         var mainScreen = new Admin();
-                        mainScreen.DataContext = new NavigationVM();
+                        mainScreen.DataContext = new NavigationVM(User);
                         mainScreen.Show();
                         IsViewVisible=false;
                     }

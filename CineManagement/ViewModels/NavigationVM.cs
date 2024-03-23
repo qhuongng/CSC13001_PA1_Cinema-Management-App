@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using CineManagement.Utilities;
 using System.Windows.Input;
 using CineManagement.ViewModels;
+using CineManagement.Models;
 
 namespace CineManagement.ViewModels
 {
     class NavigationVM : ViewModelBase
     {
         private object _currentView;
+        public User User { get; set; }
         public object CurrentView
         {
             get { return _currentView; }
@@ -31,7 +33,7 @@ namespace CineManagement.ViewModels
         public ICommand ShipmentsCommand { get; set; }
         public ICommand SettingsCommand { get; set; }
 
-        private void Home(object obj) => CurrentView = new HomeVM();
+        private void Home(object obj) => CurrentView = new HomeVM(User);
         private void Customer(object obj) => CurrentView = new CustomerVM();
         private void Product(object obj) => CurrentView = new ProductVM();
         private void Order(object obj) => CurrentView = new OrderVM();
@@ -41,8 +43,9 @@ namespace CineManagement.ViewModels
 
 
 
-        public NavigationVM()
+        public NavigationVM(User user)
         {
+            User = user;
             HomeCommand = new RelayCommand(Home);
             CustomersCommand = new RelayCommand(Customer);
             ProductsCommand = new RelayCommand(Product);
@@ -52,7 +55,7 @@ namespace CineManagement.ViewModels
             SettingsCommand = new RelayCommand(Setting);
 
             // Startup Page
-            CurrentView = new HomeVM();
+            CurrentView = new HomeVM(user);
         }
     }
 }

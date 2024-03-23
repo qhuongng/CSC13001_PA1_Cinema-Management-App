@@ -6,20 +6,13 @@
         xmlns:vm="clr-namespace:CineManagement.ViewModels"
         xmlns:Menu="clr-namespace:CineManagement.Utilities"
         xmlns:uc="clr-namespace:CineManagement.UserControls"
-        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="MainWindow" Height="760" Width="1280" ResizeMode="NoResize" AllowsTransparency="True"
+        Title="MainWindow" Height="760" Width="1190" ResizeMode="NoResize" AllowsTransparency="True"
 WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent">
 
-    <Window.DataContext>
-        <vm:NavigationVM/>
-    </Window.DataContext>
-
-    <Grid>
-
-        <!--// Window Border //-->
-
-        <Border CornerRadius="25" Background="White"  MouseDown="Border_MouseDown"/>
+    <Border BorderBrush="Transparent" BorderThickness="1"
+            Background="White" CornerRadius="10" Margin="10">
 
         <Grid>
 
@@ -29,14 +22,77 @@ WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent"
                 <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
             <!--// Navigation Panel //-->
+            <Border Grid.Row="0" Grid.Column="1"
+                    Background="White" CornerRadius="0,10,0,0">
+                <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                    <Button x:Name="closeWindowBtn" VerticalAlignment="Center" Height="15"
+                 Cursor="Hand" Margin="10,0,0,0" Click="closeWindowBtn_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <iconPacks:PackIconMaterial Kind="Close" Height="15" />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Foreground" Value="DarkCyan" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Foreground" Value="LightSalmon" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
 
+                    <Button x:Name="fullSrcBtn" VerticalAlignment="Center" Height="15"
+                 Cursor="Hand" Margin="15,0,0,0" Click="fullSrcBtn_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <iconPacks:PackIconMaterial Kind="Fullscreen" Height="15" />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Foreground" Value="DarkCyan" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Foreground" Value="LightSalmon" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button x:Name="minimizeBtn" VerticalAlignment="Center" Height="15"
+                 Cursor="Hand" Margin="15,0,0,0" Click="minimizeBtn_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <iconPacks:PackIconMaterial Kind="Minus" Height="15" />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Foreground" Value="DarkCyan" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Foreground" Value="LightSalmon" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </StackPanel>
+            </Border>
             <Grid HorizontalAlignment="Left"
-                  Width="228">
+                  Width="228" Grid.Column="0" Grid.RowSpan="2">
 
                 <Border Background="DarkCyan"
-                        CornerRadius="20,0,0,20" />
+                        CornerRadius="10,0,0,10" />
 
                 <StackPanel Height="450"
                             Width="228">
@@ -156,29 +212,11 @@ WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent"
 
                     </Menu:Btn>
 
-                    <!--// Log out //-->
-
-                    <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding SettingsCommand}"
-                              Click="LogOut_Click">
-
-                        <Grid>
-
-                            <uc:BtnMenu Icon="Logout"  
-                                        Style="{StaticResource Icon_Style}"/>
-
-                            <TextBlock Text="Log Out"
-                                       Style="{StaticResource Text_Style}" />
-
-                        </Grid>
-
-                    </Menu:Btn>
-
                 </StackPanel>
 
             </Grid>
 
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" Grid.Row="1">
 
                 <ContentControl x:Name="Pages"
                                 Content="{Binding CurrentView}" />
@@ -186,7 +224,5 @@ WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent"
             </Grid>
 
         </Grid>
-
-    </Grid>
-
+    </Border>
 </Window>
