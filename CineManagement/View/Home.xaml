@@ -9,8 +9,8 @@
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:vm="clr-namespace:CineManagement.ViewModels"
              mc:Ignorable="d"
-             d:DesignHeight="760"
-             d:DesignWidth="980">
+             d:DesignHeight="600"
+             d:DesignWidth="960">
 
     <UserControl.DataContext>
         <vm:HomeVM/>
@@ -37,28 +37,28 @@
                 </Grid.ColumnDefinitions>
 
                 <!--search textbox-->
-                <Grid>
+                <!--<Grid>
                     <TextBlock Margin="40 0 15 0" VerticalAlignment="Center" Foreground="DimGray" Panel.ZIndex="1" IsHitTestVisible="False" Text="Search here..."/>
                     <TextBox x:Name="myTxtBox" Style="{StaticResource searchTextBox}"/>
                     <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Foreground="DimGray" 
                            Margin="15 0 0 0" HorizontalAlignment="left"/>
+                </Grid>-->
+
+
+                    <StackPanel Orientation="horizontal" Grid.Column="1" Margin="0 0 0 0 ">
+                        <TextBlock Margin="0 0 10 0" VerticalAlignment="center" Foreground="dimgray"  Text="Welcome Back" FontSize="20"/>
+                        <Button Content="Admin" Command="{Binding UserCommand}" Foreground="dimgray" FontSize="20" Background="Transparent" BorderThickness="0 0 0 0">
+
+                        </Button>
+
+                    </StackPanel>
                 </Grid>
-
-                <!--Buton-->
-                <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20 0 0 0 ">
-                    <TextBlock Margin="0 0 10 0" VerticalAlignment="Center" Foreground="DimGray" Panel.ZIndex="1" IsHitTestVisible="False" Text="Welcome Back" FontSize="20"/>
-
-                    <Button Style="{StaticResource buttonTopMenu}">
-                        <Icon:PackIconMaterial Kind="Account" Style="{StaticResource buttonTopMenuIcon}"/>
-                    </Button>
-                </StackPanel>
-            </Grid>
 
             <!--middle top section-->
             <Grid Grid.Row="1" Grid.Column="1" Margin="20 0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300"/>
-                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="297"/>
+                    <ColumnDefinition Width="303"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -80,39 +80,32 @@
                 <Border Style="{StaticResource mainBorder}" Margin="10 0 10 18" Grid.Column="2" Height="290" >
                     <Grid>
                         <!--title-->
-                        <TextBlock Text="Top Movies of this Month" Style="{StaticResource titleText}"/>
+                            <TextBlock Text="Top Movies of this Month" Style="{StaticResource titleText}"/>
 
-                        <!--filter button-->
-                        <Button Style="{StaticResource titleButton}" Margin="0 -3 0 0">
-                            <Icon:PackIconMaterial Kind="tune" Style="{StaticResource buttonTopMenuIcon}"/>
-                        </Button>
-
-                        <!--country list-->
+                            <!--country list-->
                         <ListView Margin="0 50 0 0" Background="WhiteSmoke" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                  ScrollViewer.VerticalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
+                                  ScrollViewer.VerticalScrollBarVisibility="Hidden" ItemsSource="{Binding Movies}" Focusable="False">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <Grid Background="Transparent">
+                                        <Grid Background="Transparent" Margin="0 8 0 0">
                                             <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="20"/>
                                                 <ColumnDefinition Width="30"/>
                                                 <ColumnDefinition Width="120"/>
-                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="65"/>
                                             </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" FontWeight="DemiBold" Text="{Binding No, StringFormat= #{0}}" Foreground="{Binding Color}"
+                                                       VerticalAlignment="Center" FontSize="14"/>
                                             <Image Source="{Binding MovieImage}"
-                                                    Width="25" Height="25"
-                                                    Grid.Column="0" Margin="0 10 0 0"/>
-                                            <StackPanel Grid.Column="1"
-                                                        Orientation="Vertical">
-                                                <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
-                                                    <TextBlock FontSize="10" Margin="5 20 0 0" Text="{Binding MovieName, StringFormat={} {0} }" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                            
-                                            <StackPanel Grid.Column="3" Orientation="Vertical" Margin="0 5 0 5">
-                                                <TextBlock FontSize="10" Margin="0 15 0 0" Text="{Binding Price, StringFormat=\{0\} VNĐ}"/>
-                                            </StackPanel>
+                                                    Width="45" Height="35"
+                                                    Grid.Column="1"/>
+
+                                            <TextBlock Grid.Column="2" FontSize="12" FontWeight="DemiBold" Margin="5 5 0 0" Text="{Binding MovieName}" TextWrapping="Wrap" />
+                                            <TextBlock Grid.Column="3" TextAlignment="Right" FontSize="10" FontWeight="DemiBold" Margin="0 7 0 0" Text="{Binding TicketSold, StringFormat={}{0} Vé}"/>
+
 
                                         </Grid>
+
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>

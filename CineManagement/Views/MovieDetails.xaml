@@ -96,39 +96,116 @@
             </StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Vertical" Margin="10,0,0,0">
-                <Grid Margin="0,0,10,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+                <TextBlock Text="Đạo diễn" FontWeight="Bold" FontSize="14" />
+                <Border CornerRadius="10" Background="WhiteSmoke" Margin="0,5,0,10">
+                    <DockPanel Margin="10">
+                        <Border DockPanel.Dock="Left"
+                                CornerRadius="10" Margin="0,0,10,0"
+                                Width="80" Height="80">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding SelectedMovie.Director.Avatar}" Stretch="UniformToFill" />
+                            </Border.Background>
+                        </Border>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
+                        <TextBlock DockPanel.Dock="Top"
+                                   Text="{Binding SelectedMovie.Director.DirectorName}"
+                                   FontWeight="Bold" />
 
-                    <TextBlock Grid.Row="0" Grid.Column="0"
-                               Text="Đạo diễn" FontWeight="Bold" />
-                    <TextBlock Grid.Row="0" Grid.Column="1"
-                               Text="{Binding SelectedMovie.Director.DirectorName}" Margin="0,0,0,10" />
+                        <TextBlock Text="{Binding SelectedMovie.Director.ShotDes}"
+                                   TextWrapping="Wrap" />
+                    </DockPanel>
+                </Border>
 
-                    <TextBlock Grid.Row="1" Grid.Column="0"
-                               Text="Thể loại" FontWeight="Bold" />
-                    <TextBlock Grid.Row="1" Grid.Column="1" TextWrapping="Wrap"
-                               Text="{Binding Path=SelectedMovie.Genres, Converter={StaticResource genreConverter}}" Margin="0,0,0,10" />
+                <TextBlock Text="Thể loại" FontWeight="Bold" FontSize="14" />
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,10"
+                           Text="{Binding Path=SelectedMovie.Genres, Converter={StaticResource genreConverter}}" />
 
-                    <TextBlock Grid.Row="2" Grid.Column="0"
-                               Text="Thời lượng" FontWeight="Bold" />
-                    <TextBlock Grid.Row="2" Grid.Column="1"
-                               Text="{Binding SelectedMovie.Duration, StringFormat={}{0} phút}" Margin="0,0,0,10" />
+                <TextBlock Text="Thời lượng" FontWeight="Bold" FontSize="14" />
+                <TextBlock Grid.Row="2" Grid.Column="1"
+                           Text="{Binding SelectedMovie.Duration, StringFormat={}{0} phút}" Margin="0,0,0,10" />
 
-                    <TextBlock Grid.Row="3" Grid.Column="0"
-                               Text="Diễn viên" FontWeight="Bold" />
-                    <TextBlock Grid.Row="3" Grid.Column="1" TextWrapping="Wrap"
-                               Text="{Binding Path=SelectedMovie.Actors, Converter={StaticResource actorConverter}}" Margin="0,0,0,10" />
-                </Grid>
+                <TextBlock Text="Diễn viên" FontWeight="Bold" FontSize="14" />
+                <ListView x:Name="actorList" Margin="0,5,0,0"
+                          ItemsSource="{Binding SelectedMovie.Actors}"
+                          HorizontalAlignment="Center"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">    
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border x:Name="Item" Background="WhiteSmoke" CornerRadius="10">
+                                <Grid>
+                                    <TextBlock Text="{Binding ActorName}" Margin="10"
+                                               VerticalAlignment="Center" FontWeight="Bold" />
+
+                                    <Popup x:Name="ElementPopup" StaysOpen="True" Placement="Center" PlacementTarget="{x:Null}" Width="300"
+                                           PopupAnimation="Fade" Focusable="False" SnapsToDevicePixels="True" AllowsTransparency="True">
+                                        <Border CornerRadius="10" Background="WhiteSmoke" Margin="0,5,0,10">
+                                            <DockPanel Margin="10">
+                                                <Border DockPanel.Dock="Left"
+                                                        CornerRadius="10" Margin="0,0,10,0"
+                                                        Width="80" Height="80">                     
+                                                    <Border.Background>
+                                                        <ImageBrush ImageSource="{Binding Avatar}" Stretch="UniformToFill" />
+                                                    </Border.Background>
+                                                </Border>
+
+                                                <TextBlock DockPanel.Dock="Top"
+                                                           Text="{Binding ActorName}"
+                                                           FontWeight="Bold" />                     
+
+                                                <TextBlock Text="{Binding ShotDes}" TextWrapping="Wrap" />
+                                            </DockPanel>
+
+                                            <Border.Effect>
+                                                <DropShadowEffect Color="DarkGray" ShadowDepth="1" />
+                                            </Border.Effect>
+                                        </Border>
+                                    </Popup>
+                                </Grid>
+                            </Border>
+
+                            <DataTemplate.Triggers>
+                                <Trigger SourceName="Item" Property="IsMouseOver" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard x:Name="bsb">
+                                            <Storyboard>
+                                                <BooleanAnimationUsingKeyFrames
+                                                    Storyboard.TargetName="ElementPopup"
+                                                    Storyboard.TargetProperty="IsOpen"
+                                                    FillBehavior="HoldEnd">
+                                                    <DiscreteBooleanKeyFrame KeyTime="0:0:1.0" Value="True"/>
+                                                </BooleanAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <StopStoryboard BeginStoryboardName="bsb"/>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="Margin" Value="5,0,5,5" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+                    <ListView.Template>
+                        <ControlTemplate>
+                            <ItemsPresenter />
+                        </ControlTemplate>
+                    </ListView.Template>
+
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+
+
             </StackPanel>
         </Grid>
     </Grid>

@@ -11,24 +11,30 @@ using System.Collections.ObjectModel;
 using LiveCharts;
 using LiveCharts.Wpf;
 using Microsoft.Identity.Client;
+using System.Windows.Input;
+using System.Windows;
 
 namespace CineManagement.ViewModels
 {
-    class MovieDetail
+    public class MovieDetail
     {
-        public string CountryName {  get; set; }
-        public byte[] Flag { get; set; }
-        public string Price { get; set; }
-        public MovieDetail(string name, byte[] img, int soldticket) 
+        public int No { get; set; }
+        public string Color { get; set; }
+        public string MovieName {  get; set; }
+        public byte[] MovieImage { get; set; }
+        public string TicketSold { get; set; }
+        public MovieDetail(int no,string color, string name, byte[] img, int soldticket) 
         {
-            CountryName = name;
-            Flag = img;
-            Price = soldticket.ToString();
+            No = no;
+            Color = color;
+            MovieName = name;
+            MovieImage = img;
+            TicketSold = soldticket.ToString();
         }
     }
     public class HomeVM : ViewModelBase
     {
-
+        private User user;
         private MovieService movieService;
         private List<Movie> movieList;
         private int showingMovies;//tong so phim dang chieu
@@ -39,14 +45,13 @@ namespace CineManagement.ViewModels
         private int showInDay;
         private int showInWeek;
         private int showInMonth;
-        private string movieName;
+        private string userName;
 
         //binding chart
         private ObservableCollection<string> movieTitles;
         private ObservableCollection<int> movieRevenues;
 
         private Dictionary<string, int> listRevenues;
-        private SeriesCollection seriesCollection;
 
         private ObservableCollection<MovieDetail> _movies;
 
@@ -55,17 +60,24 @@ namespace CineManagement.ViewModels
         public string TotalRevenue { get => totalRevenue; set { totalRevenue = value; } }
         public long TopRevenue { get => topRevenue; set { topRevenue = value; } }
 
-        internal ObservableCollection<MovieDetail> Movies { get => _movies; set => _movies = value; }
+        public ObservableCollection<MovieDetail> Movies { get => _movies; set => _movies = value; }
         public int ShowInDay { get => showInDay; set => showInDay = value; }
         public int ShowInWeek { get => showInWeek; set => showInWeek = value; }
         public int ShowInMonth { get => showInMonth; set => showInMonth = value; }
         public string HighestRevenue { get => highestRevenue; set => highestRevenue = value; }
-        public string MovieName { get => movieName; set => movieName = value; }
+        public string UserName { get => userName; set { userName = value; OnPropertyChanged(nameof(UserName)); } }
         public ObservableCollection<string> MovieTitles { get => movieTitles; set => movieTitles = value; }
         public ObservableCollection<int> MovieRevenues { get => movieRevenues; set => movieRevenues = value; }
 
-        public HomeVM()
+        public SeriesCollection SeriesCollection { get; set; }
+        public string[] Labels { get; set; }
+        public Func<double, string> Values { get; set; }
+        public ICommand UserCommand { get;}
+        public User User { get => user; set { user = value; OnPropertyChanged(nameof(User)); } }
+
+        public HomeVM() 
         {
+            _movies = new ObservableCollection<MovieDetail>();
             showInDay = 0;
             showInWeek = 0;
             showInMonth = 0;
@@ -75,7 +87,7 @@ namespace CineManagement.ViewModels
             listRevenues = new Dictionary<string, int>();
             movieList = movieService.getMovies();
             showingMovies = movieList.Count(m => m.MovieInfo.IsSelling);
-            foreach(Movie movie in movieList)
+            foreach (Movie movie in movieList)
             {
                 listRevenues.Add(movie.MovieName, ((int)(movie.MovieInfo.TicketRevenue / 1000000000)));
                 showInDay += movie.MovieInfo.DailyShowtime;
@@ -83,19 +95,23 @@ namespace CineManagement.ViewModels
                 showInMonth += movie.MovieInfo.MonthlyShowtime;
                 if (movie.MovieInfo.TicketRevenue > topRevenue) topRevenue = movie.MovieInfo.TicketRevenue;
                 temp += movie.MovieInfo.TicketRevenue;
-               // Movies.Add(new MovieDetail(movie.MovieName,movie.Poster,movie.MovieInfo.SoldTicket));
             }
-            totalRevenue = (temp/(1000000000)).ToString() + "B";
-            highestRevenue = (topRevenue/(1000000000)).ToString() + "B";
-            Dictionary<string,int> sortedList = listRevenues.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+            totalRevenue = (temp / (1000000000)).ToString() + "B";
+            highestRevenue = (topRevenue / (1000000000)).ToString() + "B";
+            Dictionary<string, int> sortedList = listRevenues.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
             movieTitles = new ObservableCollection<string>();//label
             movieRevenues = new ObservableCollection<int>();//series
-            for(int i = 0;i < 15;i++)
+            for (int i = 0; i < 15; i++)
             {
                 movieTitles.Add(sortedList.ElementAt(i).Key);
                 movieRevenues.Add(sortedList.ElementAt(i).Value);
             }
-
+            string[] rangercolor = { "red", "green", "blue", "purple", "orange" };
+            for (int i = 0; i < 5; i++)
+            {
+                var data = movieList.Where(x => x.MovieName == movieTitles.ElementAt(i)).Select(x => new { x.MovieName, x.Poster, x.MovieInfo.SoldTicket }).FirstOrDefault();
+                _movies.Add(new MovieDetail(i + 1, rangercolor[i], data.MovieName, data.Poster, data.SoldTicket));
+            }
             SeriesCollection = new SeriesCollection()
             {
                 new ColumnSeries
@@ -106,13 +122,17 @@ namespace CineManagement.ViewModels
 
             Labels = movieTitles.ToArray();
             Values = value => value.ToString("N");
-
+        }
+        public HomeVM(User user) : this()
+        {
+            userName = user.UserName;
+            MessageBox.Show(UserName);
+            UserCommand = new ViewModelCommand(ExecutedLoadProfile);
         }
 
-        public SeriesCollection SeriesCollection {  get; set; }
-        public string[] Labels { get; set; }
-        public Func<double, string> Values {  get; set; }   
-
-
+        private void ExecutedLoadProfile(object obj)
+        {
+            var profileAmin = new 
+        }
     }
 }
