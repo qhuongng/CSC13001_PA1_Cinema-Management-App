@@ -114,23 +114,6 @@ WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent"
 
                     </Menu:Btn>
 
-                    <!--// Customer //-->
-
-                    <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding CustomersCommand}">
-
-                        <Grid>
-
-                            <uc:BtnMenu Icon="Account"
-                                        Style="{StaticResource Icon_Style}"/>
-
-                            <TextBlock Text="Info"
-                                       Style="{StaticResource Text_Style}" />
-
-                        </Grid>
-
-                    </Menu:Btn>
-
                     <!--// Products //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"

@@ -148,6 +148,6 @@ namespace CineManagement.ViewModels
             {
                 ErrorMessageLogin = "* " + ex.Message;
             }
-        }
+            }
     }
 }
