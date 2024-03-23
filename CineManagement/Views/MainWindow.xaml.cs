@@ -2,6 +2,7 @@ using MahApps.Metro.Controls;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using CineManagement.Views;
 
 namespace CineManagement
 {
@@ -24,6 +25,11 @@ namespace CineManagement
         {
             if (!IsFullScreen)
             {
+                WindowBorder.Margin = new Thickness(0);
+                WindowBorder.CornerRadius = new CornerRadius(0);
+                WindowHeader.CornerRadius = new CornerRadius(0);
+                Footer.FooterBorder.CornerRadius = new CornerRadius(0);
+
                 OldWindowState = WindowState;
                 WindowState = WindowState.Maximized;
                 Visibility = Visibility.Collapsed;
@@ -33,6 +39,11 @@ namespace CineManagement
             }
             else
             {
+                WindowBorder.Margin = new Thickness(5);
+                WindowBorder.CornerRadius = new CornerRadius(10);
+                WindowHeader.CornerRadius = new CornerRadius(10,10,0,0);
+                Footer.FooterBorder.CornerRadius = new CornerRadius(0,0,0,10);
+
                 WindowState = OldWindowState;
                 ResizeMode = ResizeMode.CanResize;
             }

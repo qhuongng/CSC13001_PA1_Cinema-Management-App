@@ -12,18 +12,21 @@
         Title="CineManagement" ShowTitleBar="False" BorderBrush="Transparent" BorderThickness="0"
         ShowCloseButton="False" ShowMaxRestoreButton="False" ShowMinButton="False" WindowStartupLocation="CenterScreen">
 
-    <Border BorderBrush="Transparent" BorderThickness="1"
-            Background="White" CornerRadius="10" Margin="10">
+    <Border x:Name="WindowBorder"
+            BorderBrush="Transparent" BorderThickness="1"
+            Background="White" CornerRadius="10" Margin="5">
         <Border.Effect>
-            <DropShadowEffect Color="DarkGray" BlurRadius="10" Direction="-90" RenderingBias="Quality" ShadowDepth="1"/>
+            <DropShadowEffect Color="DarkGray" BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1" />
         </Border.Effect>
+        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Border Grid.Row="0" MouseDown="HandleWindowDrag"
+            <Border x:Name="WindowHeader"
+                    Grid.Row="0" MouseDown="HandleWindowDrag"
                     Background="DarkCyan" CornerRadius="10,10,0,0">
                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                     <Button x:Name="closeWindowBtn" VerticalAlignment="Center" Height="15"
@@ -102,7 +105,7 @@
                         <views:UserDetails Grid.Row="1" x:Name="UserDetailsView" Visibility="Collapsed" />
                     </Grid>
                     
-                    <views:Footer Grid.Row="2" />
+                    <views:Footer x:Name="Footer" Grid.Row="2" />
                 </Grid>
             </ScrollViewer>
         </Grid>

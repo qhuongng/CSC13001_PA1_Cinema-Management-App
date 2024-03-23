@@ -9,7 +9,6 @@
 
     <UserControl.Resources>
         <local:GenresToStringConverter x:Key="genreConverter" />
-        <local:ActorsToStringConverter x:Key="actorConverter" />
     </UserControl.Resources>
     
     <Grid>
@@ -69,9 +68,21 @@
                                     <ColumnDefinition Width="30"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <Rectangle x:Name="Seat" Grid.Row="0" Fill="WhiteSmoke" />
-                                <TextBlock x:Name="SeatIndex" Text="{Binding}" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <Border x:Name="Seat" Grid.Row="0" Background="WhiteSmoke" CornerRadius="10">
+                                    <TextBlock x:Name="SeatIndex" Text="{Binding}"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                </Border>
                             </Grid>
+
+                            <DataTemplate.Triggers>
+                                <Trigger SourceName="Seat" Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Seat" Property="Background" Value="PowderBlue"></Setter>
+                                </Trigger>
+                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListViewItem}}" Value="True">
+                                    <Setter TargetName="Seat" Property="Background" Value="DarkCyan" />
+                                    <Setter TargetName="SeatIndex" Property="Foreground" Value="White" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
                         </DataTemplate>
                     </ListView.ItemTemplate>
 
@@ -83,11 +94,18 @@
 
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
-                            <Style.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Background" Value="DarkCyan"/>
-                                </Trigger>
-                            </Style.Triggers>
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="Margin" Value="5,0,5,5" />
+                            
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListViewItem">
+                                        <Grid Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
                         </Style>
                     </ListView.ItemContainerStyle>
                 </ListView>
@@ -138,7 +156,7 @@
 
                                     <Popup x:Name="ElementPopup" StaysOpen="True" Placement="Center" PlacementTarget="{x:Null}" Width="300"
                                            PopupAnimation="Fade" Focusable="False" SnapsToDevicePixels="True" AllowsTransparency="True">
-                                        <Border CornerRadius="10" Background="WhiteSmoke" Margin="0,5,0,10">
+                                        <Border CornerRadius="10" Background="WhiteSmoke" Margin="7">
                                             <DockPanel Margin="10">
                                                 <Border DockPanel.Dock="Left"
                                                         CornerRadius="10" Margin="0,0,10,0"
@@ -156,7 +174,7 @@
                                             </DockPanel>
 
                                             <Border.Effect>
-                                                <DropShadowEffect Color="DarkGray" ShadowDepth="1" />
+                                                <DropShadowEffect Color="DarkGray" BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1" />
                                             </Border.Effect>
                                         </Border>
                                     </Popup>
@@ -165,6 +183,7 @@
 
                             <DataTemplate.Triggers>
                                 <Trigger SourceName="Item" Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Item" Property="Background" Value="PowderBlue"></Setter>
                                     <Trigger.EnterActions>
                                         <BeginStoryboard x:Name="bsb">
                                             <Storyboard>
@@ -189,6 +208,16 @@
                         <Style TargetType="ListViewItem">
                             <Setter Property="Padding" Value="0" />
                             <Setter Property="Margin" Value="5,0,5,5" />
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListViewItem">
+                                        <Grid Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
                         </Style>
                     </ListView.ItemContainerStyle>
 

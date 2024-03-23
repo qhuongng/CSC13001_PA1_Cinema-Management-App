@@ -8,24 +8,29 @@ namespace CineManagement.ViewModels
         MovieService ms = new MovieService();
 
         public List<Movie> Movies { get; set; }
-        public List<byte[]> BannerPosters { get; set; }
+        public List<Movie> BannerMovies { get; set; }
+        public List<Movie> BestSellingMovies { get; set; }
+        public List<Movie> CurrentlyInCinesMovies { get; set; }
+
         public Movie SelectedMovie { get => _selectedMovie; set { _selectedMovie = value; OnPropertyChanged(nameof(SelectedMovie)); } }
 
         private Movie _selectedMovie;
 
         public HomeViewModel()
         {
-            // load all movies
             Movies = new List<Movie>();
-            List<Movie> movies = ms.getMovies();
-            Movies = movies;
+            BannerMovies = new List<Movie>();
+            BestSellingMovies = new List<Movie>();
+            CurrentlyInCinesMovies = new List<Movie>();
 
-            // load FlipView posters
-            BannerPosters = new List<byte[]>();
-            for (int i = 0; i < 5; i++)
-            {
-                BannerPosters.Add(Movies[i].Poster);
-            }
+            List<Movie> movies = ms.getMovies();
+
+            Movies = movies;
+            BestSellingMovies = movies.OrderByDescending(movie => movie.MovieInfo?.TicketRevenue).Take(10).ToList();
+            CurrentlyInCinesMovies = movies.Where(movie => movie.MovieInfo?.IsSelling == true).ToList();
+            BannerMovies = movies.Where(movie => movie.MovieInfo?.IsSelling == true)
+                                 .OrderByDescending(movie => movie.MovieInfo?.TicketRevenue)
+                                 .Take(5).ToList();
         }
     }
 }
