@@ -19,6 +19,9 @@ namespace CineManagement.Views
     /// </summary>
     public partial class Admin : Window
     {
+        bool IsFullScreen = false;
+        WindowState OldWindowState;
+
         public Admin()
         {
             InitializeComponent();
@@ -31,14 +34,35 @@ namespace CineManagement.Views
                 this.DragMove();
             }
         }
-        private void CloseApp_Click(object sender, RoutedEventArgs e)
+
+        private void closeWindowBtn_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void LogOut_Click(object sender, RoutedEventArgs e)
+        private void fullSrcBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsFullScreen)
+            {
+                OldWindowState = WindowState;
+                WindowState = WindowState.Maximized;
+                Visibility = Visibility.Collapsed;
+                ResizeMode = ResizeMode.NoResize;
+                Visibility = Visibility.Visible;
+                Activate();
+            }
+            else
+            {
+                WindowState = OldWindowState;
+                ResizeMode = ResizeMode.CanResize;
+            }
 
+            IsFullScreen = !IsFullScreen;
+        }
+
+        private void minimizeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
         }
     }
 }

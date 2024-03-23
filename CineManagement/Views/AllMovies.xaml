@@ -23,9 +23,9 @@
                    Visibility="Collapsed" x:Name="SearchResultHeader" />
 
         <ListView x:Name="movieList" Grid.Row="1" Margin="20,30,20,0"
-          ItemsSource="{Binding Movies}"
-          HorizontalAlignment="Center"
-          ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="movieList_SelectionChanged">
+                  ItemsSource="{Binding Movies}"
+                  HorizontalAlignment="Center"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="movieList_SelectionChanged">  
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="Transparent"
