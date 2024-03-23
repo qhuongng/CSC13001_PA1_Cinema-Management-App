@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-using System.Windows;
-using CineManagement.Models;
+﻿using System.Windows;
 using CineManagement.ViewModels;
 using UserControl = System.Windows.Controls.UserControl;
 

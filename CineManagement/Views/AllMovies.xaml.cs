@@ -5,9 +5,6 @@ using System.Windows.Controls;
 
 namespace CineManagement.Views
 {
-    /// <summary>
-    /// Interaction logic for AllMovies.xaml
-    /// </summary>
     public partial class AllMovies : UserControl
     {
         public AllMovies()
@@ -23,5 +20,22 @@ namespace CineManagement.Views
             mw.MovieDetailsView.SeatChart.UnselectAll();
             mw.HideAllExcept(mw.Root, mw.MovieDetailsView);
         }
+
+        private void Pages_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MainWindow mw = (MainWindow)Window.GetWindow(this);
+            AllMoviesViewModel vm = (AllMoviesViewModel) mw.AllMoviesView.DataContext;
+            string selected = (string)Pages.SelectedItem;
+            int pageInd = int.Parse(selected);
+
+            vm.SelectedPage = selected;
+
+            if (selected.Equals(vm.PageIndices.Last())) {
+                vm.MoviesInPage = vm.Movies.GetRange(pageInd * 9 - 9, vm.Movies.Count - 9 * (pageInd - 1));
+            }
+            else {
+                vm.MoviesInPage = vm.Movies.GetRange(pageInd * 9 - 9, 9);
+            }
+        }     
     }
 }

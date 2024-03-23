@@ -10,6 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Text="Tất cả phim"
@@ -23,41 +24,27 @@
                    Visibility="Collapsed" x:Name="SearchResultHeader" />
 
         <ListView x:Name="movieList" Grid.Row="1" Margin="20,30,20,0"
-                  ItemsSource="{Binding Movies}"
+                  ItemsSource="{Binding MoviesInPage}"
                   HorizontalAlignment="Center"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="movieList_SelectionChanged">  
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Transparent"
-                    BorderThickness="1"
-                    Background="WhiteSmoke"
-                    CornerRadius="10">
+                    <Border x:Name="ItemBorder" BorderBrush="Transparent"
+                            BorderThickness="1"
+                            Background="WhiteSmoke"
+                            CornerRadius="10">  
                         <Grid x:Name="Item" Width="173"
-                      IsHitTestVisible="True" Cursor="Hand">
+                              IsHitTestVisible="True" Cursor="Hand">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="100"></RowDefinition>
                                 <RowDefinition Height="30"></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
 
-                            <Border Grid.Row="0" BorderBrush="Transparent"
-                            CornerRadius="10,10,0,0" >
-                                <Grid>
-                                    <!-- Rounded mask (stretches to fill Grid) -->
-                                    <Border Name="mask" Background="White"
-                                    CornerRadius="10,10,0,0" />
-
-                                    <!-- Main content container -->
-                                    <StackPanel>
-                                        <!-- Use a VisualBrush of 'mask' as the opacity mask -->
-                                        <StackPanel.OpacityMask>
-                                            <VisualBrush Visual="{Binding ElementName=mask}"/>
-                                        </StackPanel.OpacityMask>
-
-                                        <Image Source="{Binding Poster}" Stretch="UniformToFill"
-                                       VerticalAlignment="Center" />
-                                    </StackPanel>
-                                </Grid>
+                            <Border Grid.Row="0" CornerRadius="10,10,0,0">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding Poster}" Stretch="UniformToFill" />
+                                </Border.Background>
                             </Border>
 
                             <TextBlock Grid.Row="1" Text="{Binding MovieName}"
@@ -73,9 +60,12 @@
                             <Popup x:Name="ElementPopup" StaysOpen="True" Placement="Center" PlacementTarget="{x:Null}"
                                    PopupAnimation="Fade" Focusable="False" SnapsToDevicePixels="True" AllowsTransparency="True">
                                 <Border Background="LightSalmon" CornerRadius="10"
-                                Width="320" Height="180" Cursor="Hand">
+                                        Width="320" Height="180" Cursor="Hand" Margin="7">
                                     <TextBlock Text="Yay" HorizontalAlignment="Center"
                                        VerticalAlignment="Center" Focusable="False" />
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="DarkGray" BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1" />
+                                    </Border.Effect>
                                 </Border>
                             </Popup>
                         </Grid>
@@ -83,6 +73,7 @@
 
                     <DataTemplate.Triggers>
                         <Trigger SourceName="Item" Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ItemBorder" Property="Background" Value="PowderBlue"></Setter>
                             <Trigger.EnterActions>
                                 <BeginStoryboard x:Name="bsb">
                                     <Storyboard>
@@ -107,6 +98,16 @@
                 <Style TargetType="ListViewItem">
                     <Setter Property="Padding" Value="0" />
                     <Setter Property="Margin" Value="5,0,5,20" />
+
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Grid Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}" />
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
                 </Style>
             </ListView.ItemContainerStyle>
 
@@ -122,5 +123,55 @@
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
         </ListView>
+
+        <ListView Grid.Row="2" x:Name="Pages" Margin="0,0,0,20"
+                  ItemsSource="{Binding PageIndices}" SelectedItem="{Binding SelectedPage}" SelectionChanged="Pages_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Border x:Name="Page" Background="WhiteSmoke" 
+                                CornerRadius="10" Width="20" Height="20" Cursor="Hand">
+                            <TextBlock x:Name="PageNum" Text="{Binding}" FontWeight="Bold"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+
+                    <DataTemplate.Triggers>
+                        <Trigger SourceName="Page" Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Page" Property="Background" Value="PowderBlue"></Setter>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListViewItem}}" Value="True">
+                            <Setter TargetName="Page" Property="Background" Value="DarkCyan" />
+                            <Setter TargetName="PageNum" Property="Foreground" Value="White" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="Margin" Value="5,0,5,0" />
+
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Grid Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}" />
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value> 
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+
     </Grid>
 </UserControl>
