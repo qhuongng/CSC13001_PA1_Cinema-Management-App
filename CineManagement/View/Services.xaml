@@ -12,9 +12,9 @@
              d:DesignWidth="980"
              Style="{StaticResource Page_Style}">
 
-    <UserControl.DataContext>
+    <!--<UserControl.DataContext>
         <vm:ProductVM />
-    </UserControl.DataContext>
+    </UserControl.DataContext>-->
 
     <Border CornerRadius="30" Background="#EFF2F7">
         <Grid>
@@ -69,7 +69,7 @@
                 <TextBlock Text="Service" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0" Foreground="#121518" HorizontalAlignment="Left"/>
 
                 <!--Add Button-->
-                <Button Style="{StaticResource addButton}" Click="AddBtn_Click">
+                <Button Style="{StaticResource addButton}" >
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
                         <TextBlock Text="Add Service"/>
@@ -124,10 +124,10 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button Style="{StaticResource gridEditButton}" Click="EditBtn_Click">
+                                        <Button Style="{StaticResource gridEditButton}" >
                                             <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
                                         </Button>
-                                        <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}" Click="RemoveBtn_Click">
+                                        <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}" >
                                             <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
                                         </Button>
                                     </StackPanel>

@@ -117,7 +117,7 @@ WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent"
                     <!--// Products //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding ProductsCommand}">
+                              Command="{Binding MoviesCommand}">
 
                         <Grid>
 

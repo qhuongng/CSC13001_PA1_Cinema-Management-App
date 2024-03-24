@@ -31,7 +31,6 @@ namespace CineManagement.Services
                 }
             }
         }
-
         public Movie getMovieById(int id)
         {
             using (var context = new CinemaManagementContext())
@@ -51,6 +50,48 @@ namespace CineManagement.Services
                         .FirstOrDefault();
 
                     return movie;
+                }
+            }
+        }
+        public bool deleteMovieById(int id)
+        {
+            using (var context = new CinemaManagementContext())
+            {
+                Movie movie = context.Movies.FirstOrDefault(m => m.MovieId == id);
+                if(movie == null)
+                {
+                    throw new Exception("Movie not found.");
+                } else
+                {
+                    var movieInfo = context.MovieInfos.FirstOrDefault(m => m.MovieId == movie.MovieId);
+                    context.MovieInfos.Remove(movieInfo);
+                    context.Movies.Remove(movie);
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+        }
+        public bool updateMovie(Movie movie)
+        {
+            using(var context = new CinemaManagementContext())
+            {
+                Movie oldMovie = context.Movies.FirstOrDefault(m => m.MovieId.Equals(movie.MovieId));
+                oldMovie.MovieInfo = context.MovieInfos
+                        .Where(mi => mi.MovieId == oldMovie.MovieId)
+                        .FirstOrDefault();
+                if (oldMovie == null)
+                {
+                    throw new Exception("Movie not found.");
+                } else
+                {
+                    oldMovie.MovieName = movie.MovieName;
+                    oldMovie.MovieInfo.IsSelling = movie.MovieInfo.IsSelling;
+                    oldMovie.Certification = movie.Certification;
+                    oldMovie.ReleaseYear = movie.ReleaseYear;
+                    oldMovie.Duration = movie.Duration;
+                    oldMovie.ImdbRating = movie.ImdbRating;
+                    context.SaveChanges();
+                    return true;
                 }
             }
         }

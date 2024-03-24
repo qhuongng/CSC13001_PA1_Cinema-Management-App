@@ -27,7 +27,7 @@ namespace CineManagement.ViewModels
 
         public ICommand HomeCommand { get; set; }
         public ICommand CustomersCommand { get; set; }
-        public ICommand ProductsCommand { get; set; }
+        public ICommand MoviesCommand { get; set; }
         public ICommand OrdersCommand { get; set; }
         public ICommand TransactionsCommand { get; set; }
         public ICommand ShipmentsCommand { get; set; }
@@ -35,7 +35,7 @@ namespace CineManagement.ViewModels
 
         private void Home(object obj) => CurrentView = new HomeVM(User);
         private void Customer(object obj) => CurrentView = new CustomerVM();
-        private void Product(object obj) => CurrentView = new ProductVM();
+        private void Movies(object obj) => CurrentView = new MovieControlViewModel();
         private void Order(object obj) => CurrentView = new OrderVM();
         private void Transaction(object obj) => CurrentView = new TransactionVM();
         private void Shipment(object obj) => CurrentView = new ServiceVM();
@@ -48,7 +48,7 @@ namespace CineManagement.ViewModels
             User = user;
             HomeCommand = new RelayCommand(Home);
             CustomersCommand = new RelayCommand(Customer);
-            ProductsCommand = new RelayCommand(Product);
+            MoviesCommand = new RelayCommand(Movies);
             OrdersCommand = new RelayCommand(Order);
             TransactionsCommand = new RelayCommand(Transaction);
             ShipmentsCommand = new RelayCommand(Shipment);
