@@ -34,35 +34,22 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
-                            <TextBlock Text="Quản Lí Thông Tin Voucher" FontSize="25" FontWeight="SemiBold" Margin="20 10 0 0" Foreground="#121518" HorizontalAlignment="Left"/>
+                            <TextBlock Text="Thêm Voucher" FontSize="25" FontWeight="SemiBold" Margin="20 10 0 0" Foreground="#121518" HorizontalAlignment="Left"/>
                             <Canvas Margin="0 20 0 0">
                                 <Line X1="20" X2="940" Stroke="DimGray" StrokeThickness="3"/>
                             </Canvas>
                         </StackPanel>
 
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="ID Người Dùng: " FontSize="20" Margin="20" FontWeight="SemiBold"/>
-                        <TextBox Grid.Row="1" Grid.Column="1" FontSize="20" Margin="20" BorderBrush="Transparent" Background="Transparent"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" FontSize="20" Margin="20" BorderBrush="Transparent" Background="LightGray" Text="{Binding UserId, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="Giá Trị Discount(%): " FontSize="20" Margin="20" FontWeight="SemiBold"/>
-                        <TextBox Grid.Row="2" Grid.Column="1" FontSize="20" Margin="20" BorderBrush="Transparent" Background="Transparent" PreviewTextInput="TextBox_PreviewTextInput"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" FontSize="20" Margin="20" BorderBrush="Transparent" Background="LightGray" Text="{Binding DiscountPercent, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="TextBox_PreviewTextInput"/>
 
-                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Mục Đích Sử Dụng: " FontSize="20" Margin="20" FontWeight="SemiBold"/>
-                        <ComboBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="22 0 0 0" Height="35" Width="150" x:Name="myCbBox1" Style="{StaticResource theComboBox}" ItemContainerStyle="{DynamicResource theComboBoxItem}">
-                            <ComboBoxItem>Tất Cả</ComboBoxItem>
-                            <ComboBoxItem>Sinh Nhật</ComboBoxItem>
-                            <ComboBoxItem>Quà Tặng</ComboBoxItem>
-                            <ComboBoxItem>Tặng 1 Vé Vip</ComboBoxItem>
-                            <ComboBoxItem>Tặng 1 Vé Thường</ComboBoxItem>
-                            <ComboBoxItem>Tặng 1 Combo Bắp Nước</ComboBoxItem>
-                        </ComboBox>
+                        <!--<TextBlock Grid.Row="3" Grid.Column="0" Text="Tình Trạng: " FontSize="20" Margin="20" FontWeight="SemiBold"/>
+                        <TextBlock Grid.Row="3" Grid.Column="1" FontSize="20" Margin="20" Background="LightGray"/>-->
 
-                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Thời Hạn Sử Dụng: " FontSize="20" Margin="20" FontWeight="SemiBold"/>
-                        <TextBox Grid.Row="4" Grid.Column="1" FontSize="20" Margin="20" BorderBrush="Transparent" Background="Transparent"/>
-
-                        <TextBlock Grid.Row="5" Grid.Column="0" Text="Tình Trạng: " FontSize="20" Margin="20" FontWeight="SemiBold"/>
-                        <TextBox Grid.Row="5" Grid.Column="1" FontSize="20" Margin="20" BorderBrush="Transparent" Background="Transparent"/>
-
-                        <Button Style="{StaticResource addButton}" Margin="133,0,0,0" Background="DarkCyan" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Button Style="{StaticResource addButton}" Command="{Binding UpdateCommand}" Background="DarkCyan" Grid.Column="1" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.RowSpan="2">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
                                 <TextBlock Text="Thêm"/>

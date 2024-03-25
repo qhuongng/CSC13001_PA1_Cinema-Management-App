@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CineManagement.ViewModels
 {
-    class ShowtimeVM
+    class ShowtimeVM:ViewModelBase
     {
+
     }
 }

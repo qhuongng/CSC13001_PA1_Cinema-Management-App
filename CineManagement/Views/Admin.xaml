@@ -9,7 +9,7 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="MainWindow" Height="760" Width="1190" ResizeMode="NoResize" AllowsTransparency="True"
-WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent">
+        WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent">
 
     <Border BorderBrush="Transparent" BorderThickness="1"
             Background="White" CornerRadius="10" Margin="10">
