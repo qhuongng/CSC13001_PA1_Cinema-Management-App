@@ -16,7 +16,7 @@
             BorderBrush="Transparent" BorderThickness="1"
             Background="White" CornerRadius="10" Margin="5">
         <Border.Effect>
-            <DropShadowEffect Color="DarkGray" BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1" />
+            <DropShadowEffect Color="Black" BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1" />
         </Border.Effect>
         
         <Grid>
@@ -33,7 +33,9 @@
                             Cursor="Hand" Margin="10,0,0,0" Click="closeWindowBtn_Click">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <iconPacks:PackIconMaterial Kind="Close" Height="15" />
+                                <Border Background="Transparent">
+                                    <iconPacks:PackIconMaterial Kind="Close" Height="15" />
+                                </Border>
                             </ControlTemplate>
                         </Button.Template>
                         <Button.Style>
@@ -41,7 +43,7 @@
                                 <Setter Property="Foreground" Value="White" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter Property="Foreground" Value="LightSalmon" />
+                                        <Setter Property="Foreground" Value="PowderBlue" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -52,7 +54,9 @@
                             Cursor="Hand" Margin="15,0,0,0" Click="fullSrcBtn_Click">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <iconPacks:PackIconMaterial Kind="Fullscreen" Height="15" />
+                                <Border Background="Transparent">
+                                    <iconPacks:PackIconMaterial Kind="Fullscreen" Height="15" />
+                                </Border>
                             </ControlTemplate>
                         </Button.Template>
                         <Button.Style>
@@ -60,7 +64,7 @@
                                 <Setter Property="Foreground" Value="White" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter Property="Foreground" Value="LightSalmon" />
+                                        <Setter Property="Foreground" Value="PowderBlue" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -71,7 +75,9 @@
                             Cursor="Hand" Margin="15,0,0,0" Click="minimizeBtn_Click">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <iconPacks:PackIconMaterial Kind="Minus" Height="15" />
+                                <Border Background="Transparent">
+                                    <iconPacks:PackIconMaterial Kind="Minus" Height="15" />
+                                </Border>
                             </ControlTemplate>
                         </Button.Template>
                         <Button.Style>
@@ -79,7 +85,7 @@
                                 <Setter Property="Foreground" Value="White" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter Property="Foreground" Value="LightSalmon" />
+                                        <Setter Property="Foreground" Value="PowderBlue" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>

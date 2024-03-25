@@ -11,7 +11,7 @@ namespace CineManagement.Views
             InitializeComponent();
         }
 
-        private void loginBtn_Click(object sender, RoutedEventArgs e)
+        private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
             Login login = new Login();
             login.DataContext = new LoginViewModel();
@@ -27,20 +27,27 @@ namespace CineManagement.Views
             mw.HideAllExcept(mw.Root, mw.HomeView);
         }
 
-        private void buyBtn_Click(object sender, RoutedEventArgs e)
+        private void BuyBtn_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mw = (MainWindow)Window.GetWindow(this);
-            mw.AllMoviesView.DataContext = new AllMoviesViewModel();
+            mw.AllMoviesView.DataContext = new AllMoviesViewModel("");
             mw.HideAllExcept(mw.Root, mw.AllMoviesView);
         }
 
-        private void userBtn_Click(object sender, RoutedEventArgs e)
+        private void UserBtn_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mw = (MainWindow)Window.GetWindow(this);
             MainWindowViewModel vm = (MainWindowViewModel)Window.GetWindow(this).DataContext;
 
             mw.UserDetailsView.DataContext = new UserDetailViewModel(vm);
             mw.HideAllExcept(mw.Root, mw.UserDetailsView);
+        }
+
+        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mw = (MainWindow)Window.GetWindow(this);
+            mw.AllMoviesView.DataContext = new AllMoviesViewModel(searchBox.Text);
+            mw.HideAllExcept(mw.Root, mw.AllMoviesView);
         }
     }
 }

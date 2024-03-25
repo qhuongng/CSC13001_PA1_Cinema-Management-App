@@ -1,35 +1,49 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using CineManagement.Models;
+using CineManagement.ViewModels;
 
 namespace CineManagement.Views
 {
     public partial class MovieDetails : UserControl
     {
-        public ObservableCollection<string> SeatIndices { get; set; }
-
         public MovieDetails()
         {
             InitializeComponent();
-
-            SeatIndices = new ObservableCollection<string>();
-            PopulateSeatChart();
-            SeatChart.ItemsSource = SeatIndices;
         }
 
-        private void PopulateSeatChart()
+        private void SeatChart_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            char startChar = 'A';
-            int maxRows = 10;
-            int maxColumns = 8; // Assuming 80 seats
+            MainWindow mw = (MainWindow) Window.GetWindow(this);
+            MovieDetailsViewModel vm = (MovieDetailsViewModel) mw.MovieDetailsView.DataContext;
 
-            for (int row = 1; row <= maxRows; row++)
+            List<Seat> selectedSeats = SeatChart.SelectedItems.Cast<Seat>().ToList();
+            vm.SelectedSeats = selectedSeats;
+        }
+
+        private void Projectors_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SeatChart.SelectedItems.Clear();
+
+            MainWindow mw = (MainWindow) Window.GetWindow(this);
+            MovieDetailsViewModel vm = (MovieDetailsViewModel) mw.MovieDetailsView.DataContext;
+            List<string> boughtSeats = vm.BoughtSeats;
+
+            vm.Total = 0;
+
+            if (boughtSeats != null)
             {
-                for (int column = 1; column <= maxColumns; column++)
+                foreach (Seat seat in SeatChart.Items)
                 {
-                    char currentChar = (char)(startChar + row - 1);
-                    SeatIndices.Add($"{currentChar}{column}");
+                    if (boughtSeats.Contains(seat.SeatId))
+                    {
+                        seat.IsEnabled = false;
+                    }
+                    else
+                    {
+                        seat.IsEnabled = true;
+                    }
                 }
             }
         }

@@ -16,28 +16,19 @@ namespace CineManagement.Views
 
         private void movieList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MainWindow mw = (MainWindow)Window.GetWindow(this);
-            Movie selected = (Movie)movieList.SelectedItem;
-            mw.MovieDetailsView.DataContext = new MovieDetailsViewModel(selected);
+            MainWindow mw = (MainWindow) Window.GetWindow(this);
+            MainWindowViewModel vm = (MainWindowViewModel) mw.DataContext;
+            Movie selected = (Movie) movieList.SelectedItem;
+            User? currentUser = null;
+
+            if (vm.CurrentUser != null)
+            {
+                currentUser = vm.CurrentUser;
+            }
+
+            mw.MovieDetailsView.DataContext = new MovieDetailsViewModel(selected, currentUser);
             mw.MovieDetailsView.SeatChart.UnselectAll();
             mw.HideAllExcept(mw.Root, mw.MovieDetailsView);
-        }
-
-        private void Pages_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            MainWindow mw = (MainWindow)Window.GetWindow(this);
-            AllMoviesViewModel vm = (AllMoviesViewModel) mw.AllMoviesView.DataContext;
-            string selected = (string)Pages.SelectedItem;
-            int pageInd = int.Parse(selected);
-
-            vm.SelectedPage = selected;
-
-            if (selected.Equals(vm.PageIndices.Last())) {
-                vm.MoviesInPage = vm.Movies.GetRange(pageInd * 9 - 9, vm.Movies.Count - 9 * (pageInd - 1));
-            }
-            else {
-                vm.MoviesInPage = vm.Movies.GetRange(pageInd * 9 - 9, 9);
-            }
         }
 
         public static T FindChild<T>(DependencyObject parent) where T : DependencyObject
@@ -66,7 +57,7 @@ namespace CineManagement.Views
 
         private void HandleFail(object sender, ExceptionRoutedEventArgs e)
         {
-            MessageBox.Show("lmao " + e.ErrorException);
+            MessageBox.Show("Trailer video failed: " + e.ErrorException);
         }
 
         private void ElementPopup_Opened(object sender, EventArgs e)

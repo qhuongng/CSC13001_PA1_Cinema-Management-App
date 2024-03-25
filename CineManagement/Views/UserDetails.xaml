@@ -3,13 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CineManagement.Views"
         xmlns:viewModel="clr-namespace:CineManagement.ViewModels" 
         d:DataContext="{d:DesignInstance Type=viewModel:UserDetailViewModel}"
         mc:Ignorable="d" 
-        Height="600" Width="800"
-        Background="Transparent"
-        >
+        d:DesignHeight="1000" d:DesignWidth="1000"
+        Background="Transparent">
     <UserControl.Resources>
         <Style x:Key="datepickerStyle" TargetType="{x:Type DatePicker}">
             <Setter Property="TextBlock.Background" Value="White"></Setter>
@@ -181,214 +179,203 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid>
-        <Border CornerRadius="10" BorderBrush="Transparent"
-                Background="White" BorderThickness="1">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="270"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="0">
-                        <StackPanel.Background>
-                            <LinearGradientBrush StartPoint="1,0" EndPoint="0,0">
-                                <GradientStop Color="#FDA085" Offset="0"/>
-                                <GradientStop Color="#F6D365 " Offset="1"/>
-                            </LinearGradientBrush>
-                        </StackPanel.Background>
-                        <Border Width="130" Height="130" Margin="0 70 0 0" Background="White" CornerRadius="80">
-                            <Image Source="/Image/user.png"
-                                Width="100" Height="100"/>
-                        </Border>
-                        <TextBlock Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"
-                                           Foreground="White"
-                                           FontSize="25"
-                                           FontWeight="Medium"
-                                           FontFamily="Montserrat"                             
-                                           Margin="0,50,0,0"
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="270"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Background="PowderBlue">
+            <Border Width="130" Height="130" Margin="0,70,0,20" Background="White" CornerRadius="80">
+                <Image Source="/Image/user.png" Width="100" Height="100"/>
+            </Border>
+            <TextBlock Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"
+                                           Foreground="DarkCyan"
+                                           FontSize="22"
+                                           FontWeight="Bold"
                                            HorizontalAlignment="Center"/>
-                    </StackPanel>
-                    <ScrollViewer Grid.Column="1" Margin="5,10,-5,-10">
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Margin="30,40,30,40">
+            <TextBlock Text="Thông tin người dùng" FontWeight="Bold"
+                               FontSize="20" VerticalAlignment="Bottom" Margin="0 0 0 20" />
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Column="0" Grid.Row="0"
+                                Orientation="Vertical" Margin="0,0,20,20">
+                    <TextBlock Text="Tên người dùng" FontWeight="Medium"
+                                   FontSize="18" VerticalAlignment="Bottom" Margin="0 0 0 10" />
+
+                    <Border BorderBrush="Transparent" CornerRadius="10">
                         <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="230"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="70"/>
-                                <RowDefinition Height="120"/>
-                                <RowDefinition Height="78"/>
-                                <RowDefinition Height="20"/>
-                                <RowDefinition Height="40"/>
-                                <RowDefinition Height="40"/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Border Grid.Row="0" Grid.ColumnSpan="2"
-                                Margin="40 0 30 0"
-                                    BorderBrush="Gray"
-                                BorderThickness="0 0 0 2">
-                                <TextBlock
-                               Text="Information" FontWeight="Medium"
-                               FontSize="23" 
-                               VerticalAlignment="Bottom" Margin="0 0 0 10"
-                               />
-                            </Border>
-                            <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical"
-                                        Margin="40 25 30 0">
-                                <TextBlock
-                                Text="Username" FontWeight="Medium"
-                                FontSize="20" 
-                                VerticalAlignment="Bottom" Margin="0 0 0 10"
-                                />
-                                <TextBox Text="{Binding UserName,UpdateSourceTrigger=PropertyChanged}"
-                                         Margin="0 5 0 0" FontSize="20"
-                                         Foreground="gray" BorderThickness="0 0 0 0"/>
+                            <Border Name="mask1" Background="WhiteSmoke" CornerRadius="10" />
+
+                            <StackPanel>
+                                <StackPanel.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=mask1}"/>
+                                </StackPanel.OpacityMask>
+
+                                <TextBox Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"
+                                             Margin="10,3,0,0" Height="30" FontSize="16"
+                                             HorizontalAlignment="Stretch" Foreground="DimGray"
+                                             BorderBrush="Transparent" Background="WhiteSmoke" />
                             </StackPanel>
-                            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical"
-                                        Margin="10 25 115 0">
-                                <TextBlock
-                                Text="Date of Birth" FontWeight="Medium"
-                                FontSize="20" 
-                                VerticalAlignment="Bottom" Margin="0 0 0 0" />
-                                <DatePicker 
-                                            x:Name="txtDobRegister"
-                                            Style="{DynamicResource datepickerStyle}"
-                                            Text="{Binding Dob, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"                                          
-                                            FontSize="20"
-                                            FontWeight="Medium"
-                                            FontFamily="Montserrat"
-                                            Foreground="Gray"      
-                                            BorderBrush="DarkGray"
-                                            BorderThickness="0 0 0 0"
-                                            Height="45"
-                                            VerticalContentAlignment="Center">
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Grid.Row="0"
+                                Orientation="Vertical" Margin="20,0,0,20">
+                    <TextBlock Text="Ngày sinh" FontWeight="Medium"
+                                   FontSize="18" VerticalAlignment="Bottom" Margin="0,0,0,10" />
+
+                    <Border BorderBrush="Transparent" CornerRadius="10">
+                        <Grid>
+                            <Border Name="mask2" Background="WhiteSmoke" CornerRadius="10" />
+
+                            <StackPanel>
+                                <StackPanel.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=mask2}"/>
+                                </StackPanel.OpacityMask>
+
+                                <DatePicker x:Name="txtDobRegister" Style="{DynamicResource datepickerStyle}"
+                                                BorderBrush="Transparent" BorderThickness="0,0,0,0"
+                                                Text="{Binding Dob, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" FontSize="16"
+                                                Foreground="DimGray" Background="WhiteSmoke" Height="33" VerticalContentAlignment="Center">
                                 </DatePicker>
                             </StackPanel>
-                            <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Vertical"
-                                        Margin="40 0 30 10">
-                                <TextBlock
-                                    Text="Password" FontWeight="Medium"
-                                    FontSize="20" 
-                                    VerticalAlignment="Bottom" Margin="0 0 0 10"
-                                    />
-                                <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
-                                     Margin="0 5 0 0" FontSize="20"
-                                     Foreground="gray" BorderThickness="0 0 0 0"/>
-                            </StackPanel>
-                            <Grid Grid.Row="3" Grid.ColumnSpan="2">
-                                <TextBlock HorizontalAlignment="Center"
-                                       Text="{Binding ErrorMessage, UpdateSourceTrigger=PropertyChanged}"
-                                Foreground="Red"
-                                FontSize="12"
-                                FontWeight="Medium"
-                                FontFamily="Montserrat"                             
-                                Margin="0,0,60,0"
-                                TextWrapping="Wrap"/>
-                                <TextBlock HorizontalAlignment="Center"
-                                       Text="{Binding SuccessMessage, UpdateSourceTrigger=PropertyChanged}"
-                                Foreground="Green"
-                                FontSize="12"
-                                FontWeight="Medium"
-                                FontFamily="Montserrat"                             
-                                Margin="0,0,60,0"
-                                TextWrapping="Wrap"/>
-                            </Grid>
-     
-                            <Button x:Name="btnUpdate"
-                                    Grid.Row="4"
-                                    Grid.ColumnSpan="2"
-                                    Command="{Binding UpdateCommand}"
-                                    BorderThickness="0"
-                                    Content="Update"
-                                    Foreground="White"
-                                    FontSize="12"
-                                    FontFamily="Montserrat"
-                                    Cursor="Hand"
-                                    Margin="120 0 180 0"
-                                    >  
-
-                                <Button.Style>
-                                    <Style TargetType="Button">
-                                        <Setter Property="Background" Value="DarkCyan"/>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#28AEED"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-
-                                <Button.Template>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Width="80" Height="40"
-                                                CornerRadius="20"
-                                                Background="{TemplateBinding Background}">  
-                                            <ContentPresenter VerticalAlignment="Center"
-                                                                HorizontalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Button.Template>
-                            </Button>
-                            
-                            <Border Grid.Row="5" Grid.ColumnSpan="2"
-                                Margin="35 0 30 0"
-                                    BorderBrush="Gray"
-                                BorderThickness="0 0 0 2">
-                                <TextBlock
-                               Text="Ticket" FontWeight="Medium"
-                               FontSize="23" 
-                               VerticalAlignment="Bottom" Margin="0 0 0 0"
-                               />
-                            </Border>
-                            <ListView Grid.Row="6" Grid.ColumnSpan="2" ItemsSource="{Binding TicketInfoList}" 
-                                      Margin="30 0 30 0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="80"/>
-                                                <ColumnDefinition Width="225"/>
-                                                <ColumnDefinition Width="65"/>
-                                                <ColumnDefinition />
-                                            </Grid.ColumnDefinitions>
-                                            <Image Source="{Binding MovieImage}"
-                                                   Width="80" Height="80"
-                                                   Grid.Column="0" Margin="0 5 0 5"/>
-                                            <StackPanel Grid.Column="1"
-                                                        Orientation="Vertical">
-                                                <TextBlock Text="{Binding MovieName}"
-                                                           FontSize="16" Margin="3 20 3 10"
-                                                           FontWeight="DemiBold"/>
-                                                <StackPanel Orientation="Horizontal" Margin="5 3 0 0">
-                                                    <TextBlock Text="{Binding ProjectorInfo, StringFormat={} {0} |}" />
-                                                    <TextBlock Text="{Binding Duration, StringFormat={}{0} phút }" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                            <Border Grid.Column="2" BorderThickness="1 0 1 0" BorderBrush="LightGray"
-                                                    Margin="0 10 0 5">
-                                                <StackPanel Orientation="Vertical">
-                                                    <TextBlock Text="Seat Id" Margin="3 10 0 10" HorizontalAlignment="Center" />
-                                                    <TextBlock Text="{Binding SeatId}" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"/>
-                                                </StackPanel>                      
-                                            </Border>
-                                            <StackPanel Grid.Column="3" Orientation="Vertical" Margin="0 10 0 5">
-                                                <TextBlock Text="Price" Margin="3 7 0 10" HorizontalAlignment="Center" />
-                                                <TextBlock Text="{Binding Price, StringFormat={}{0} VNĐ}" Margin="3 7 0 0" HorizontalAlignment="Center" FontWeight="SemiBold"/>
-                                            </StackPanel>
-                                            
-                                        </Grid>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
                         </Grid>
-                    </ScrollViewer>
-                </Grid>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Grid.Column="0" Grid.Row="1"
+                                Orientation="Vertical" Margin="0,0,20,20">
+                    <TextBlock Text="Mật khẩu" FontWeight="Medium"
+                                   FontSize="18" VerticalAlignment="Bottom" Margin="0 0 0 10" />
+
+                    <Border BorderBrush="Transparent" CornerRadius="10" Margin="0,0,0,20">
+                        <Grid>
+                            <Border Name="mask3" Background="WhiteSmoke" CornerRadius="10" />
+
+                            <StackPanel>
+                                <StackPanel.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=mask3}"/>
+                                </StackPanel.OpacityMask>
+
+                                <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+                                             Margin="10,3,0,0" Height="30" FontSize="16"
+                                             HorizontalAlignment="Stretch" Foreground="DimGray"
+                                             BorderBrush="Transparent" Background="WhiteSmoke" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </StackPanel>
             </Grid>
-        </Border>
+
+            <Grid>
+                <TextBlock HorizontalAlignment="Center" Text="{Binding ErrorMessage, UpdateSourceTrigger=PropertyChanged}"
+                               Foreground="Firebrick" FontSize="12" TextWrapping="Wrap"/>
+                <TextBlock HorizontalAlignment="Center" Text="{Binding SuccessMessage, UpdateSourceTrigger=PropertyChanged}"
+                               Foreground="Green" FontSize="12" TextWrapping="Wrap"/>
+            </Grid>
+
+            <Button x:Name="btnUpdate" Command="{Binding UpdateCommand}"
+                        BorderThickness="0" Content="Cập nhật thông tin"
+                        Foreground="White" FontWeight="Bold" FontSize="14" Cursor="Hand">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="DarkCyan"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="PowderBlue"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Margin="100,0,100,40" Height="40"
+                                    Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                                                HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <TextBlock Text="Lịch sử mua vé" FontWeight="Bold"
+                           FontSize="20" VerticalAlignment="Bottom" Margin="0,0,0,20" />
+
+            <ListView Grid.Row="6" Grid.ColumnSpan="2" ItemsSource="{Binding TicketInfoList, UpdateSourceTrigger=PropertyChanged}" 
+                          d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="2.5*"/>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Border CornerRadius="10" Margin="10"
+                                        Width="80" Height="45">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding Movie.Poster}" Stretch="UniformToFill" />
+                                </Border.Background>
+                            </Border>
+
+                            <StackPanel Grid.Column="1" Orientation="Vertical" Margin="10" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Movie.MovieName}" FontSize="16" Margin="0,0,0,10" FontWeight="Bold"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock  Text="{Binding Projector.ProjectorInfo, StringFormat='Suất {0:dd/MM/yyyy} - {0:HH:mm}'}" />
+                                    <TextBlock Text="{Binding Movie.Duration, StringFormat={} | {0} phút }" />
+                                </StackPanel>
+                            </StackPanel>
+
+                            <Border Grid.Column="2" BorderThickness="1 0 1 0" BorderBrush="LightGray">
+                                <StackPanel Orientation="Vertical" Margin="10">
+                                    <TextBlock Text="Chỗ ngồi" Margin="0,0,0,10" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{Binding SeatId}" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"/>
+                                </StackPanel>
+                            </Border>
+
+                            <StackPanel Grid.Column="3" Orientation="Vertical" Margin="10">
+                                <TextBlock Text="Giá" Margin="0,0,0,10" HorizontalAlignment="Center" />
+                                <TextBlock Text="{Binding Price, StringFormat={}{0:N0} VND}" FontSize="16"
+                                               HorizontalAlignment="Center" FontWeight="Bold" Foreground="DarkCyan"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Cursor" Value="Arrow" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <Grid Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </StackPanel>
     </Grid>
 </UserControl>

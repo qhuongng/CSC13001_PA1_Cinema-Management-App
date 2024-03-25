@@ -217,17 +217,17 @@ public partial class CinemaManagementContext : DbContext
             entity.HasOne(d => d.Movie).WithMany(p => p.Tickets)
                 .HasForeignKey(d => d.MovieId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Ticket__movieId__52593CB8");
+                .HasConstraintName("FK__Ticket__movieId__6477ECF3");
 
             entity.HasOne(d => d.Projector).WithMany(p => p.Tickets)
                 .HasForeignKey(d => d.ProjectorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Ticket__projecto__534D60F1");
+                .HasConstraintName("FK__Ticket__projecto__656C112C");
 
             entity.HasOne(d => d.User).WithMany(p => p.Tickets)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Ticket__userId__5165187F");
+                .HasConstraintName("FK__Ticket__userId__6383C8BA");
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -261,7 +261,7 @@ public partial class CinemaManagementContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.Vouchers)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Voucher__userId__5629CD9C");
+                .HasConstraintName("FK__Voucher__userId__60A75C0F");
         });
 
         OnModelCreatingPartial(modelBuilder);
