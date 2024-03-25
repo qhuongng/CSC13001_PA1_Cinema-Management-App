@@ -294,7 +294,7 @@
                                 <Setter Property="Foreground" Value="White" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter Property="Foreground" Value="LightSalmon" />
+                                        <Setter Property="Foreground" Value="PowderBlue" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -316,7 +316,7 @@
                                 <Setter Property="Foreground" Value="White" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter Property="Foreground" Value="LightSalmon" />
+                                        <Setter Property="Foreground" Value="PowderBlue" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>

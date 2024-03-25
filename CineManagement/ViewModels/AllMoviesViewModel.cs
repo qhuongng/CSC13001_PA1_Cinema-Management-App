@@ -1,8 +1,6 @@
 ﻿using CineManagement.Models;
 using CineManagement.Services;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Collections.ObjectModel;
-using System.Windows.Forms.VisualStyles;
 
 namespace CineManagement.ViewModels
 {

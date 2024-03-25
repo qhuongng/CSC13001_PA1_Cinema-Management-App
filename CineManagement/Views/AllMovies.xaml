@@ -18,13 +18,13 @@
                    FontSize="20" FontWeight="Bold"
                    x:Name="AllMoviesHeader" />
 
-        <TextBlock Grid.Row="0" Text="{Binding SearchTerm, StringFormat='Kết quả tìm kiếm cho &quot;{0}&quot;'}"
+        <TextBlock Grid.Row="0" Text="{Binding SearchTerm, StringFormat='Kết quả tìm kiếm cho &quot;{0}&quot;', UpdateSourceTrigger=PropertyChanged}"
                    VerticalAlignment="Center" Margin="20,10,20,0"
                    FontSize="20" FontWeight="Bold"
                    Visibility="Collapsed" x:Name="SearchResultHeader" />
 
         <ListView x:Name="movieList" Grid.Row="1" Margin="20,30,20,0"
-                  ItemsSource="{Binding MoviesInPage}"
+                  ItemsSource="{Binding MoviesInPage, UpdateSourceTrigger=PropertyChanged}"
                   HorizontalAlignment="Center"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="movieList_SelectionChanged">  
             <ListView.ItemTemplate>
@@ -43,18 +43,18 @@
 
                             <Border Grid.Row="0" CornerRadius="10,10,0,0">
                                 <Border.Background>
-                                    <ImageBrush ImageSource="{Binding Poster}" Stretch="UniformToFill" />
+                                    <ImageBrush ImageSource="{Binding Poster, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill" />
                                 </Border.Background>
                             </Border>
 
-                            <TextBlock Grid.Row="1" Text="{Binding MovieName}"
+                            <TextBlock Grid.Row="1" Text="{Binding MovieName, UpdateSourceTrigger=PropertyChanged}"
                                Margin="7,7,7,0" VerticalAlignment="Center"
                                TextWrapping="Wrap" FontWeight="Bold" />
 
                             <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="7">
-                                <TextBlock Text="{Binding Duration, StringFormat={}{0} phút |}" />
-                                <TextBlock Text="{Binding Certification, StringFormat={} {0} |}" />
-                                <TextBlock Text="{Binding ReleaseYear, StringFormat={} {0}}" />
+                                <TextBlock Text="{Binding Duration, StringFormat={}{0} phút |, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Text="{Binding Certification, StringFormat={} {0} |, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Text="{Binding ReleaseYear, StringFormat={} {0}, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
 
                             <Popup x:Name="ElementPopup" StaysOpen="True" Placement="Center" PlacementTarget="{x:Null}"
@@ -125,7 +125,7 @@
         </ListView>
 
         <ListView Grid.Row="2" x:Name="Pages" Margin="0,0,0,20"
-                  ItemsSource="{Binding PageIndices}" SelectedItem="{Binding SelectedPage}" SelectionChanged="Pages_SelectionChanged">
+                  ItemsSource="{Binding PageIndices}" SelectedItem="{Binding SelectedPage, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="Pages_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -140,7 +140,7 @@
                         <Trigger SourceName="Page" Property="IsMouseOver" Value="True">
                             <Setter TargetName="Page" Property="Background" Value="PowderBlue"></Setter>
                         </Trigger>
-                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListViewItem}}" Value="True">
+                        <DataTrigger Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=ListViewItem}}" Value="True">
                             <Setter TargetName="Page" Property="Background" Value="DarkCyan" />
                             <Setter TargetName="PageNum" Property="Foreground" Value="White" />
                         </DataTrigger>

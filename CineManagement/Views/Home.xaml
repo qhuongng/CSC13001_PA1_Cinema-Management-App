@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
 
         <mah:FlipView x:Name="posterBanner" SelectedItem="{Binding SelectedMovie}"
-                      ItemsSource="{Binding Path=BannerMovies}"
+                      ItemsSource="{Binding Path=BannerMovies, UpdateSourceTrigger=PropertyChanged}"
                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                       IsBannerEnabled="False" MouseHoverBorderEnabled="False"
                       Margin="20,0,20,20">
@@ -29,7 +29,7 @@
                 <DataTemplate>
                     <Border CornerRadius="10">
                         <Border.Background>
-                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Poster}"/>
+                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Poster, UpdateSourceTrigger=PropertyChanged}"/>
                         </Border.Background>
                     </Border>
                 </DataTemplate>
@@ -54,7 +54,7 @@
                             <Setter Property="Foreground" Value="DarkCyan" />
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="true">
-                                    <Setter Property="Foreground" Value="LightSalmon" />
+                                    <Setter Property="Foreground" Value="PowderBlue" />
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -73,7 +73,7 @@
                             <Setter Property="Foreground" Value="DarkCyan" />
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="true">
-                                    <Setter Property="Foreground" Value="LightSalmon" />
+                                    <Setter Property="Foreground" Value="PowderBlue" />
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -82,7 +82,7 @@
 
                 <ListView ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                           ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                          ItemsSource="{Binding BestSellingMovies}" SelectionChanged="movieList_SelectionChanged">
+                          ItemsSource="{Binding BestSellingMovies, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="movieList_SelectionChanged">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border x:Name="ItemBorder" BorderBrush="Transparent"
@@ -98,18 +98,18 @@
 
                                     <Border Grid.Row="0" CornerRadius="10,10,0,0">
                                         <Border.Background>
-                                            <ImageBrush ImageSource="{Binding Poster}" Stretch="UniformToFill" />
+                                            <ImageBrush ImageSource="{Binding Poster, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill" />
                                         </Border.Background>
                                     </Border>
 
-                                    <TextBlock Grid.Row="1" Text="{Binding MovieName}"
+                                    <TextBlock Grid.Row="1" Text="{Binding MovieName, UpdateSourceTrigger=PropertyChanged}"
                                                Margin="7,7,7,0" VerticalAlignment="Center"
                                                TextWrapping="Wrap" FontWeight="Bold" />
 
                                     <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="7">
-                                        <TextBlock Text="{Binding Duration, StringFormat={}{0} phút |}" />
-                                        <TextBlock Text="{Binding Certification, StringFormat={} {0} |}" />
-                                        <TextBlock Text="{Binding ReleaseYear, StringFormat={} {0}}" />
+                                        <TextBlock Text="{Binding Duration, StringFormat={}{0} phút |, UpdateSourceTrigger=PropertyChanged}" />
+                                        <TextBlock Text="{Binding Certification, StringFormat={} {0} |, UpdateSourceTrigger=PropertyChanged}" />
+                                        <TextBlock Text="{Binding ReleaseYear, StringFormat={} {0}, UpdateSourceTrigger=PropertyChanged}" />
                                     </StackPanel>
 
                                     <Popup x:Name="ElementPopup" StaysOpen="True" Placement="Center" PlacementTarget="{x:Null}"
@@ -192,7 +192,7 @@
                             <Setter Property="Foreground" Value="DarkCyan" />
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="true">
-                                    <Setter Property="Foreground" Value="LightSalmon" />
+                                    <Setter Property="Foreground" Value="PowderBlue" />
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -211,7 +211,7 @@
                             <Setter Property="Foreground" Value="DarkCyan" />
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="true">
-                                    <Setter Property="Foreground" Value="LightSalmon" />
+                                    <Setter Property="Foreground" Value="PowderBlue" />
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -220,7 +220,7 @@
 
                 <ListView ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                           ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                          ItemsSource="{Binding CurrentlyInCinesMovies}" SelectionChanged="movieList_SelectionChanged">
+                          ItemsSource="{Binding CurrentlyInCinesMovies, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="movieList_SelectionChanged">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border x:Name="ItemBorder" BorderBrush="Transparent"
@@ -236,18 +236,18 @@
 
                                     <Border Grid.Row="0" CornerRadius="10,10,0,0">
                                         <Border.Background>
-                                            <ImageBrush ImageSource="{Binding Poster}" Stretch="UniformToFill" />
+                                            <ImageBrush ImageSource="{Binding Poster, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill" />
                                         </Border.Background>
                                     </Border>
 
-                                    <TextBlock Grid.Row="1" Text="{Binding MovieName}"
+                                    <TextBlock Grid.Row="1" Text="{Binding MovieName, UpdateSourceTrigger=PropertyChanged}"
                                                Margin="7,7,7,0" VerticalAlignment="Center"
                                                TextWrapping="Wrap" FontWeight="Bold" />
 
                                     <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="7">
-                                        <TextBlock Text="{Binding Duration, StringFormat={}{0} phút |}" />
-                                        <TextBlock Text="{Binding Certification, StringFormat={} {0} |}" />
-                                        <TextBlock Text="{Binding ReleaseYear, StringFormat={} {0}}" />
+                                        <TextBlock Text="{Binding Duration, StringFormat={}{0} phút |, UpdateSourceTrigger=PropertyChanged}" />
+                                        <TextBlock Text="{Binding Certification, StringFormat={} {0} |, UpdateSourceTrigger=PropertyChanged}" />
+                                        <TextBlock Text="{Binding ReleaseYear, StringFormat={} {0}, UpdateSourceTrigger=PropertyChanged}" />
                                     </StackPanel>
 
                                     <Popup x:Name="ElementPopup" StaysOpen="True" Placement="Center" PlacementTarget="{x:Null}"

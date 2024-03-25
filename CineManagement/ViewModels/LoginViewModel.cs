@@ -1,10 +1,5 @@
 ﻿using CineManagement.Models;
 using CineManagement.Services;
-using CineManagement.Views;
-using Prism.Commands;
-using System.ComponentModel;
-using System.Security;
-using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace CineManagement.ViewModels
@@ -54,11 +49,9 @@ namespace CineManagement.ViewModels
         private void ExecuteGuestLoginCommand(object obj)
         {
             var screen = new MainWindow();
+            screen.DataContext = new MainWindowViewModel();
             screen.Show();
             IsViewVisible = false;
-            //user = userManager.CheckLogin(UsernameLogin, PasswordLogin);
-            //var screen = new UserDetails(user);
-            //screen.Show();
         }
 
         private bool CanExecuteRegisterCommand(object obj)

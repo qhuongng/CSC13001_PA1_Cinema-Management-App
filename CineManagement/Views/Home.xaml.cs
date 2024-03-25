@@ -20,8 +20,16 @@ namespace CineManagement.Views
         {
             ListView lv = sender as ListView;
             MainWindow mw = (MainWindow) Window.GetWindow(this);
+            MainWindowViewModel vm = (MainWindowViewModel) mw.DataContext;
             Movie selected = (Movie) lv.SelectedItem;
-            mw.MovieDetailsView.DataContext = new MovieDetailsViewModel(selected);
+            User? currentUser = null;
+
+            if (vm.CurrentUser != null)
+            {
+                currentUser = vm.CurrentUser;
+            }
+
+            mw.MovieDetailsView.DataContext = new MovieDetailsViewModel(selected, currentUser);
             mw.MovieDetailsView.SeatChart.UnselectAll();
             mw.HideAllExcept(mw.Root, mw.MovieDetailsView);
         }
