@@ -27,18 +27,19 @@
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Foreground" Value="DarkCyan" />
-                    <Setter Property="FontSize" Value="16" />
+                    <Setter Property="FontSize" Value="18" />
                     <Setter Property="FontWeight" Value="ExtraBold" />
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Foreground" Value="LightSalmon" />
+                            <Setter Property="Foreground" Value="PowderBlue" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>
             </Button.Style>
         </Button>
 
-        <Button x:Name="buyBtn" Grid.Column="1" Margin="5" Content="MUA VÉ" Cursor="Hand" Click="buyBtn_Click">
+        <Button x:Name="buyBtn" Grid.Column="1" Margin="5"
+                Content="MUA VÉ" Cursor="Hand" Click="BuyBtn_Click">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <TextBlock FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -51,7 +52,7 @@
                     <Setter Property="Foreground" Value="Black" />
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Foreground" Value="LightSalmon" />
+                            <Setter Property="Foreground" Value="PowderBlue" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -61,20 +62,17 @@
         <Border Grid.Column="2"
                 BorderBrush="Transparent" CornerRadius="10">
             <Grid>
-                <!-- Rounded mask (stretches to fill Grid) -->
                 <Border Name="mask"
                         Background="WhiteSmoke"
                         CornerRadius="10" />
 
-                <!-- Main content container -->
                 <StackPanel>
-                    <!-- Use a VisualBrush of 'mask' as the opacity mask -->
                     <StackPanel.OpacityMask>
                         <VisualBrush Visual="{Binding ElementName=mask}"/>
                     </StackPanel.OpacityMask>
 
                     <TextBox x:Name="searchBox"
-                             Margin="10,3,0,0"
+                             Margin="10,3,40,0"
                              HorizontalAlignment="Stretch"
                              BorderBrush="Transparent" Background="WhiteSmoke" />
                 </StackPanel>
@@ -82,11 +80,13 @@
         </Border>
 
         <Button Grid.Column="2" HorizontalAlignment="Right"
-                Cursor="Hand" Margin="0,0,10,0">
+                Cursor="Hand" Margin="0,0,10,0" Height="26" VerticalAlignment="Top" Click="SearchBtn_Click">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <iconPacks:PackIconMaterial Kind="Magnify"
+                    <Border Background="Transparent">
+                        <iconPacks:PackIconMaterial Kind="Magnify"
                             VerticalAlignment="Center" />
+                    </Border>
                 </ControlTemplate>
             </Button.Template>
             <Button.Style>
@@ -94,14 +94,14 @@
                     <Setter Property="Foreground" Value="DarkCyan" />
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Foreground" Value="LightSalmon" />
+                            <Setter Property="Foreground" Value="PowderBlue" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>
             </Button.Style>
         </Button>
 
-        <Button x:Name="loginBtn" Grid.Column="3" Margin="0,0,20,0" Content="ĐĂNG NHẬP/ĐĂNG KÝ" Cursor="Hand" Click="loginBtn_Click">
+        <Button x:Name="loginBtn" Grid.Column="3" Margin="0,0,20,0" Content="ĐĂNG NHẬP/ĐĂNG KÝ" Cursor="Hand" Click="LoginBtn_Click">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <TextBlock FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -115,7 +115,7 @@
                     <Setter Property="Foreground" Value="Black" />
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Foreground" Value="LightSalmon" />
+                            <Setter Property="Foreground" Value="PowderBlue" />
                         </Trigger>
                         <DataTrigger Binding="{Binding CurrentUser}" Value="{x:Null}">
                             <Setter Property="Visibility" Value="Visible" />
@@ -125,7 +125,9 @@
             </Button.Style>
         </Button>
 
-        <Button Grid.Column="3" Margin="0,0,20,0" Content="{Binding CurrentUser.UserName}" Cursor="Hand" Click="userBtn_Click">
+        <Button Grid.Column="3" Margin="0,0,20,0"
+                Content="{Binding CurrentUser.UserName, UpdateSourceTrigger=PropertyChanged}"
+                Cursor="Hand" Click="UserBtn_Click">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <TextBlock FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -136,10 +138,11 @@
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Visibility" Value="Visible" />
+                    <Setter Property="FontSize" Value="14" />
                     <Setter Property="Foreground" Value="Black" />
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Foreground" Value="LightSalmon" />
+                            <Setter Property="Foreground" Value="PowderBlue" />
                         </Trigger>
                         <DataTrigger Binding="{Binding CurrentUser}" Value="{x:Null}">
                             <Setter Property="Visibility" Value="Collapsed" />
