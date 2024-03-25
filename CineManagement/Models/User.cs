@@ -15,7 +15,5 @@ public partial class User
 
     public bool IsAdmin { get; set; }
 
-    public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
-
     public virtual ICollection<Voucher> Vouchers { get; set; } = new List<Voucher>();
 }

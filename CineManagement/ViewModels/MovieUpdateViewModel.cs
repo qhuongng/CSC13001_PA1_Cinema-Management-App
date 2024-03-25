@@ -50,7 +50,7 @@ namespace CineManagement.ViewModels
             //
             movie = currentMovie;
             window = currentWindow;
-            _poster = movie.Poster;
+            Poster = movie.Poster;
             _movieName = movie.MovieName;
             _duration = movie.Duration;
             _selectedAge = movie.Certification;

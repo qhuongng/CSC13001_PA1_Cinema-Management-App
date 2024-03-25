@@ -29,7 +29,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="190"/>
                     <ColumnDefinition Width="240"/>
-                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="184"/>
                     <ColumnDefinition Width="240"/>
                 </Grid.ColumnDefinitions>
 
@@ -53,18 +53,18 @@
                 <TextBox Grid.Row="1" Grid.Column="1" Width="180" Text="{Binding MovieName,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="0 20 40 20" BorderThickness="0 0 0 0"/>
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Thời Lượng: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Width="180" Text="{Binding Duration,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="0 20 40 20" BorderThickness="0 0 0 0"/>
+                <TextBox PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" Grid.Row="2" Grid.Column="1" Width="180" Text="{Binding Duration,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="0 20 40 20" BorderThickness="0 0 0 0"/>
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="Giới Hạn Độ Tuổi: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
-                <ComboBox Grid.Row="3" ItemsSource="{Binding AgeRating}" SelectedItem="{Binding SelectedAge, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Left" FontSize="20" Margin="10 0 0 0" Height="40" Width="180" Style="{StaticResource theComboBox}" ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
+                <ComboBox Grid.Row="3" ItemsSource="{Binding AgeRating}" SelectedItem="{Binding SelectedAge, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Left" FontSize="20" Margin="10 0 0 0" Height="40" Width="100" Style="{StaticResource theComboBox}" ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
                 <TextBlock Grid.Row="1" Grid.Column="2" Text="Chấm Điểm: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
-                <TextBox Grid.Row="1" Grid.Column="3" Width="180" Text="{Binding ImdbRating, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="0 20 40 20" BorderThickness="0 0 0 0" />
+                <TextBox PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" Grid.Row="1" Grid.Column="3" Width="180" Text="{Binding ImdbRating, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="0 20 40 20" BorderThickness="0 0 0 0" />
 
                 <TextBlock Grid.Row="2" Grid.Column="2" Text="Năm Phát Hành: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
-                <TextBox Grid.Row="2" Grid.Column="3" Width="180" Text="{Binding ReleaseYear,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="0 20 40 20" BorderThickness="0 0 0 0"/>
+                <TextBox PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" Grid.Row="2" Grid.Column="3" Width="180" Text="{Binding ReleaseYear,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="0 20 40 20" BorderThickness="0 0 0 0"/>
 
-                <TextBlock Grid.Row="3" Grid.Column="2" Text="Tình Trạng: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
-                <ComboBox Grid.Row="3" Grid.Column="3" ItemsSource="{Binding IsShow}" SelectedItem="{Binding CheckShow, Mode=TwoWay}" HorizontalAlignment="Left" FontSize="20" Margin="10 0 0 0" Height="40" Width="180" Style="{StaticResource theComboBox}" ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
+                <TextBlock Grid.Row="3" Grid.Column="2" Text="Tình Trạng chiếu: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
+                <ComboBox Grid.Row="3" Grid.Column="3" ItemsSource="{Binding IsShow}" SelectedItem="{Binding CheckShow, Mode=TwoWay}" HorizontalAlignment="Left" FontSize="20" Margin="10 0 0 0" Height="40" Width="100" Style="{StaticResource theComboBox}" ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
 
                 <Grid Grid.Row="4" Grid.ColumnSpan="4">
                     <TextBlock HorizontalAlignment="Left"
