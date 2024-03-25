@@ -115,9 +115,43 @@
                                     <Popup x:Name="ElementPopup" StaysOpen="True" Placement="Center" PlacementTarget="{x:Null}"
                                            PopupAnimation="Fade" Focusable="False" SnapsToDevicePixels="True" AllowsTransparency="True"
                                            Opened="ElementPopup_Opened" Closed="ElementPopup_Closed">
-                                        <Border Background="Transparent"
-                                                Width="320" Height="180" Cursor="Hand" Margin="5">
-                                            <MediaElement LoadedBehavior="Manual" UnloadedBehavior="Stop" IsMuted="False" />
+                                        <Border Background="Transparent" Width="320" Height="270"
+                                                Cursor="Hand" Margin="5">
+                                            <StackPanel Orientation="Vertical">
+                                                <Border BorderBrush="Transparent" CornerRadius="10">
+                                                    <Grid>
+                                                        <Border Name="mask" Background="WhiteSmoke" CornerRadius="10,10,0,0" />
+                                                        <StackPanel>
+                                                            <StackPanel.OpacityMask>
+                                                                <VisualBrush Visual="{Binding ElementName=mask}"/>
+                                                            </StackPanel.OpacityMask>
+                                                            <MediaElement LoadedBehavior="Manual" Height="180" Width="320"
+                                                                          MediaFailed="HandleFail" UnloadedBehavior="Stop" IsMuted="False" />
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+
+                                                <Border Background="PowderBlue"
+                                                        Height="90" Width="320" CornerRadius="0,0,10,10">
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock Text="{Binding MovieName, UpdateSourceTrigger=PropertyChanged}"
+                                                                   Margin="10,10,10,0" VerticalAlignment="Center" FontSize="18"
+                                                                   TextWrapping="Wrap" FontWeight="Bold" />
+
+                                                        <TextBlock Text="{Binding Director.DirectorName, UpdateSourceTrigger=PropertyChanged}"
+                                                                   Margin="10,0,10,10" VerticalAlignment="Center" FontSize="14"
+                                                                   TextWrapping="Wrap" FontWeight="SemiBold" />
+
+                                                        <WrapPanel Orientation="Horizontal" Margin="10,0,10,20">
+                                                            <TextBlock Text="{Binding Duration, StringFormat={}{0} phút |, UpdateSourceTrigger=PropertyChanged}" />
+                                                            <TextBlock Text="{Binding Certification, StringFormat={} {0} |, UpdateSourceTrigger=PropertyChanged}" />
+                                                            <TextBlock Text="{Binding ReleaseYear, StringFormat={} {0}, UpdateSourceTrigger=PropertyChanged}" />
+                                                        </WrapPanel>
+                                                    </StackPanel>
+
+                                                </Border>
+                                            </StackPanel>
+
                                             <Border.Effect>
                                                 <DropShadowEffect Color="DarkGray" BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1" />
                                             </Border.Effect>
@@ -253,9 +287,43 @@
                                     <Popup x:Name="ElementPopup" StaysOpen="True" Placement="Center" PlacementTarget="{x:Null}"
                                            PopupAnimation="Fade" Focusable="False" SnapsToDevicePixels="True" AllowsTransparency="True"
                                            Opened="ElementPopup_Opened" Closed="ElementPopup_Closed">
-                                        <Border Background="Transparent"
-                                                Width="320" Height="180" Cursor="Hand" Margin="5">
-                                            <MediaElement LoadedBehavior="Manual" UnloadedBehavior="Stop" IsMuted="False" />
+                                        <Border Background="Transparent" Width="320" Height="270"
+                                                Cursor="Hand" Margin="5">
+                                            <StackPanel Orientation="Vertical">
+                                                <Border BorderBrush="Transparent" CornerRadius="10">
+                                                    <Grid>
+                                                        <Border Name="mask" Background="WhiteSmoke" CornerRadius="10,10,0,0" />
+                                                        <StackPanel>
+                                                            <StackPanel.OpacityMask>
+                                                                <VisualBrush Visual="{Binding ElementName=mask}"/>
+                                                            </StackPanel.OpacityMask>
+                                                            <MediaElement LoadedBehavior="Manual" Height="180" Width="320"
+                                                                          MediaFailed="HandleFail" UnloadedBehavior="Stop" IsMuted="False" />
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+
+                                                <Border Background="PowderBlue"
+                                                        Height="90" Width="320" CornerRadius="0,0,10,10">
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock Text="{Binding MovieName, UpdateSourceTrigger=PropertyChanged}"
+                                                                   Margin="10,10,10,0" VerticalAlignment="Center" FontSize="18"
+                                                                   TextWrapping="Wrap" FontWeight="Bold" />
+
+                                                        <TextBlock Text="{Binding Director.DirectorName, UpdateSourceTrigger=PropertyChanged}"
+                                                                   Margin="10,0,10,10" VerticalAlignment="Center" FontSize="14"
+                                                                   TextWrapping="Wrap" FontWeight="SemiBold" />
+
+                                                        <WrapPanel Orientation="Horizontal" Margin="10,0,10,20">
+                                                            <TextBlock Text="{Binding Duration, StringFormat={}{0} phút |, UpdateSourceTrigger=PropertyChanged}" />
+                                                            <TextBlock Text="{Binding Certification, StringFormat={} {0} |, UpdateSourceTrigger=PropertyChanged}" />
+                                                            <TextBlock Text="{Binding ReleaseYear, StringFormat={} {0}, UpdateSourceTrigger=PropertyChanged}" />
+                                                        </WrapPanel>
+                                                    </StackPanel>
+
+                                                </Border>
+                                            </StackPanel>
+
                                             <Border.Effect>
                                                 <DropShadowEffect Color="DarkGray" BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1" />
                                             </Border.Effect>

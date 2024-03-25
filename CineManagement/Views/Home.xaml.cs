@@ -128,6 +128,11 @@ namespace CineManagement.Views
             return null;
         }
 
+        private void HandleFail(object sender, ExceptionRoutedEventArgs e)
+        {
+            MessageBox.Show("Trailer video failed: " + e.ErrorException);
+        }
+
         private void ElementPopup_Opened(object sender, EventArgs e)
         {
             Popup popup = sender as Popup;
