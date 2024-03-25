@@ -1,5 +1,6 @@
 ﻿using CineManagement.Models;
 using CineManagement.Services;
+using CineManagement.Views;
 using System.Windows.Input;
 
 namespace CineManagement.ViewModels
