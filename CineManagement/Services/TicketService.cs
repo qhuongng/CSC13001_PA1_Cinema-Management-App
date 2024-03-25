@@ -53,23 +53,22 @@ namespace CineManagement.Services
             }
         }
 
-        public Ticket GetTicketInfo(int ticketId)
+        public List<Ticket> GetTicketsByUserId(int userId)
         {
-            using(var context = new CinemaManagementContext())
+            using (var context = new CinemaManagementContext())
             {
-                Ticket ticket = context.Tickets.FirstOrDefault(x =>  x.TicketId == ticketId);
-                
-                if(ticket != null) 
+                List<Ticket> tickets = context.Tickets.Include(ticket => ticket.Movie)
+                                                      .Include(ticket => ticket.Projector)
+                                                      .Where(ticket => ticket.UserId == userId)
+                                                      .ToList();
+
+                if (tickets == null)
                 {
-                    ticket.Movie = movieService.getMovieById(ticket.MovieId);
-                    ticket.Projector = context.Projectors
-                        .Where(pr => pr.ProjectorId == ticket.ProjectorId)
-                        .FirstOrDefault();
-                    return ticket;
+                    throw new Exception("No movie found.");
                 }
                 else
                 {
-                    throw new Exception("Ticket not found");
+                    return tickets;
                 }
             }
         }
