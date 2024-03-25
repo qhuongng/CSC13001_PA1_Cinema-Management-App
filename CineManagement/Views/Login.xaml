@@ -243,14 +243,18 @@
         <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
     </Window.Visibility>
 
-    <Border CornerRadius="10">
+    <Border CornerRadius="10" Margin="5">
         <Border.Background>
             <ImageBrush ImageSource="/Image/backimg.jpg"
                         Stretch="UniformToFill"/>
         </Border.Background>
 
+        <Border.Effect>
+            <DropShadowEffect Color="Black" BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1" />
+        </Border.Effect>
+
         <Border CornerRadius="10"                    
-                BorderThickness="2"
+                BorderThickness="0.5"
                 Opacity="0.95">
 
 
@@ -286,7 +290,9 @@
                             Click="btnMinimize_Click">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <iconPacks:PackIconMaterial Kind="Minus" Height="15" />
+                                <Border Background="Transparent">
+                                    <iconPacks:PackIconMaterial Kind="Minus" Height="15" />
+                                </Border>
                             </ControlTemplate>
                         </Button.Template>
                         <Button.Style>
@@ -308,7 +314,9 @@
                             Click="btnClose_Click">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <iconPacks:PackIconMaterial Kind="Close" Height="15" />
+                                <Border Background="Transparent">
+                                    <iconPacks:PackIconMaterial Kind="Close" Height="15" />
+                                </Border>
                             </ControlTemplate>
                         </Button.Template>
                         <Button.Style>
@@ -326,36 +334,25 @@
                 <StackPanel Width="225"
                             Grid.Row="1"
                             Orientation="Vertical"
-                            Margin="286,10,286,0" Grid.ColumnSpan="2">
+                            Margin="286,0,286,0" Grid.ColumnSpan="2">
 
                     <Image Source="/Image/logo.png"
                            Width="100" Height="100"/>
 
                     <TabControl Width="220" Height="370" Margin="0 20 0 0" Background="Transparent" Style="{DynamicResource TabControlStyle}">
-                        <TabItem Header="SIGN IN" Style="{DynamicResource TabItemStyle}">
-                            <StackPanel Width="220" Orientation="Vertical">
+                        <TabItem Header="ĐĂNG NHẬP" Style="{DynamicResource TabItemStyle}">
+                            <StackPanel Width="220" Margin="0,20,0,0" Orientation="Vertical">
 
-                                <TextBlock Text="Sign in to continue your journey!"
+                                <TextBlock Text="Tên người dùng"
                                            Foreground="LightGray"
                                            FontSize="12"
-                                           FontWeight="Medium"
-                                           FontFamily="Montserrat"
-                                           TextWrapping="Wrap"
-                                           TextAlignment="Center"
-                                           Margin="0,20,0,0"/>
-
-                                <TextBlock Text="Username"
-                                           Foreground="LightGray"
-                                           FontSize="12"
-                                           FontWeight="Medium"
-                                           FontFamily="Montserrat"                             
+                                           FontWeight="Medium"                            
                                            Margin="0,25,0,0"/>
 
                                 <TextBox x:Name="txtUserLogin"
-                                         Text="{Binding UsernameLogin , UpdateSourceTrigger=PropertyChanged}"
+                                         Text="{Binding UsernameLogin, UpdateSourceTrigger=PropertyChanged}"
                                          FontSize="13"
-                                         FontWeight="Medium"
-                                         FontFamily="Montserrat"                            
+                                         FontWeight="Medium"                          
                                          Foreground="White"
                                          CaretBrush="LightGray"
                                          BorderBrush="DarkGray"
@@ -372,11 +369,10 @@
                                     </TextBox.Background>
                                 </TextBox>
 
-                                <TextBlock Text="Password"
+                                <TextBlock Text="Mật khẩu"
                                            Foreground="LightGray"
                                            FontSize="12"
-                                           FontWeight="Medium"
-                                           FontFamily="Montserrat"                             
+                                           FontWeight="Medium"                            
                                            Margin="0,20,0,0"/>
                                 <customcontrols:BindablePasswordBox Password="{Binding PasswordLogin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     Height="28"
@@ -387,62 +383,60 @@
                                     <TextBlock Text="{Binding ErrorMessage, UpdateSourceTrigger=PropertyChanged}"
                                                         Foreground="Red"
                                                         FontSize="12"
-                                                        FontWeight="Medium"
-                                                        FontFamily="Montserrat"                             
+                                                        FontWeight="Medium"                            
                                                         Margin="0,15,0,0"
                                                         TextWrapping="Wrap"/>
                                     <TextBlock Text="{Binding ErrorMessageLogin, UpdateSourceTrigger=PropertyChanged}"
                                                 Foreground="Red"
                                                 FontSize="12"
-                                                FontWeight="Medium"
-                                                FontFamily="Montserrat"                             
+                                                FontWeight="Medium"                           
                                                 Margin="0,15,0,0"
                                                 TextWrapping="Wrap"/>       
                                 </Grid>
 
 
-                                <Button x:Name="btnLogin"   
-                                        Command="{Binding LoginCommand}"
-                                        BorderThickness="0"
-                                        Content="LOG IN"
-                                        Foreground="White"
-                                        FontSize="12"
-                                        FontFamily="Montserrat"
-                                        Cursor="Hand"                           
-                                        Margin="0,40,0,0">
+                                <Button x:Name="btnLogin"
+                                        Margin="0,25,0,10" Content="ĐĂNG NHẬP"
+                                        Cursor="Hand" Command="{Binding LoginCommand}">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="BtnBorder" Width="150" Height="40"
+                                                    CornerRadius="10" Background="{TemplateBinding Background}">
+                                                <TextBlock FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <ContentPresenter />
+                                                </TextBlock>
+                                            </Border>
+
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="BtnBorder" Property="Background" Value="PowderBlue" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
 
                                     <Button.Style>
                                         <Style TargetType="Button">
-                                            <Setter Property="Background" Value="DarkCyan"/>
+                                            <Setter Property="Foreground" Value="White" />
+                                            <Setter Property="Background" Value="DarkCyan" />
                                             <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="#28AEED"/>
-                                                </Trigger>
+                                                <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
+                                                    <Setter Property="Foreground" Value="DimGray" />
+                                                    <Setter Property="Background" Value="DarkGray" />
+                                                </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </Button.Style>
-
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Width="150" Height="40"
-                                                    CornerRadius="20"
-                                                    Background="{TemplateBinding Background}">
-                                                <ContentPresenter VerticalAlignment="Center"
-                                                                  HorizontalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
                                 </Button>
+                                
                                 <StackPanel Orientation="Horizontal"
                                             HorizontalAlignment="Center"
                                             Margin="0,10,0,0">
-                                    <TextBlock Text="Browse as Guest"
+                                    <TextBlock Text="Chế độ khách"
                                                Foreground="LightGray"
                                                FontSize="12"
                                                FontWeight="Medium"
-                                               FontFamily="Montserrat"
-                                               Cursor="Hand"
-                                                Margin="8,0,0,0">
+                                               Cursor="Hand">
                                         <TextBlock.InputBindings>
                                             <MouseBinding Command="{Binding LoginAsGuestCommand, UpdateSourceTrigger=PropertyChanged}" MouseAction="LeftClick"/>
                                         </TextBlock.InputBindings>
@@ -451,30 +445,19 @@
                                 </StackPanel>
                             </StackPanel>
                         </TabItem>
-                        <TabItem Header="SIGN UP" Style="{DynamicResource TabItemStyle}">
+                        <TabItem Header="ĐĂNG KÍ" Style="{DynamicResource TabItemStyle}">
                             <StackPanel Width="220" Orientation="Vertical">
 
-                                <TextBlock Text="Welcome! Register now and join us!"
+                                <TextBlock Text="Tên người dùng"
                                            Foreground="LightGray"
                                            FontSize="12"
-                                           FontWeight="Medium"
-                                           FontFamily="Montserrat"
-                                           TextWrapping="Wrap"
-                                           TextAlignment="Center"
-                                           Margin="0,12,0,0"/>
-
-                                <TextBlock Text="Username"
-                                           Foreground="LightGray"
-                                           FontSize="12"
-                                           FontWeight="Medium"
-                                           FontFamily="Montserrat"                             
+                                           FontWeight="Medium"                            
                                            Margin="0,20,0,0"/>
 
                                 <TextBox x:Name="txtUserRegister"
                                          Text="{Binding UsernameRegister, UpdateSourceTrigger=PropertyChanged}"
                                          FontSize="13"
-                                         FontWeight="Medium"
-                                         FontFamily="Montserrat"                            
+                                         FontWeight="Medium"                          
                                          Foreground="White"
                                          CaretBrush="LightGray"
                                          BorderBrush="DarkGray"
@@ -491,11 +474,10 @@
                                     </TextBox.Background>
                                 </TextBox>
 
-                                <TextBlock Text="Password"
+                                <TextBlock Text="Mật khẩu"
                                            Foreground="LightGray"
                                            FontSize="12"
-                                           FontWeight="Medium"
-                                           FontFamily="Montserrat"                             
+                                           FontWeight="Medium"                           
                                            Margin="0,15,0,0"/>
 
                                 <customcontrols:BindablePasswordBox Password="{Binding PasswordRegister, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
@@ -504,11 +486,10 @@
 
                                 </customcontrols:BindablePasswordBox>
 
-                                <TextBlock Text="Date of Birth"
+                                <TextBlock Text="Ngày sinh"
                                            Foreground="LightGray"
                                            FontSize="12"
-                                           FontWeight="Medium"
-                                           FontFamily="Montserrat"                             
+                                           FontWeight="Medium"                             
                                            Margin="0,15,0,0"/>
 
                                 <DatePicker x:Name="txtDobRegister"
@@ -516,7 +497,6 @@
                                             Text="{Binding Dob, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                          
                                             FontSize="13"
                                             FontWeight="Medium"
-                                            FontFamily="Montserrat"
                                             Foreground="White"      
                                             BorderBrush="DarkGray"
                                             BorderThickness="0 0 0 2"
@@ -530,67 +510,63 @@
                                                     AlignmentX="Left"/>
                                     </DatePicker.Background>
                                 </DatePicker>
+                                
                                 <Grid Margin="0 5 0 0">
                                     <TextBlock Text="{Binding ErrorMessageField, UpdateSourceTrigger=PropertyChanged}"
                                                Foreground="Red"
                                                FontSize="12"
-                                               FontWeight="Medium"
-                                               FontFamily="Montserrat"                             
+                                               FontWeight="Medium"                           
                                                Margin="0,10,0,0"
                                                TextWrapping="Wrap"/>
                                     <TextBlock Text="{Binding ErrorMessageRegister, UpdateSourceTrigger=PropertyChanged}"
                                                 Foreground="Red"
                                                 FontSize="12"
-                                                FontWeight="Medium"
-                                                FontFamily="Montserrat"                             
+                                                FontWeight="Medium"                           
                                                 Margin="0,10,0,0"
                                                 TextWrapping="Wrap"/>
                                 </Grid>
 
                                 <Button x:Name="btnRegister"
-                                        Command="{Binding RegisterCommand}"
-                                        BorderThickness="0"
-                                        Content="REGISTER"
-                                        Foreground="White"
-                                        FontSize="12"
-                                        FontFamily="Montserrat"
-                                        Cursor="Hand"                           
-                                        Margin="0,18,0,0"
-                                        >
+                                        Margin="0,20,0,15" Content="ĐĂNG KÍ"
+                                        Cursor="Hand" Command="{Binding RegisterCommand}">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="BtnBorder" Width="150" Height="40"
+                                                    CornerRadius="10" Background="{TemplateBinding Background}">
+                                                <TextBlock FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <ContentPresenter />
+                                                </TextBlock>
+                                            </Border>
+
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="BtnBorder" Property="Background" Value="PowderBlue" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
 
                                     <Button.Style>
                                         <Style TargetType="Button">
-                                            <Setter Property="Background" Value="DarkCyan"/>
+                                            <Setter Property="Foreground" Value="White" />
+                                            <Setter Property="Background" Value="DarkCyan" />
                                             <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="#28AEED"/>
-                                                </Trigger>
+                                                <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
+                                                    <Setter Property="Foreground" Value="DimGray" />
+                                                    <Setter Property="Background" Value="DarkGray" />
+                                                </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </Button.Style>
-
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Width="150" Height="40"
-                                                    CornerRadius="20"
-                                                    Background="{TemplateBinding Background}">
-                                                <ContentPresenter VerticalAlignment="Center"
-                                                                  HorizontalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
                                 </Button>
 
                                 <StackPanel Orientation="Horizontal"
-                                     HorizontalAlignment="Center"
-                                     Margin="0,8,0,0">
-                                                        <TextBlock Text="Browse as Guest"
+                                     HorizontalAlignment="Center">
+                                <TextBlock Text="Đăng kí sau"
                                         Foreground="LightGray"
                                         FontSize="12"
                                         FontWeight="Medium"
-                                        FontFamily="Montserrat"
-                                        Cursor="Hand"
-                                         Margin="8,0,0,0">  
+                                        Cursor="Hand">  
                                         <TextBlock.InputBindings>
                                             <MouseBinding Command="{Binding LoginAsGuestCommand, UpdateSourceTrigger=PropertyChanged}" MouseAction="LeftClick"/>
                                         </TextBlock.InputBindings>

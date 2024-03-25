@@ -62,12 +62,12 @@ namespace CineManagement.ViewModels
             if(string.IsNullOrWhiteSpace(UsernameRegister) || string.IsNullOrWhiteSpace(PasswordRegister))
             {
                 ErrorMessageRegister = "";
-                ErrorMessageField = "* Please fill all blanks!";
+                ErrorMessageField = "Vui lòng điền đầy đủ thông tin.";
                 validData = false;
             } else if(Dob >= DateTime.Today)
             {
                 ErrorMessageRegister = "";
-                ErrorMessageField = "* Invalid birthdate!";
+                ErrorMessageField = "Ngày sinh không hợp lệ.";
                 validData = false;
             }
             else {
@@ -94,7 +94,7 @@ namespace CineManagement.ViewModels
                 }
             } catch (Exception ex)
             {
-                ErrorMessageRegister = "* "+ ex.Message;
+                ErrorMessageRegister = ""+ ex.Message;
             }
 
         }
@@ -106,7 +106,7 @@ namespace CineManagement.ViewModels
             {
                 validData = false;
                 ErrorMessageLogin = "";
-                ErrorMessage = "* Please fill all blanks!";
+                ErrorMessage = "Vui lòng điền đầy đủ thông tin.";
             }
             else { 
                 validData = true;
@@ -129,7 +129,7 @@ namespace CineManagement.ViewModels
                 }
             } catch (Exception ex)
             {
-                ErrorMessageLogin = "* " + ex.Message;
+                ErrorMessageLogin = "" + ex.Message;
             }
         }
     }
