@@ -20,8 +20,6 @@ namespace CineManagement.ViewModels
             Character = character;
             MovieDetail = movie;
         }
-
-
     }
     class MovieControlViewModel : ViewModelBase
     {
