@@ -30,6 +30,7 @@ namespace CineManagement.ViewModels
         private VoucherList _selectedVoucher;
         public VoucherService vouchersSV;
 
+
         public ICommand addCommand { get; }
         public ICommand updateCommand { get; }
         public ICommand deleteCommand { get; }
@@ -100,7 +101,8 @@ namespace CineManagement.ViewModels
 
         private void executedAddCommand(object obj)
         {
-
+            var AddScreen = new AddVouchers();
+            AddScreen.ShowDialog();
         }
     }
 }

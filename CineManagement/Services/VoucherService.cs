@@ -10,7 +10,6 @@ namespace CineManagement.Services
 {
     public class VoucherService
     {
-
         public List<Voucher> getVouchers()
         {
             using (var context = new CinemaManagementContext())
@@ -26,6 +25,34 @@ namespace CineManagement.Services
                 }
             }
         }
+
+        public bool addVoucher(Voucher voucher) // if exists return null, else return this user
+        {
+            using (var _context = new CinemaManagementContext())
+            {
+                var existingVoucher = _context.Vouchers.FirstOrDefault(x => x.VoucherId == voucher.VoucherId);
+                if (existingVoucher == null)
+                {
+                    _context.Vouchers.Add(voucher);
+                    try
+                    {
+                        _context.SaveChanges();
+                        return true;
+                    }
+                    catch (DbUpdateException ex)
+                    {
+                        // Handle database update exception
+                        throw new Exception("An error occurred while saving the user.", ex);
+                    }
+
+                }
+                else
+                {
+                    throw new Exception("User name already exists!");
+                }
+            }
+        }
+
         public Voucher getVoucherById(int id)
         {
             using (var context = new CinemaManagementContext())
@@ -79,6 +106,7 @@ namespace CineManagement.Services
                 }
             }
         }
+
         public List<Voucher> GetUnusedVouchersByUserId(int userId)
         {
             using (var context = new CinemaManagementContext())
@@ -95,7 +123,6 @@ namespace CineManagement.Services
                 }
             }
         }
-
         public bool UpdateVoucherStatus(Voucher voucher)
         {
             using (var _context = new CinemaManagementContext())
