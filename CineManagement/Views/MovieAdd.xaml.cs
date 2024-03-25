@@ -22,7 +22,7 @@ namespace CineManagement.Views
     /// </summary>
     public partial class MovieAdd : Window
     {
-        private static readonly Regex _regex = new Regex(@"^[0-9.]+$");
+        private static readonly Regex _regex = new Regex("[^0-9.-]+");
         public MovieAdd()
         {
             InitializeComponent();

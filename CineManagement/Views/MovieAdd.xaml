@@ -40,7 +40,7 @@
                     </StackPanel>
 
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Tên Phim: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
-                    <TextBox Background="LightGray" Grid.Row="1" Grid.Column="1" Width="180" Text="{Binding MovieName,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="0 20 40 20" BorderThickness="0 0 0 0"/>
+                    <TextBox Background="LightGray" Grid.Row="1" Grid.Column="1" Width="180" Text="{Binding MovieName, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="0 20 40 20" BorderThickness="0 0 0 0"/>
 
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="Thời Lượng: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
                     <TextBox Background="LightGray" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" Grid.Row="2" Grid.Column="1" Width="180" Text="{Binding Duration,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="0 20 40 20" BorderThickness="0 0 0 0"/>
