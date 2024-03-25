@@ -1,0 +1,196 @@
+﻿<Window x:Class="CineManagement.Views.MovieAdd"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CineManagement.Views"
+        mc:Ignorable="d"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        Height="750" Width="890">
+    <Grid>
+        <ScrollViewer>
+            <Grid Grid.Row="1" Margin="15 0 0 0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="190"/>
+                        <ColumnDefinition Width="240"/>
+                        <ColumnDefinition Width="184"/>
+                        <ColumnDefinition Width="240"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.ColumnSpan="4">
+                        <TextBlock Text="Khởi Tạo Thông Tin Phim" FontSize="25" FontWeight="Bold" Margin="20 20 0 0" Foreground="#121518" HorizontalAlignment="Left"/>
+                        <Canvas Margin="0 10 0 10">
+                            <Line X1="15" X2="835" Stroke="DimGray" StrokeThickness="3"/>
+                        </Canvas>
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Tên Phim: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
+                    <TextBox Background="LightGray" Grid.Row="1" Grid.Column="1" Width="180" Text="{Binding MovieName,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="0 20 40 20" BorderThickness="0 0 0 0"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Thời Lượng: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
+                    <TextBox Background="LightGray" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" Grid.Row="2" Grid.Column="1" Width="180" Text="{Binding Duration,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="0 20 40 20" BorderThickness="0 0 0 0"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Giới Hạn Độ Tuổi: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
+                    <ComboBox Grid.Row="3" ItemsSource="{Binding AgeRating}" SelectedItem="{Binding SelectedAge, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Left" FontSize="20" Margin="10 0 0 0" Height="40" Width="100" Style="{StaticResource theComboBox}" ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="Chấm Điểm: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
+                    <TextBox Background="LightGray" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" Grid.Row="1" Grid.Column="3" Width="180" Text="{Binding ImdbRating, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="0 20 40 20" BorderThickness="0 0 0 0" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="2" Text="Năm Phát Hành: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
+                    <TextBox Background="LightGray" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" Grid.Row="2" Grid.Column="3" Width="180" Text="{Binding ReleaseYear,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="0 20 40 20" BorderThickness="0 0 0 0"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="2" Text="Tình Trạng chiếu: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
+                    <ComboBox Grid.Row="3" Grid.Column="3" ItemsSource="{Binding IsShow}" SelectedItem="{Binding CheckShow, Mode=TwoWay}" HorizontalAlignment="Left" FontSize="20" Margin="10 0 0 0" Height="40" Width="100" Style="{StaticResource theComboBox}" ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Poster: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
+                    <Button Grid.Row="4" Grid.Column="0" Width="40" Height="40" Margin="50 0 0 0">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="Image" VerticalAlignment="Center" Margin="0 0 0 0" Width="30" Height="30"/>
+                        </StackPanel>
+                    </Button>
+                    <TextBlock Grid.Row="4" Grid.Column="1" Width="180" FontSize="20" Margin="0 20 40 20"/>
+
+                    <TextBlock Grid.Row="4" Grid.Column="2" Text="Đạo Diễn: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
+                    <ComboBox Grid.Row="4" Grid.Column="3" ItemsSource="{Binding }" SelectedItem="{Binding CheckShow, Mode=TwoWay}" HorizontalAlignment="Left" FontSize="20" Margin="10 0 0 0" Height="40" Width="180" Style="{StaticResource theComboBox}" ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
+
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Số vé đã bán: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
+                    <TextBox Background="LightGray" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" Grid.Row="5" Grid.Column="1" Width="180" Text="{Binding Duration,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="0 20 40 20" BorderThickness="0 0 0 0"/>
+
+                    <TextBlock Grid.Row="5" Grid.Column="2" Text="Doanh thu: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
+                    <TextBox Background="LightGray" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" Grid.Row="5" Grid.Column="3" Width="180" Text="{Binding Duration,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="0 20 40 20" BorderThickness="0 0 0 0"/>
+
+                    <TextBlock Grid.Row="6" Grid.Column="0" Text="Suất chiếu ngày: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
+                    <TextBox Background="LightGray" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" Grid.Row="6" Grid.Column="1" Width="180" Text="{Binding Duration,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="0 20 40 20" BorderThickness="0 0 0 0"/>
+
+                    <TextBlock Grid.Row="6" Grid.Column="2" Text="Suất chiếu tuần: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
+                    <TextBox Background="LightGray" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" Grid.Row="6" Grid.Column="3" Width="180" Text="{Binding Duration,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="0 20 40 20" BorderThickness="0 0 0 0"/>
+
+                    <TextBlock  Grid.Row="7" Grid.Column="0" Text="Suất chiếu tháng: " FontSize="20" Margin="15 20 15 20" FontWeight="SemiBold"/>
+                    <TextBox Background="LightGray" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" Grid.Row="7" Grid.Column="1" Width="180" Text="{Binding Duration,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="0 20 40 20" BorderThickness="0 0 0 0"/>
+                    <Grid Grid.Row="8" Grid.ColumnSpan="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="150"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+                            <TextBlock  Text="Diễn viên chính: " FontSize="20" Margin="15 20 5 0" FontWeight="SemiBold"/>
+                            <TextBlock TextWrapping="Wrap" Text="Đặng Nhật Hòa,Đặng Nhật Hòa,Đặng Nhật Hòa,Đặng Nhật Hòa,Đặng Nhật Hòa," FontSize="19" Margin="0 20 0 20"/>
+                        </StackPanel>
+                        <ListView Grid.Row="1" Margin="0,0,0,0"
+                              ItemsSource="{Binding MoviesInPage}"
+                              d:ItemsSource="{d:SampleData ItemCount=120}"
+                              HorizontalAlignment="Center"
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border x:Name="ItemBorder" BorderBrush="Transparent"
+                                            BorderThickness="1"
+                                            Background="WhiteSmoke"
+                                            CornerRadius="10">
+                                        <Grid x:Name="Item">
+                                            <TextBlock Text="Đặng Nhật Hòa" FontSize="18"/>
+                                        </Grid>
+                                    </Border>
+
+                                    <DataTemplate.Triggers>
+                                        <Trigger SourceName="Item" Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="ItemBorder" Property="Background" Value="PowderBlue"></Setter>
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard x:Name="bsb">
+                                                    <Storyboard>
+                                                        <BooleanAnimationUsingKeyFrames
+                                                            Storyboard.TargetName="ElementPopup"
+                                                            Storyboard.TargetProperty="IsOpen"
+                                                            FillBehavior="HoldEnd">
+                                                            <DiscreteBooleanKeyFrame KeyTime="0:0:1.0" Value="True"/>
+                                                        </BooleanAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <StopStoryboard BeginStoryboardName="bsb"/>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Padding" Value="0" />
+                                    <Setter Property="Margin" Value="5,0,5,20" />
+
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListViewItem">
+                                                <Grid Background="{TemplateBinding Background}">
+                                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}" />
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+
+                            <ListView.Template>
+                                <ControlTemplate>
+                                    <ItemsPresenter />
+                                </ControlTemplate>
+                            </ListView.Template>
+
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                        </ListView>
+                    </Grid>
+
+                    <Grid Grid.Row="9" Grid.ColumnSpan="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="513*"/>
+                            <ColumnDefinition Width="341*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock HorizontalAlignment="Left"
+               Text="{Binding ErrorMessage, UpdateSourceTrigger=PropertyChanged}"
+                Foreground="Red"
+                FontSize="12"
+                FontWeight="Medium"
+                FontFamily="Montserrat"                             
+                Margin="350,0,0,0"
+                TextWrapping="Wrap"/>
+                        <TextBlock HorizontalAlignment="Left"
+               Text="{Binding SuccessMessage, UpdateSourceTrigger=PropertyChanged}"
+                Foreground="Green"
+                FontSize="12"
+                FontWeight="Medium"
+                FontFamily="Montserrat"                             
+                Margin="350,0,0,0"
+                TextWrapping="Wrap"/>
+                    </Grid>
+                    <Button Cursor="Hand" Style="{StaticResource addButton}" Command="{Binding UpdateCommand}" Margin="0 0 0 0" Background="DarkCyan" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="Pencil" VerticalAlignment="Center" Margin="0 0 5 0" Width="11" Height="11"/>
+                            <TextBlock Text="Chỉnh Sửa"/>
+                        </StackPanel>
+                    </Button>
+
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Window>

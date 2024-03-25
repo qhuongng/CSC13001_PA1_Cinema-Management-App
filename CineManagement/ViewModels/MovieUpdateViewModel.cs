@@ -50,7 +50,8 @@ namespace CineManagement.ViewModels
             //
             movie = currentMovie;
             window = currentWindow;
-            Poster = movie.Poster;
+
+            Poster = currentMovie.Poster;
             _movieName = movie.MovieName;
             _duration = movie.Duration;
             _selectedAge = movie.Certification;
@@ -70,18 +71,6 @@ namespace CineManagement.ViewModels
                 || string.IsNullOrEmpty(_releaseYear.ToString()) || string.IsNullOrWhiteSpace(_releaseYear.ToString()))
             {
                 ErrorMessage = "* Please fill all blank!";
-                SuccessMessage = "";
-            } else if(!int.TryParse(_duration.ToString(), out int duration))
-            {
-                ErrorMessage = "* Duration must be a valid number!";
-                SuccessMessage = "";
-            } else if(!float.TryParse(_imdbRating.ToString(), out float imb))
-            {
-                ErrorMessage = "* IMDB must be a valid number!";
-                SuccessMessage = "";
-            } else if(!int.TryParse(_releaseYear.ToString(), out int releaseYear))
-            {
-                ErrorMessage = "* Release Year must be a valid number!";
                 SuccessMessage = "";
             } else if(_movieName == movie.MovieName && _duration == movie.Duration && 
                 _imdbRating == movie.ImdbRating && _releaseYear == movie.ReleaseYear &&

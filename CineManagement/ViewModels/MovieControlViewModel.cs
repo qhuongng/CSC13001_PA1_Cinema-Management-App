@@ -100,7 +100,8 @@ namespace CineManagement.ViewModels
 
         private void executedAddCommand(object obj)
         {
-
+            var AddScreen = new MovieAdd();
+            AddScreen.ShowDialog();
         }
     }
 }

@@ -40,7 +40,7 @@
                 <!--Add Button-->
                 <StackPanel Grid.Row="1" Orientation="Horizontal" FlowDirection="RightToLeft">
                     <Button  Style="{StaticResource addButton}" Command="{Binding deleteCommand}" Margin="0 20 5 0" Width="75" Background="DarkRed" Cursor="Hand">
-                        <StackPanel Orientation="Horizontal">                            
+                        <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Delete"/>
                             <Icon:PackIconMaterial Kind="DeleteOutline" VerticalAlignment="Center" Margin="5 0 0 0" Width="11" Height="11" Style="{StaticResource gridButtonIcon}"/>
                         </StackPanel>
@@ -52,14 +52,12 @@
                         </StackPanel>
                     </Button>
                     <Button Style="{StaticResource addButton}" Command="{Binding addCommand}" Width="75" Background="DarkCyan" Cursor="Hand">
-                        <StackPanel Orientation="Horizontal">            
+                        <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Add"/>
                             <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Margin="5 0 0 0" Width="11" Height="11" Style="{StaticResource gridButtonIcon}"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
-
-
                 <!--Counter Title-->
                 <TextBlock Text="{Binding TotalMovie,StringFormat={}{0} movies, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" FontSize="18" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 

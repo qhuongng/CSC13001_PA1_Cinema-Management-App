@@ -1,24 +1,31 @@
 ﻿using CineManagement.Models;
 using CineManagement.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace CineManagement.Views
 {
     /// <summary>
-    /// Interaction logic for MovieDetail.xaml
+    /// Interaction logic for MovieAdd.xaml
     /// </summary>
-    public partial class MovieUpdate : Window
+    public partial class MovieAdd : Window
     {
-        private static readonly Regex _regex = new Regex("[^0-9.-]+");
-        public Movie updateMovie { get; set; }
-        public MovieUpdate(Movie currentMovie)
+        private static readonly Regex _regex = new Regex(@"^[0-9.]+$");
+        public MovieAdd()
         {
             InitializeComponent();
-            var context = new MovieUpdateViewModel(currentMovie, this);
-            this.DataContext = context;
-            updateMovie = context.movie;
         }
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {

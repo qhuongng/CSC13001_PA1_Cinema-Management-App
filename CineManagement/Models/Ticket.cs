@@ -13,7 +13,7 @@ public partial class Ticket
 
     public string SeatId { get; set; } = null!;
 
-    public int Price { get; set; }
+    public double Price { get; set; }
 
     public int ProjectorId { get; set; }
 
@@ -22,6 +22,4 @@ public partial class Ticket
     public virtual Projector Projector { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;
-
-    public virtual ICollection<Voucher> Vouchers { get; set; } = new List<Voucher>();
 }
