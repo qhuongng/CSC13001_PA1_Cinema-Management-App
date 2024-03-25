@@ -69,7 +69,6 @@ namespace CineManagement.ViewModels
                     user.UserName = UserName;
                     user.Password = Password;
                     user.Dob = DateOnly.FromDateTime(Dob);
-                    user.Dob = DateOnly.FromDateTime(Dob);
                     userManage.updateUser(user);
                     vm.CurrentUser = user;
                     ErrorMessage = "";
