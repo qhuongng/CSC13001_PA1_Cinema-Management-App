@@ -117,7 +117,7 @@ WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent"
                     <!--// Moives //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding ProductsCommand}">
+                              Command="{Binding MoviesCommand}">
 
                         <Grid>
 
