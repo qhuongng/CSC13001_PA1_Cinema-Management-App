@@ -63,11 +63,11 @@ namespace CineManagement.ViewModels
             // set up data for ticket
             ticketManage = new TicketService();
 
-            foreach(Ticket ticket in user.Tickets)
-            {
-                Ticket preticket = ticketManage.GetTicketInfo(ticket.TicketId);
-                ticketInfoList.Add(new TicketInfo(preticket.Movie.Poster, preticket.Movie.MovieName, preticket.Projector.ProjectorInfo, preticket.Movie.Duration, preticket.SeatId, preticket.Price));
-            }
+            //foreach(Ticket ticket in user.Tickets)
+            //{
+            //    Ticket preticket = ticketManage.GetTicketInfo(ticket.TicketId);
+            //    ticketInfoList.Add(new TicketInfo(preticket.Movie.Poster, preticket.Movie.MovieName, preticket.Projector.ProjectorInfo, preticket.Movie.Duration, preticket.SeatId, preticket.Price));
+            //}
         }
 
         private void ExecuteUpdateCommand(object obj)

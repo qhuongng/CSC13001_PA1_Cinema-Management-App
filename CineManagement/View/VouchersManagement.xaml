@@ -13,10 +13,10 @@
              Style="{StaticResource Page_Style}">
 
     <UserControl.DataContext>
-        <vm:ProductVM />
+        <vm:VouchersVM/>
     </UserControl.DataContext>
 
-    <Border CornerRadius="30" Background="#EFF2F7">
+    <Border CornerRadius="0 0 10 0" Background="#EFF2F7">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -34,91 +34,54 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Column="1" Margin="30">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <!--search textbox-->
-                    <Grid>
-                        <TextBlock Margin="-30  0 15 0" VerticalAlignment="Center" Foreground="DimGray" Panel.ZIndex="1" IsHitTestVisible="False" Text="Quản Lí Vouchers" 
-                                   FontSize="28" FontWeight="SemiBold"/>
-                    </Grid>
-
-                    <!--Buton-->
-                    <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20 0 0 0 ">
-                        <Button Style="{StaticResource buttonTopMenu}">
-                            <Icon:PackIconMaterial Kind="Bell" Style="{StaticResource buttonTopMenuIcon}"/>
-                        </Button>
-
-                        <Button Style="{StaticResource buttonTopMenu}">
-                            <Icon:PackIconMaterial Kind="Bookmark" Style="{StaticResource buttonTopMenuIcon}"/>
-                        </Button>
-
-                        <Button Style="{StaticResource buttonTopMenu}">
-                            <Icon:PackIconMaterial Kind="Account" Style="{StaticResource buttonTopMenuIcon}"/>
-                        </Button>
-                    </StackPanel>
-                </Grid>
-
                 <!--Page Title-->
-                <TextBlock Text="Danh Sách Vouchers" Grid.Row="1" FontSize="25" FontWeight="SemiBold" Margin="0 20 0 0" Foreground="#121518" HorizontalAlignment="Left"/>
+                <TextBlock Text="Danh Sách Vouchers" Grid.Row="1" FontSize="28" FontWeight="SemiBold" Margin="0 20 0 0" Foreground="#121518" HorizontalAlignment="Left"/>
 
                 <!--Add Button-->
-                <Button Style="{StaticResource addButton}" Click="AddBtn_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
-                        <TextBlock Text="Thêm Voucher"/>
-                    </StackPanel>
-                </Button>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" FlowDirection="RightToLeft">
+                    <Button  Style="{StaticResource addButton}" Command="{Binding deleteCommand}" Margin="0 20 5 0" Width="75" Background="DarkRed" Cursor="Hand">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Xóa"/>
+                            <Icon:PackIconMaterial Kind="Delete" VerticalAlignment="Center" Margin="5 0 0 0" Height="11" Style="{StaticResource gridButtonIcon}"/>
+                        </StackPanel>
+                    </Button>
+                    <Button  Style="{StaticResource addButton}" Command="{Binding updateCommand}" Margin="0 20 5 0" Width="75" Background="DarkBlue" Cursor="Hand">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Cập nhật"/>
+                            <Icon:PackIconMaterial Kind="Pencil" VerticalAlignment="Center" Margin="5 0 0 0" Height="11" Style="{StaticResource gridButtonIcon}"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource addButton}" Command="{Binding addCommand}" Width="75" Background="DarkCyan" Cursor="Hand">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Thêm"/>
+                            <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Margin="5 0 0 0" Height="11" Style="{StaticResource gridButtonIcon}"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
 
-                <!--Seprator-->
-                <Separator Height="1" Grid.Row="3" Background="#DAE2EA" Margin="0 -1 0 10"/>
 
                 <!--Counter Title-->
-                <TextBlock Text="Tổng Số Voucher: " Grid.Row="4" FontSize="18" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-
-                <TextBlock Text="Filter by" Grid.Row="4" FontSize="13" FontWeight="SemiBold" Margin="0 0 215 0" Foreground="#121518" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-
-                <!--Filter Textbox-->
-                <Grid Width="200" HorizontalAlignment="Right" Grid.Row="4">
-                    <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
-                       Panel.ZIndex="1" Text="Search in Movies ..."
-                       Visibility="{Binding ElementName=textBoxFilter}" />
-
-                    <TextBox Name="textBoxFilter" Style="{StaticResource filterTextBox}"/>
-                </Grid>
+                <TextBlock Text="{Binding TotalVoucher,StringFormat={}{0} vouchers, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" FontSize="18" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                 <!--Members Data Grid-->
-                <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="membersDataGrid" Style="{DynamicResource DataGridStyle1}">
+                <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" d:ItemsSource="{d:SampleData}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ItemsSource="{Binding Vouchers,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedVoucher,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource DataGridStyle1}">
                     <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Header="C" CanUserResize="False" Width="auto" ElementStyle="{StaticResource CheckBoxStyle1}">
-                            <DataGridCheckBoxColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <CheckBox Style="{StaticResource CheckBoxStyle1}"/>
-                                </DataTemplate>
-                            </DataGridCheckBoxColumn.HeaderTemplate>
-                        </DataGridCheckBoxColumn>
-                        <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding Number}"/>
+                        <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding Number,UpdateSourceTrigger=PropertyChanged}"/>
                         <DataGridTemplateColumn Header="ID Voucher" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="{Binding BgColor}">
-                                            <TextBlock Text="{Binding Character}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
-                                        </Border>
-
-                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding Vouchers.VoucherId, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="% Giảm Giá" Binding="{Binding Position}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Tình Trạng" Binding="{Binding Email}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="$ Giảm Giá" Binding="{Binding Vouchers.DiscountPercentage, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Tình Trạng" Binding="{Binding Vouchers.IsUsed, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
         </Grid>
     </Border>
 </UserControl>
+

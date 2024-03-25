@@ -22,6 +22,4 @@ public partial class Ticket
     public virtual Projector Projector { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;
-
-    public virtual ICollection<Voucher> Vouchers { get; set; } = new List<Voucher>();
 }

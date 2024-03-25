@@ -9,9 +9,9 @@ public partial class Voucher
 
     public int UserId { get; set; }
 
-    public int DiscountPercent { get; set; }
-
     public bool IsUsed { get; set; }
+
+    public int DiscountPercent { get; set; }
 
     public virtual User User { get; set; } = null!;
 }
