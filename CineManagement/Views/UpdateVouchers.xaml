@@ -40,9 +40,6 @@
                             </Canvas>
                         </StackPanel>
 
-                        <!--<TextBlock Grid.Row="1" Grid.Column="0" Text="ID Người Dùng: " FontSize="20" Margin="20" FontWeight="SemiBold"/>
-                        <TextBox Grid.Row="1" Grid.Column="1" FontSize="20" Margin="20" BorderBrush="Transparent" Background="Transparent"/>-->
-
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="Giá Trị Discount(%): " FontSize="20" Margin="20" FontWeight="SemiBold"/>
                         <TextBox Grid.Row="2" Grid.Column="1" FontSize="20" Margin="20" BorderBrush="Transparent" Background="AliceBlue" PreviewTextInput="TextBox_PreviewTextInput"/>
 
