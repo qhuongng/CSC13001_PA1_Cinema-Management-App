@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,19 +11,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CineManagement.View
+namespace CineManagement.Views
 {
     /// <summary>
-    /// Interaction logic for Customer.xaml
+    /// Interaction logic for AddVouchers.xaml
     /// </summary>
-    public partial class Customer : UserControl
+    public partial class AddVouchers : Window
     {
-        public Customer()
+        public AddVouchers()
         {
             InitializeComponent();
+        }
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

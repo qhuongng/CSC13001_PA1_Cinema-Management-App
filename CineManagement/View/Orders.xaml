@@ -39,12 +39,12 @@
                 <!--search textbox-->
                 <Grid>
                     <TextBlock Margin="20 0 15 0" VerticalAlignment="Center" Foreground="DimGray" Panel.ZIndex="1" IsHitTestVisible="False" Text="Sự Biến Động Của Lượng Vé Bán Ra Của Từng Phim" 
-                               FontSize="20" FontWeight="SemiBold"/>
+                               FontSize="25" FontWeight="SemiBold"/>
                 </Grid>
 
                 <!--Buton-->
                 <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="15 0 0 0 ">
-                    <TextBlock VerticalAlignment="Center" Foreground="DimGray" Panel.ZIndex="2" IsHitTestVisible="False" Text="Choose film: " Visibility="{Binding ElementName=myCbBox}"/>
+                    <TextBlock FontSize="20" VerticalAlignment="Center" Foreground="DimGray" Panel.ZIndex="2" IsHitTestVisible="False" Text="Choose film: " Visibility="{Binding ElementName=myCbBox}"/>
                     <ComboBox Width="150" x:Name="myCbBox" Style="{StaticResource theComboBox}" ItemContainerStyle="{DynamicResource theComboBoxItem}">
                         <ComboBoxItem>Available</ComboBoxItem>
                         <ComboBoxItem>Busy</ComboBoxItem>

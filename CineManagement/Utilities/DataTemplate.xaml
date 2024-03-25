@@ -8,8 +8,8 @@
         <view:Home/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:CustomerVM}">
-        <view:Customer />
+    <DataTemplate DataType="{x:Type vm:VouchersVM}">
+        <view:VouchersManagement />
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type vm:ProductVM}">
@@ -20,8 +20,8 @@
         <view:Orders />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:TransactionVM}">
-        <view:Transactions />
+    <DataTemplate DataType="{x:Type vm:ShowtimeVM}">
+        <view:Showtime />
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type vm:ServiceVM}">

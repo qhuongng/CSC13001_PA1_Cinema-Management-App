@@ -114,7 +114,7 @@ WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent"
 
                     </Menu:Btn>
 
-                    <!--// Products //-->
+                    <!--// Moives //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
                               Command="{Binding ProductsCommand}">
@@ -131,7 +131,7 @@ WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent"
 
                     </Menu:Btn>
 
-                    <!--// Orders //-->
+                    <!--// Report of a Movie //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
                               Command="{Binding OrdersCommand}">
@@ -140,22 +140,22 @@ WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent"
 
                             <uc:BtnMenu Icon="Receipt" Style="{StaticResource Icon_Style}"/>
 
-                            <TextBlock Text="Orders"
+                            <TextBlock Text="Reports"
                                        Style="{StaticResource Text_Style}" />
 
                         </Grid>
 
                     </Menu:Btn>
 
-                    <!--// Transactions //-->
+                    <!--// Showtime //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding TransactionsCommand}">
+                              Command="{Binding ShowtimesCommand}">
 
                         <Grid>
 
-                            <uc:BtnMenu Icon="Bank" Style="{StaticResource Icon_Style}"/>
-                            <TextBlock Text="Transactions"
+                            <uc:BtnMenu Icon="Filmstrip" Style="{StaticResource Icon_Style}"/>
+                            <TextBlock Text="Showtimes"
                                        Style="{StaticResource Text_Style}" />
 
                         </Grid>
@@ -165,7 +165,7 @@ WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent"
                     <!--// Shipments //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding ShipmentsCommand}">
+                              Command="{Binding ServicesCommand}">
 
                         <Grid>
 
@@ -189,6 +189,23 @@ WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent"
                                         Style="{StaticResource Icon_Style}"/>
 
                             <TextBlock Text="Settings"
+                                       Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </Menu:Btn>
+
+                    <!--// Products //-->
+
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding VouchersCommand}">
+
+                        <Grid>
+
+                            <uc:BtnMenu Icon="Ticket"
+                                        Style="{StaticResource Icon_Style}"/>
+
+                            <TextBlock Text="Vouchers"
                                        Style="{StaticResource Text_Style}" />
 
                         </Grid>

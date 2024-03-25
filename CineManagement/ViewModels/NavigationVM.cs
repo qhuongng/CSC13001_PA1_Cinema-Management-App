@@ -26,19 +26,19 @@ namespace CineManagement.ViewModels
         }
 
         public ICommand HomeCommand { get; set; }
-        public ICommand CustomersCommand { get; set; }
+        public ICommand ShowtimesCommand { get; set; }
         public ICommand ProductsCommand { get; set; }
         public ICommand OrdersCommand { get; set; }
-        public ICommand TransactionsCommand { get; set; }
-        public ICommand ShipmentsCommand { get; set; }
+        public ICommand VouchersCommand { get; set; }
+        public ICommand ServicesCommand { get; set; }
         public ICommand SettingsCommand { get; set; }
 
         private void Home(object obj) => CurrentView = new HomeVM(User);
-        private void Customer(object obj) => CurrentView = new CustomerVM();
+        private void Showtime(object obj) => CurrentView = new ShowtimeVM();
         private void Product(object obj) => CurrentView = new ProductVM();
         private void Order(object obj) => CurrentView = new OrderVM();
-        private void Transaction(object obj) => CurrentView = new TransactionVM();
-        private void Shipment(object obj) => CurrentView = new ServiceVM();
+        private void Voucher(object obj) => CurrentView = new VouchersVM();
+        private void Service(object obj) => CurrentView = new ServiceVM();
         private void Setting(object obj) => CurrentView = new SettingVM();
 
 
@@ -47,11 +47,11 @@ namespace CineManagement.ViewModels
         {
             User = user;
             HomeCommand = new RelayCommand(Home);
-            CustomersCommand = new RelayCommand(Customer);
+            ShowtimesCommand = new RelayCommand(Showtime);
             ProductsCommand = new RelayCommand(Product);
             OrdersCommand = new RelayCommand(Order);
-            TransactionsCommand = new RelayCommand(Transaction);
-            ShipmentsCommand = new RelayCommand(Shipment);
+            VouchersCommand = new RelayCommand(Voucher);
+            ServicesCommand = new RelayCommand(Service);
             SettingsCommand = new RelayCommand(Setting);
 
             // Startup Page
