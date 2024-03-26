@@ -31,6 +31,7 @@ namespace CineManagement.ViewModels
         {
             voucher = currentVoucher;
             window = currentWindow;
+            voucherService = new VoucherService();
             _discountPercentage = voucher.DiscountPercent;
             _errorMessage = "";
             _successMessage = "";

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CineManagement.Models;
+using CineManagement.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,10 +22,15 @@ namespace CineManagement.Views
     /// </summary>
     public partial class AddVouchers : Window
     {
+        public List<Voucher> addVoucher { get; set; }
+
         private static readonly Regex _regex = new Regex("[^0-9.-]+");
         public AddVouchers()
         {
             InitializeComponent();
+            VoucherAddViewModel viewModel = new VoucherAddViewModel(this);
+            this.DataContext = viewModel;
+            addVoucher = viewModel.newVoucher;
         }
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {

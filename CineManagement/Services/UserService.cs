@@ -104,5 +104,18 @@ namespace CineManagement.Services
                 else { throw new Exception("User is not exists!"); }
             }
         }
+        public List<User> getAllUser()
+        {
+            using (var _context = new CinemaManagementContext())
+            {
+                List<User> listUser = _context.Users.ToList();
+                if (listUser != null)
+                {
+                     return listUser;
+                }
+                else { throw new Exception("No user exists!"); }
+            }
+
+        }
     }
 }

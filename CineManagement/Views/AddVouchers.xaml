@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CineManagement.Views"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="AddVouchers" Height="450" Width="500">
+        Title="AddVouchers" Height="300" Width="450">
     <Border CornerRadius="10" Background="White">
         <ScrollViewer>
             <Grid>
@@ -23,9 +23,9 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="70"/>
-                            <RowDefinition Height="70"/>
-                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
                             <RowDefinition/>
 
                         </Grid.RowDefinitions>
@@ -38,13 +38,16 @@
                         </StackPanel>
 
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="ID Người Dùng: " FontSize="20" Margin="20" FontWeight="SemiBold"/>
-                        <TextBox Grid.Row="1" Grid.Column="1" FontSize="20" Margin="20" BorderBrush="Transparent" Background="LightGray" Text="{Binding UserId, UpdateSourceTrigger=PropertyChanged}"/>
+                        <ComboBox Grid.Row="1" Grid.Column="1" FontSize="20" Margin="20" BorderBrush="Transparent" Background="LightGray" ItemsSource="{Binding ListId}" SelectedItem="{Binding SelectedId, Mode=TwoWay}" Width="100" Height="30" Style="{StaticResource theComboBox}" ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
 
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="Giá Trị Discount(%): " FontSize="20" Margin="20" FontWeight="SemiBold"/>
-                        <TextBox Grid.Row="2" Grid.Column="1" FontSize="20" Margin="20" BorderBrush="Transparent" Background="LightGray" Text="{Binding DiscountPercent, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" FontSize="20" Margin="20" BorderBrush="Transparent" Background="LightGray" Text="{Binding DiscountPercentage, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting"/>
 
+                        <Grid Grid.Row="3" Grid.ColumnSpan="2">
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding ErrorMessage, UpdateSourceTrigger=PropertyChanged}" Foreground="Red" FontSize="12" FontWeight="Medium" FontFamily="Montserrat" Margin="190,0,0,0" TextWrapping="Wrap"/>
+                        </Grid>
 
-                        <Button Style="{StaticResource addButton}" Command="{Binding UpdateCommand}" Background="DarkCyan" Grid.Column="1" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.RowSpan="2">
+                        <Button Style="{StaticResource addButton}" Command="{Binding AddCommand}" Background="DarkCyan" Grid.Column="0" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="190,20,0,0" Grid.RowSpan="2">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
                                 <TextBlock Text="Thêm"/>
