@@ -58,6 +58,7 @@ namespace CineManagement.Services
             using (var context = new CinemaManagementContext())
             {
                 List<Ticket> tickets = context.Tickets.Include(ticket => ticket.Movie)
+                                                      .ThenInclude(movie => movie.Director)
                                                       .Include(ticket => ticket.Projector)
                                                       .Where(ticket => ticket.UserId == userId)
                                                       .ToList();

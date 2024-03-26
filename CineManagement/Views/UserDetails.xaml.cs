@@ -19,5 +19,15 @@ namespace CineManagement.Views
         {
             InitializeComponent();
         }
+
+        private void TicketHistory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListView lv = sender as ListView;
+            Ticket ticket = lv.SelectedItem as Ticket;
+
+            TicketDetail td = new TicketDetail();
+            td.DataContext = new TicketDetailViewModel(ticket);
+            td.ShowDialog();
+        }
     }
 }

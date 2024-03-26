@@ -1,0 +1,100 @@
+﻿<Window x:Class="CineManagement.Views.TicketDetail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Ticket Detail" Height="600" Width="500">
+    <ScrollViewer>
+        <StackPanel Orientation="Vertical" Margin="20,30,20,30">
+            <TextBlock Text="Thông tin chi tiết vé" Foreground="DarkCyan"
+                       FontSize="22" FontWeight="Bold" Margin="0,0,0,20" />
+
+            <DockPanel>
+                <Border DockPanel.Dock="Left"
+                        CornerRadius="10" Margin="0,0,10,0"
+                        Width="160" Height="90">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding Movie.Poster}" Stretch="UniformToFill" />
+                    </Border.Background>
+                </Border>
+
+                <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Margin="10,0,0,0">
+                    <TextBlock Text="{Binding Movie.MovieName, UpdateSourceTrigger=PropertyChanged}"
+                               Margin="10,10,10,0" VerticalAlignment="Center" FontSize="18"
+                               TextWrapping="Wrap" FontWeight="Bold" />
+
+                    <TextBlock Text="{Binding Movie.Director.DirectorName, UpdateSourceTrigger=PropertyChanged}"
+                               Margin="10,0,10,10" VerticalAlignment="Center" FontSize="14"
+                               TextWrapping="Wrap" FontWeight="SemiBold" />
+
+                    <WrapPanel Orientation="Horizontal" Margin="10,0,10,20">
+                        <TextBlock Text="{Binding Movie.Duration, StringFormat={}{0} phút |, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="{Binding Movie.Certification, StringFormat={} {0} |, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="{Binding Movie.ReleaseYear, StringFormat={} {0}, UpdateSourceTrigger=PropertyChanged}" />
+                    </WrapPanel>
+                </StackPanel>
+            </DockPanel>
+
+            <TextBlock Text="Suất chiếu"
+                       FontSize="18" FontWeight="Bold" Margin="0,20,0,10" />
+            <TextBlock Text="{Binding Ticket.Projector.ProjectorInfo, StringFormat='Suất {0:dd/MM/yyyy} - {0:HH:mm}'}" />
+
+            <TextBlock Text="Chỗ ngồi"
+                        FontSize="18" FontWeight="Bold" Margin="0,20,0,10" />
+
+            <ListView x:Name="SeatChart" Width="410" 
+                      ItemsSource="{Binding Seats}" SelectedItem="{Binding SelectedSeat}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border x:Name="Seat" Width="30" Height="30"
+                                Background="WhiteSmoke" CornerRadius="10">
+                            <TextBlock x:Name="SeatIndex" Text="{Binding}"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Border>
+
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListViewItem}}" Value="True">
+                                <Setter TargetName="Seat" Property="Background" Value="DarkCyan" />
+                                <Setter TargetName="SeatIndex" Property="Foreground" Value="White" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="Margin" Value="5,0,5,5" />
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <Grid Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+
+            <DockPanel HorizontalAlignment="Stretch"
+                       Margin="0,20,0,0" LastChildFill="False">
+                <TextBlock DockPanel.Dock="Left"
+                           Text="Tổng" FontWeight="Bold" FontSize="18" />
+                <TextBlock x:Name="totalPrice"
+                           DockPanel.Dock="Right" Foreground="DarkCyan"
+                           Text="{Binding Ticket.Price, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0} VND}" FontWeight="Bold" FontSize="22" />
+            </DockPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Window>
