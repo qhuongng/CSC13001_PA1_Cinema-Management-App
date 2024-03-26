@@ -24,13 +24,15 @@ namespace CineManagement.Views
     {
         private static readonly Regex _regex = new Regex("[^0-9.-]+");
         private MovieAddViewModel _viewModel;
-        public Movie newMovie { get; set; }
+        public List<Movie> newMovie;
         public MovieAdd()
         {
             InitializeComponent();
+            newMovie = new List<Movie>();   
             _viewModel = new MovieAddViewModel(this);
             this.DataContext = _viewModel;
             newMovie = _viewModel.currentMovie;
+            
         }
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {

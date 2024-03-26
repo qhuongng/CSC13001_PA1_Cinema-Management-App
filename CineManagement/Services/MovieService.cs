@@ -95,20 +95,54 @@ namespace CineManagement.Services
                 }
             }
         }
-        public bool addMovie(Movie movie)
+        public Movie addMovie(Movie movie,bool isShow,int daily,int weekly,int monthly,int soldTicket,long revenue)
         {
             using( var context = new CinemaManagementContext())
             {
                 try
                 {
-                    var movi = context.Movies.Add(movie);
+                    Movie mv = new Movie
+                    {
+                        MovieName = movie.MovieName,
+                        DirectorId = movie.DirectorId,
+                        ReleaseYear = movie.ReleaseYear,
+                        Poster = movie.Poster,
+                        ImdbRating = movie.ImdbRating,
+                        Certification = movie.Certification,
+                        Duration = movie.Duration,
+
+                    };
+                    var movi = context.Movies.Add(mv);
                     context.SaveChanges();
                     if(movi == null)
                     {
                         throw new Exception("Không thể lưu phim");
                     } else
                     {
-                        return true;
+           
+                            foreach (var actor in movie.Actors)
+                            {
+                                actor.Movies.Add(mv);
+                            }
+                            foreach (var gen in movie.Genres)
+                            {
+                                gen.Movies.Add(mv);
+                            }
+                            context.SaveChanges();
+                            MovieInfo mi = new MovieInfo
+                            {
+                                MovieId = mv.MovieId,
+                                IsSelling = isShow,
+                                DailyShowtime = daily,
+                                WeeklyShowtime = weekly,
+                                MonthlyShowtime = monthly,
+                                SoldTicket = soldTicket,
+                                TicketRevenue = revenue
+                            };
+                            context.MovieInfos.Add(mi);
+                            context.SaveChanges();
+                            return mv;
+                      
                     }
                 } catch (Exception ex)
                 {

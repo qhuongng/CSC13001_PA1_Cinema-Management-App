@@ -102,7 +102,7 @@ namespace CineManagement.ViewModels
             AddScreen.ShowDialog();
             if(AddScreen.DialogResult == true)
             {
-                _movies.Add(new MovieList(_movies.Count + 1, char.ToUpper(AddScreen.newMovie.MovieName[0]),AddScreen.newMovie));
+                _movies.Add(new MovieList(_movies.Count + 1, char.ToUpper(AddScreen.newMovie[0].MovieName[0]),AddScreen.newMovie[0]));
             }
         }
     }

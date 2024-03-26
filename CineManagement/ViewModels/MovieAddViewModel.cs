@@ -80,8 +80,8 @@ namespace CineManagement.ViewModels
 
         public ICommand AddCommand { get; set; }
         public ICommand GetImageCommand { get; set; }
-        
-        public Movie currentMovie { get; set; }
+
+        public List<Movie> currentMovie;
         public Window window { get; set; }
 
         public MovieAddViewModel(Window currentWindow)
@@ -99,7 +99,7 @@ namespace CineManagement.ViewModels
             _selectedActorList = new List<Actor>();
             _listActorArr = "";
             _fileName = "";
-            currentMovie = new Movie();
+            currentMovie = new List<Movie>();
             //
             //khởi tạo các giá trị cho các list
             // 
@@ -156,27 +156,35 @@ namespace CineManagement.ViewModels
                 try
                 {
                     Director temp = directorManage.getDirectorByName(_selectedDirector);
+                    
                     AgeRating rating = ageManage.GetAgeRating(_selectedAge.Replace(" ", ""));
+                    
                     Genre genre = genreManage.getGenreByName(_selectedGenres);
+                    
                     List<Genre> genres = new List<Genre>();
                     genres.Add(genre);
-                    Movie newMovie = new Movie() { MovieName = _movieName, DirectorId = temp.DirectorId, Duration = _duration, ReleaseYear = _releaseYear, ImdbRating = _imdbRating, Poster = poster, Certification = _selectedAge };
+
+                    Movie newMovie = new Movie() { MovieName = _movieName, DirectorId = temp.DirectorId, Duration = Duration, ReleaseYear = _releaseYear, ImdbRating = _imdbRating, Poster = poster, Certification = _selectedAge };
                     newMovie.Director = temp;
                     newMovie.CertificationNavigation = rating;
                     newMovie.Actors = _selectedActorList.ToArray();
                     newMovie.Genres = genres.ToArray();
 
-                    bool checkadd = movieManage.addMovie(newMovie);
-                    if (checkadd)
-                    {
-                        MovieInfo newInfo = new MovieInfo() { MovieId = newMovie.MovieId, IsSelling = _checkShow, DailyShowtime = _dailyShowTime, WeeklyShowtime = _weeklyShowTime, MonthlyShowtime = _monthlyShowTime, SoldTicket = _soldTicket, TicketRevenue = _ticketRevenue };
-                        newInfo.Movie = newMovie;
+                    Movie checkadd = movieManage.addMovie(newMovie,_checkShow,_dailyShowTime,_weeklyShowTime,_monthlyShowTime,_soldTicket,_ticketRevenue);
+                    
+                    //if (checkadd)
+                    //{
+                    //    MovieInfo newInfo = new MovieInfo() { MovieId = newMovie.MovieId, IsSelling = _checkShow, DailyShowtime = _dailyShowTime, WeeklyShowtime = _weeklyShowTime, MonthlyShowtime = _monthlyShowTime, SoldTicket = _soldTicket, TicketRevenue = _ticketRevenue };
+                    //    newInfo.Movie = newMovie;
 
-                        movieManage.addMovieInfo(newInfo);
+                    //    movieManage.addMovieInfo(newInfo);
+                    //}
+                    if(checkadd != null )
+                    {
+                        currentMovie.Add(checkadd);
+                        window.DialogResult = true;
+                        window.Close();
                     }
-                    currentMovie = newMovie;
-                    window.DialogResult = true;
-                    window.Close();
                 } catch (Exception ex)
                 {
                     ErrorMessage += ex.Message;
