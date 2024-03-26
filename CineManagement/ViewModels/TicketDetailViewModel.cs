@@ -15,23 +15,26 @@ namespace CineManagement.ViewModels
 
         public TicketDetailViewModel(Ticket ticket)
         {
-            _ticket = ticket;
-            _movie = ticket.Movie;
-            _selectedSeat = ticket.SeatId.Trim();
-
-            Seats = new List<string>();
-
-            // populate seat chart
-            char startChar = 'A';
-            int maxRows = 8;
-            int maxColumns = 10;
-
-            for (int row = 1; row <= maxRows; row++)
+            if (ticket != null)
             {
-                for (int column = 1; column <= maxColumns; column++)
+                _ticket = ticket;
+                _movie = ticket.Movie;
+                _selectedSeat = ticket.SeatId.Trim();
+
+                Seats = new List<string>();
+
+                // populate seat chart
+                char startChar = 'A';
+                int maxRows = 8;
+                int maxColumns = 10;
+
+                for (int row = 1; row <= maxRows; row++)
                 {
-                    char currentChar = (char)(startChar + row - 1);
-                    Seats.Add($"{currentChar}{column}");
+                    for (int column = 1; column <= maxColumns; column++)
+                    {
+                        char currentChar = (char)(startChar + row - 1);
+                        Seats.Add($"{currentChar}{column}");
+                    }
                 }
             }
         }
