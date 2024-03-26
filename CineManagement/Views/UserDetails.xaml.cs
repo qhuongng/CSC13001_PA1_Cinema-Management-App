@@ -25,9 +25,12 @@ namespace CineManagement.Views
             ListView lv = sender as ListView;
             Ticket ticket = lv.SelectedItem as Ticket;
 
-            TicketDetail td = new TicketDetail();
-            td.DataContext = new TicketDetailViewModel(ticket);
-            td.ShowDialog();
+            if (ticket != null)
+            {
+                TicketDetail td = new TicketDetail();
+                td.DataContext = new TicketDetailViewModel(ticket);
+                td.ShowDialog();
+            }
         }
     }
 }
