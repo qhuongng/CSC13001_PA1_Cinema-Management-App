@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
-            <TextBlock Text="Chỉnh Sửa Thông Tin Suất chiếu" FontSize="25" FontWeight="SemiBold" Margin="10 10 0 0" Foreground="#121518" HorizontalAlignment="Left"/>
+            <TextBlock Text="Chỉnh Sửa Thông Tin Suất Chiếu" FontSize="25" FontWeight="SemiBold" Margin="10 10 0 0" Foreground="#121518" HorizontalAlignment="Left"/>
             <Canvas Margin="0 20 0 0">
                 <Line X1="20" X2="360" Stroke="DimGray" StrokeThickness="3"/>
             </Canvas>
