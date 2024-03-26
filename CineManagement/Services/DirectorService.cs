@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CineManagement.Services
 {
-    class DirectorService
+    public class DirectorService
     {
         public List<Director> getListDirector()
         {
@@ -21,6 +21,17 @@ namespace CineManagement.Services
                 {
                     return listDirector;
                 }
+            }
+        }
+        public Director getDirectorByName(string name)
+        {
+            using( var context = new CinemaManagementContext())
+            {
+                Director director = context.Directors.FirstOrDefault(x => x.DirectorName == name);
+                if(director == null)
+                {
+                    throw new Exception("Không tìm thấy đạo diễn!");
+                } else { return director; }
             }
         }
     }

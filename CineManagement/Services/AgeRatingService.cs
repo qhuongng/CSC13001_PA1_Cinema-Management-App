@@ -24,5 +24,15 @@ namespace CineManagement.Services
                 }
             }
         }
+        public AgeRating GetAgeRating(string id) {
+            using( var context = new CinemaManagementContext())
+            {
+                AgeRating ageRating = context.AgeRatings.FirstOrDefault(x=>x.AgeId == id);
+                if(ageRating == null)
+                {
+                    throw new Exception("Phân loại tuổi không tìm thấy");
+                } else { return ageRating; }
+            }
+        }
     }
 }

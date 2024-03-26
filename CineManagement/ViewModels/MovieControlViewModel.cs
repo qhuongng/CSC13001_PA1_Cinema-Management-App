@@ -1,4 +1,4 @@
-﻿using CineManagement.Model;
+﻿                                                                                                                                                                                                                                                                using CineManagement.Model;
 using CineManagement.Models;
 using CineManagement.Services;
 using CineManagement.Views;
@@ -100,6 +100,10 @@ namespace CineManagement.ViewModels
         {
             var AddScreen = new MovieAdd();
             AddScreen.ShowDialog();
+            if(AddScreen.DialogResult == true)
+            {
+                _movies.Add(new MovieList(_movies.Count + 1, char.ToUpper(AddScreen.newMovie.MovieName[0]),AddScreen.newMovie));
+            }
         }
     }
 }

@@ -95,5 +95,43 @@ namespace CineManagement.Services
                 }
             }
         }
+        public bool addMovie(Movie movie)
+        {
+            using( var context = new CinemaManagementContext())
+            {
+                try
+                {
+                    var movi = context.Movies.Add(movie);
+                    context.SaveChanges();
+                    if(movi == null)
+                    {
+                        throw new Exception("Không thể lưu phim");
+                    } else
+                    {
+                        return true;
+                    }
+                } catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+        public bool addMovieInfo(MovieInfo movieInfo) {
+            using(var context = new CinemaManagementContext())
+            {
+                try
+                {
+                    var info = context.MovieInfos.Add(movieInfo);
+                    context.SaveChanges();
+                    if (info == null)
+                    {
+                        throw new Exception("Thông tin thêm bị lỗi");
+                    } else return true;
+                } catch(Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
     }
 }
