@@ -13,6 +13,7 @@ using LiveCharts.Wpf;
 using Microsoft.Identity.Client;
 using System.Windows.Input;
 using System.Windows;
+using CineManagement.Views;
 
 namespace CineManagement.ViewModels
 {
@@ -34,7 +35,7 @@ namespace CineManagement.ViewModels
     }
     public class HomeVM : ViewModelBase
     {
-        private User user;
+        private User _user;
         private MovieService movieService;
         private List<Movie> movieList;
         private int showingMovies;//tong so phim dang chieu
@@ -73,10 +74,11 @@ namespace CineManagement.ViewModels
         public string[] Labels { get; set; }
         public Func<double, string> Values { get; set; }
         public ICommand UserCommand { get;}
-        public User User { get => user; set { user = value; OnPropertyChanged(nameof(User)); } }
+        public User User { get => _user; set { _user = value; OnPropertyChanged(nameof(User)); } }
 
         public HomeVM() 
         {
+            
             _movies = new ObservableCollection<MovieDetail>();
             showInDay = 0;
             showInWeek = 0;
@@ -117,22 +119,19 @@ namespace CineManagement.ViewModels
                 new ColumnSeries
                 {
                     Title="Top 15 Doanh Thu",
-                    Values = new ChartValues<int>(movieRevenues)                }
+                    Values = new ChartValues<int>(movieRevenues)}
             };
 
             Labels = movieTitles.ToArray();
             Values = value => value.ToString("N");
+            
         }
         public HomeVM(User user) : this()
         {
+            _user = new User();
             userName = user.UserName;
-            MessageBox.Show(UserName);
-            UserCommand = new ViewModelCommand(ExecutedLoadProfile);
-        }
-
-        private void ExecutedLoadProfile(object obj)
-        {
-            var profileAmin = new 
+            _user = user;
+            //UserCommand = new ViewModelCommand(ExecutedLoadProfile);
         }
     }
 }

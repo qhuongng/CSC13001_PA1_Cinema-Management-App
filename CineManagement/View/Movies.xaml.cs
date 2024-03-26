@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,14 +16,11 @@ using System.Windows.Shapes;
 
 namespace CineManagement.View
 {
-    /// <summary>
-    /// Interaction logic for Settings.xaml
-    /// </summary>
-    public partial class Settings : UserControl
+    public partial class Movies : UserControl
     {
-        public Settings()
+        public Movies()
         {
-            InitializeComponent();
+            InitializeComponent();    
         }
     }
 }

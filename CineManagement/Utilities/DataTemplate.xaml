@@ -8,29 +8,16 @@
         <view:Home/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:CustomerVM}">
-        <view:Customer />
+    <DataTemplate DataType="{x:Type vm:VouchersVM}">
+        <view:VouchersManagement />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:ProductVM}">
-        <view:Products />
+    <DataTemplate DataType="{x:Type vm:MovieControlViewModel}">
+        <view:Movies />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:OrderVM}">
-        <view:Orders />
+    <DataTemplate DataType="{x:Type vm:ShowtimeVM}">
+        <view:Showtimes />
     </DataTemplate>
-
-    <DataTemplate DataType="{x:Type vm:TransactionVM}">
-        <view:Transactions />
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type vm:ServiceVM}">
-        <view:Services />
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type vm:SettingVM}">
-        <view:Settings />
-    </DataTemplate>
-
 
 </ResourceDictionary>

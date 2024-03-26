@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CineManagement.Utilities;
+﻿using CineManagement.Utilities;
 using System.Windows.Input;
-using CineManagement.ViewModels;
 using CineManagement.Models;
 
 namespace CineManagement.ViewModels
@@ -20,39 +14,23 @@ namespace CineManagement.ViewModels
             set { _currentView = value; OnPropertyChanged(nameof(CurrentView)); }
         }
 
-        private void OnPropertyChanged()
-        {
-            throw new NotImplementedException();
-        }
-
         public ICommand HomeCommand { get; set; }
-        public ICommand CustomersCommand { get; set; }
-        public ICommand ProductsCommand { get; set; }
-        public ICommand OrdersCommand { get; set; }
-        public ICommand TransactionsCommand { get; set; }
-        public ICommand ShipmentsCommand { get; set; }
-        public ICommand SettingsCommand { get; set; }
+        public ICommand MoviesCommand { get; set; }
+        public ICommand VouchersCommand { get; set; }
+        public ICommand ShowtimesCommand { get; set; }
 
         private void Home(object obj) => CurrentView = new HomeVM(User);
-        private void Customer(object obj) => CurrentView = new CustomerVM();
-        private void Product(object obj) => CurrentView = new ProductVM();
-        private void Order(object obj) => CurrentView = new OrderVM();
-        private void Transaction(object obj) => CurrentView = new TransactionVM();
-        private void Shipment(object obj) => CurrentView = new ServiceVM();
-        private void Setting(object obj) => CurrentView = new SettingVM();
-
-
+        private void Movies(object obj) => CurrentView = new MovieControlViewModel();
+        private void Voucher(object obj) => CurrentView = new VouchersVM();
+        private void Showtimes(object obj) => CurrentView = new ShowtimeVM();
 
         public NavigationVM(User user)
         {
             User = user;
             HomeCommand = new RelayCommand(Home);
-            CustomersCommand = new RelayCommand(Customer);
-            ProductsCommand = new RelayCommand(Product);
-            OrdersCommand = new RelayCommand(Order);
-            TransactionsCommand = new RelayCommand(Transaction);
-            ShipmentsCommand = new RelayCommand(Shipment);
-            SettingsCommand = new RelayCommand(Setting);
+            MoviesCommand = new RelayCommand(Movies);
+            VouchersCommand = new RelayCommand(Voucher);
+            ShowtimesCommand = new RelayCommand(Showtimes);
 
             // Startup Page
             CurrentView = new HomeVM(user);

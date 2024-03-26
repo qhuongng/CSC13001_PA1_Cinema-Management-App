@@ -1,32 +1,75 @@
 ﻿using CineManagement.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CineManagement.Services
 {
     public class TicketService
     {
         private MovieService movieService = new MovieService();
-        public Ticket GetTicketInfo(int ticketId)
+
+        public bool AddTicket(Ticket ticket)
         {
-            using(var context = new CinemaManagementContext())
+            using (var _context = new CinemaManagementContext())
             {
-                Ticket ticket = context.Tickets.FirstOrDefault(x =>  x.TicketId == ticketId);
+                var existingTicket = _context.Tickets.FirstOrDefault(x => x.MovieId == ticket.MovieId && x.ProjectorId == ticket.ProjectorId && x.SeatId == ticket.SeatId);
                 
-                if(ticket != null) 
+                if (existingTicket == null)
                 {
-                    ticket.Movie = movieService.getMovieById(ticket.MovieId);
-                    ticket.Projector = context.Projectors
-                        .Where(pr => pr.ProjectorId == ticket.ProjectorId)
-                        .FirstOrDefault();
-                    return ticket;
+                    _context.Tickets.Add(ticket);
+
+                    try
+                    {
+                        _context.SaveChanges();
+
+                        return true;
+                    }
+                    catch (DbUpdateException ex)
+                    {
+                        throw new Exception("An error occurred while saving the ticket.", ex);
+                    }
+
                 }
                 else
                 {
+                    throw new Exception("Ticket already exists.");
+                }
+            }
+        }
+
+        public List<Ticket> GetTicketsByMovieAndShowtime(int movieId, int projectorId)
+        {
+            using (var context = new CinemaManagementContext())
+            {
+                List<Ticket> tickets = context.Tickets.Where(ticket => ticket.MovieId == movieId && ticket.ProjectorId == projectorId).ToList();
+
+                if (tickets == null)
+                {
                     throw new Exception("Ticket not found");
+                }
+                else
+                {
+                    return tickets;
+                }
+            }
+        }
+
+        public List<Ticket> GetTicketsByUserId(int userId)
+        {
+            using (var context = new CinemaManagementContext())
+            {
+                List<Ticket> tickets = context.Tickets.Include(ticket => ticket.Movie)
+                                                      .ThenInclude(movie => movie.Director)
+                                                      .Include(ticket => ticket.Projector)
+                                                      .Where(ticket => ticket.UserId == userId)
+                                                      .ToList();
+
+                if (tickets == null)
+                {
+                    throw new Exception("No movie found.");
+                }
+                else
+                {
+                    return tickets;
                 }
             }
         }

@@ -1,0 +1,44 @@
+﻿<Window x:Class="CineManagement.Views.UpdateVouchers"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CineManagement.Views"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        Title="UpdateVouchers" Height="250" Width="400">
+
+    <Grid Margin="10 0 10 0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="180"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+
+
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+            <TextBlock Text="Chỉnh Sửa Thông Tin Voucher" FontSize="25" FontWeight="SemiBold" Margin="20 10 0 0" Foreground="#121518" HorizontalAlignment="Left"/>
+            <Canvas Margin="0 20 0 0">
+                <Line X1="20" X2="360" Stroke="DimGray" StrokeThickness="3"/>
+            </Canvas>
+        </StackPanel>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Giá Trị Discount(%): " FontSize="20" VerticalAlignment="Center" FontWeight="SemiBold"/>
+        <TextBox Grid.Row="1" Text="{Binding DiscountPercentage, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" FontSize="20" VerticalAlignment="Center" BorderBrush="Transparent" Background="AliceBlue"  PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting"/>
+
+        <Button Style="{StaticResource addButton}" Command="{Binding UpdateCommand}" Margin="0,0,35,0" Background="DarkCyan" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Center" Height="35" Grid.RowSpan="2" Width="100">
+            <StackPanel Orientation="Horizontal">
+                <Icon:PackIconMaterial Kind="Check" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
+                <TextBlock Text="Hoàn Tất"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+
+</Window>

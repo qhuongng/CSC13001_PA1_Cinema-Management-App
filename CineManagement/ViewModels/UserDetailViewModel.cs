@@ -1,34 +1,15 @@
 ﻿using CineManagement.Models;
 using CineManagement.Services;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace CineManagement.ViewModels
 {
-    public class TicketInfo
-    {
-        public byte[] MovieImage { get; set; }
-        public string MovieName { get; set; }
-        public DateTime ProjectorInfo { get; set; }
-        public int Duration { get; set; }
-        public string SeatId { get; set; }
-        public int Price { get; set; }
-        public TicketInfo(byte[] image, string name, DateTime showTime, int duration, string seat, int price) 
-        {
-            MovieImage = image;
-            MovieName = name;
-            ProjectorInfo = showTime;
-            Duration = duration;
-            SeatId = seat;
-            Price = price;
-        }
-    }
     public class UserDetailViewModel : ViewModelBase
     {
         public User user { get; set; }
         private UserService userManage;
         private TicketService ticketManage;
-        private ObservableCollection<TicketInfo> ticketInfoList;
+        private List<Ticket> ticketInfoList;
         public MainWindowViewModel vm { get; set; }
 
         private string _userName;
@@ -44,10 +25,8 @@ namespace CineManagement.ViewModels
         public DateTime Dob { get => _dob; set { _dob = value; OnPropertyChanged(nameof(Dob)); } }
         public string ErrorMessage { get => _errorMessage; set { _errorMessage = value;OnPropertyChanged(nameof(ErrorMessage)); } }
         public bool IsViewVisible { get => _isViewVisible; set { _isViewVisible = value; OnPropertyChanged(nameof(IsViewVisible)); } }
-
         public string SuccessMessage { get => _successMessage; set { _successMessage = value; OnPropertyChanged(nameof(SuccessMessage)); } }
-
-        public ObservableCollection<TicketInfo> TicketInfoList { get => ticketInfoList; set => ticketInfoList = value; }
+        public List<Ticket> TicketInfoList { get => ticketInfoList; set { ticketInfoList = value; OnPropertyChanged(nameof(TicketInfoList)); } }
 
         public UserDetailViewModel(MainWindowViewModel viewModel)
         {
@@ -55,36 +34,32 @@ namespace CineManagement.ViewModels
             user = vm.CurrentUser;
             userManage = new UserService();
             ticketManage = new TicketService();
-            ticketInfoList = new ObservableCollection<TicketInfo>();
+            ticketInfoList = new List<Ticket>();
             UpdateCommand = new ViewModelCommand(ExecuteUpdateCommand);
             _userName = user.UserName;
             _password = user.Password;
             _dob = user.Dob.ToDateTime(new TimeOnly(00,00));
             // set up data for ticket
             ticketManage = new TicketService();
-
-            foreach(Ticket ticket in user.Tickets)
-            {
-                Ticket preticket = ticketManage.GetTicketInfo(ticket.TicketId);
-                ticketInfoList.Add(new TicketInfo(preticket.Movie.Poster, preticket.Movie.MovieName, preticket.Projector.ProjectorInfo, preticket.Movie.Duration, preticket.SeatId, preticket.Price));
-            }
+            user.Tickets = ticketManage.GetTicketsByUserId(user.UserId);
+            TicketInfoList = user.Tickets.ToList();
         }
 
         private void ExecuteUpdateCommand(object obj)
         {
             if (string.IsNullOrWhiteSpace(UserName) || string.IsNullOrWhiteSpace(Password))
             {
-                ErrorMessage = "* Please fill all blanks!";
+                ErrorMessage = "Vui lòng điền đầy đủ thông tin.";
                 SuccessMessage = "";
             }
             else if (Dob >= DateTime.Today)
             {
-                ErrorMessage = "* Value of birthday is unacceptable!";
+                ErrorMessage = "Ngày sinh không hợp lệ.";
                 SuccessMessage = "";
             }
             else if (UserName.Equals(user.UserName) && Password.Equals(user.Password) && DateOnly.FromDateTime(Dob) == user.Dob)
             {
-                ErrorMessage = "* Nothing to Update!";
+                ErrorMessage = "Thông tin cá nhân không có thay đổi mới.";
                 SuccessMessage = "";
             }
             else
@@ -97,11 +72,11 @@ namespace CineManagement.ViewModels
                     userManage.updateUser(user);
                     vm.CurrentUser = user;
                     ErrorMessage = "";
-                    SuccessMessage = "* Update successfully";
+                    SuccessMessage = "Cập nhật thông tin cá nhân thành công.";
                 }
                 catch (Exception ex)
                 {
-                    ErrorMessage = "* " + ex.Message;
+                    ErrorMessage = "" + ex.Message;
                     SuccessMessage = "";
                 }
             }

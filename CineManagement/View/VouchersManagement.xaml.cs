@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,13 +17,18 @@ using System.Windows.Shapes;
 namespace CineManagement.View
 {
     /// <summary>
-    /// Interaction logic for Showtime.xaml
+    /// Interaction logic for VouchersManagement.xaml
     /// </summary>
-    public partial class Showtime : UserControl
+    public partial class VouchersManagement : UserControl
     {
-        public Showtime()
+        public VouchersManagement()
         {
             InitializeComponent();
+        }
+
+        private void AddBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

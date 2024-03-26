@@ -9,7 +9,7 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="MainWindow" Height="760" Width="1190" ResizeMode="NoResize" AllowsTransparency="True"
-WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent">
+        WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent">
 
     <Border BorderBrush="Transparent" BorderThickness="1"
             Background="White" CornerRadius="10" Margin="10">
@@ -107,88 +107,44 @@ WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent"
 
                             <uc:BtnMenu Icon="HomeVariant" 
                                         Style="{StaticResource Icon_Style}"/>
-                            <TextBlock Text="Home"
+                            <TextBlock Text="Thống kê"
                                        Style="{StaticResource Text_Style}" />
 
                         </Grid>
 
                     </Menu:Btn>
 
-                    <!--// Customer //-->
+                    <!--// Moives //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding CustomersCommand}">
-
-                        <Grid>
-
-                            <uc:BtnMenu Icon="Account"
-                                        Style="{StaticResource Icon_Style}"/>
-
-                            <TextBlock Text="Info"
-                                       Style="{StaticResource Text_Style}" />
-
-                        </Grid>
-
-                    </Menu:Btn>
-
-                    <!--// Products //-->
-
-                    <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding ProductsCommand}">
+                              Command="{Binding MoviesCommand}">
 
                         <Grid>
 
                             <uc:BtnMenu Icon="Movie"
                                         Style="{StaticResource Icon_Style}"/>
 
-                            <TextBlock Text="Movies"
+                            <TextBlock Text="Phim"
                                        Style="{StaticResource Text_Style}" />
 
                         </Grid>
 
                     </Menu:Btn>
 
-                    <!--// Orders //-->
+                    <!--// Report of a Movie //-->
 
-                    <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding OrdersCommand}">
-
-                        <Grid>
-
-                            <uc:BtnMenu Icon="Receipt" Style="{StaticResource Icon_Style}"/>
-
-                            <TextBlock Text="Orders"
-                                       Style="{StaticResource Text_Style}" />
-
-                        </Grid>
-
-                    </Menu:Btn>
-
-                    <!--// Transactions //-->
-
-                    <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding TransactionsCommand}">
-
-                        <Grid>
-
-                            <uc:BtnMenu Icon="Bank" Style="{StaticResource Icon_Style}"/>
-                            <TextBlock Text="Transactions"
-                                       Style="{StaticResource Text_Style}" />
-
-                        </Grid>
-
-                    </Menu:Btn>
+                    <!--// Showtime //-->
 
                     <!--// Shipments //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding ShipmentsCommand}">
+                              Command="{Binding ShowtimesCommand}">
 
                         <Grid>
 
-                            <uc:BtnMenu Icon="Popcorn"  Style="{StaticResource Icon_Style}"/>
+                            <uc:BtnMenu Icon="Filmstrip"  Style="{StaticResource Icon_Style}"/>
 
-                            <TextBlock Text="Services"
+                            <TextBlock Text="Suất chiếu"
                                        Style="{StaticResource Text_Style}" />
 
                         </Grid>
@@ -197,15 +153,17 @@ WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent"
 
                     <!--// Settings //-->
 
+                    <!--// Products //-->
+
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding SettingsCommand}">
+                              Command="{Binding VouchersCommand}">
 
                         <Grid>
 
-                            <uc:BtnMenu Icon="Wrench"  
+                            <uc:BtnMenu Icon="Ticket"
                                         Style="{StaticResource Icon_Style}"/>
 
-                            <TextBlock Text="Settings"
+                            <TextBlock Text="Voucher"
                                        Style="{StaticResource Text_Style}" />
 
                         </Grid>

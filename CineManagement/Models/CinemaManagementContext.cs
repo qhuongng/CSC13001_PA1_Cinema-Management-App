@@ -249,24 +249,19 @@ public partial class CinemaManagementContext : DbContext
 
         modelBuilder.Entity<Voucher>(entity =>
         {
-            entity.HasKey(e => e.VoucherId).HasName("PK__Voucher__F53389E918F0BDD3");
+            entity.HasKey(e => e.VoucherId).HasName("PK__Voucher__F53389E99697B6A6");
 
             entity.ToTable("Voucher");
 
             entity.Property(e => e.VoucherId).HasColumnName("voucherId");
             entity.Property(e => e.DiscountPercent).HasColumnName("discountPercent");
             entity.Property(e => e.IsUsed).HasColumnName("isUsed");
-            entity.Property(e => e.TicketId).HasColumnName("ticketId");
             entity.Property(e => e.UserId).HasColumnName("userId");
-
-            entity.HasOne(d => d.Ticket).WithMany(p => p.Vouchers)
-                .HasForeignKey(d => d.TicketId)
-                .HasConstraintName("FK__Voucher__ticketI__05D8E0BE");
 
             entity.HasOne(d => d.User).WithMany(p => p.Vouchers)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Voucher__userId__5629CD9C");
+                .HasConstraintName("FK__Voucher__userId__5CD6CB2B");
         });
 
         OnModelCreatingPartial(modelBuilder);

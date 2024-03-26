@@ -5,11 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CineManagement.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="1000" d:DesignWidth="800">
 
     <UserControl.Resources>
         <local:GenresToStringConverter x:Key="genreConverter" />
-        <local:ActorsToStringConverter x:Key="actorConverter" />
     </UserControl.Resources>
     
     <Grid>
@@ -45,33 +44,44 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,0,10,0">
+            <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,0,20,0">
                 <TextBlock Text="Suất chiếu" Margin="0,0,0,10"
                    FontWeight="Bold" FontSize="18" />
-                <ListView
-                  Margin="0,0,0,20">
+                <ComboBox x:Name="projectors" Margin="0,0,0,20" ItemsSource="{Binding Projectors}"
+                          SelectedItem="{Binding SelectedProjector}" SelectionChanged="Projectors_SelectionChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ProjectorInfo, StringFormat='Ngày {0:dd/MM/yyyy} - Bắt đầu lúc {0:HH:mm}'}" /> 
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
-                </ListView>
-
-                <TextBlock Text="Ghế ngồi" Margin="0,0,0,10"
-                   FontWeight="Bold" FontSize="18" />
-                <ListView x:Name="SeatChart" Width="330"
-                          Margin="0,0,0,20" SelectionMode="Multiple"
+                <TextBlock Text="Chỗ ngồi" Margin="0,0,0,10"
+                           FontWeight="Bold" FontSize="18" />
+                <ListView x:Name="SeatChart" Width="410" SelectionChanged="SeatChart_SelectionChanged"
+                          Margin="0,0,0,20" SelectionMode="Multiple" ItemsSource="{Binding Seats}"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Cursor="Hand">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="30"></RowDefinition>
-                                </Grid.RowDefinitions>
+                            <Border x:Name="Seat" Width="30" Height="30" Cursor="Hand"
+                                    Background="WhiteSmoke" CornerRadius="10">
+                                <TextBlock x:Name="SeatIndex" Text="{Binding SeatId}"
+                                           VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </Border>
 
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="30"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-
-                                <Rectangle x:Name="Seat" Grid.Row="0" Fill="WhiteSmoke" />
-                                <TextBlock x:Name="SeatIndex" Text="{Binding}" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            </Grid>
+                            <DataTemplate.Triggers>
+                                <Trigger SourceName="Seat" Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Seat" Property="Background" Value="PowderBlue"></Setter>
+                                </Trigger>
+                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListViewItem}}" Value="True">
+                                    <Setter TargetName="Seat" Property="Background" Value="DarkCyan" />
+                                    <Setter TargetName="SeatIndex" Property="Foreground" Value="White" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType=ListViewItem}}" Value="False">
+                                    <Setter TargetName="Seat" Property="Background" Value="DarkGray" />
+                                    <Setter TargetName="SeatIndex" Property="Foreground" Value="DimGray" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
                         </DataTemplate>
                     </ListView.ItemTemplate>
 
@@ -83,21 +93,85 @@
 
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
-                            <Style.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Background" Value="DarkCyan"/>
-                                </Trigger>
-                            </Style.Triggers>
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="Margin" Value="5,0,5,5" />
+                            <Setter Property="IsEnabled" Value="{Binding IsEnabled}"/>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListViewItem">
+                                        <Grid Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
                         </Style>
                     </ListView.ItemContainerStyle>
                 </ListView>
 
-                <Button Width="350" Content="ĐẶT VÉ" />
+                <TextBlock Text="Voucher" Margin="0,0,0,10"
+                           FontWeight="Bold" FontSize="18" />
+
+                <ComboBox x:Name="vouchers"
+                          Margin="0,0,0,20" ItemsSource="{Binding Vouchers}"
+                          SelectedItem="{Binding SelectedVoucher}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding DiscountPercent, StringFormat='Voucher giảm {0}%'}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <DockPanel HorizontalAlignment="Stretch"
+                           Margin="0,0,0,20" LastChildFill="False">
+                    <TextBlock DockPanel.Dock="Left"
+                               Text="Tổng" FontWeight="Bold" FontSize="18" />
+                    <TextBlock x:Name="totalPrice"
+                               DockPanel.Dock="Right" Foreground="DarkCyan"
+                               Text="{Binding Total, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0} VND}" FontWeight="Bold" FontSize="22" />
+                </DockPanel>
+
+                <TextBlock Text="{Binding ErrorMsg}" Foreground="Firebrick" Margin="0,0,0,20" />
+
+                <Button Margin="0,0,0,20" Content="ĐẶT VÉ"
+                        Cursor="Hand" Command="{Binding PurchaseCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="BtnBorder" HorizontalAlignment="Stretch" Height="40"
+                                    CornerRadius="10" Background="{TemplateBinding Background}">
+                                <TextBlock FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <ContentPresenter />
+                                </TextBlock>
+                            </Border>
+                            
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="BtnBorder" Property="Background" Value="PowderBlue" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Background" Value="DarkCyan" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
+                                    <Setter Property="Foreground" Value="DimGray" />
+                                    <Setter Property="Background" Value="DarkGray" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Vertical" Margin="10,0,0,0">
-                <TextBlock Text="Đạo diễn" FontWeight="Bold" FontSize="14" />
-                <Border CornerRadius="10" Background="WhiteSmoke" Margin="0,5,0,10">
+                <TextBlock Text="Đạo diễn" FontWeight="Bold"
+                           FontSize="18" Margin="0,0,0,10" />
+                <Border CornerRadius="10" Background="WhiteSmoke" Margin="0,0,0,20">
                     <DockPanel Margin="10">
                         <Border DockPanel.Dock="Left"
                                 CornerRadius="10" Margin="0,0,10,0"
@@ -116,18 +190,21 @@
                     </DockPanel>
                 </Border>
 
-                <TextBlock Text="Thể loại" FontWeight="Bold" FontSize="14" />
-                <TextBlock TextWrapping="Wrap" Margin="0,0,0,10"
+                <TextBlock Text="Thể loại" FontWeight="Bold"
+                           FontSize="18" Margin="0,0,0,10" />
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,20"
                            Text="{Binding Path=SelectedMovie.Genres, Converter={StaticResource genreConverter}}" />
 
-                <TextBlock Text="Thời lượng" FontWeight="Bold" FontSize="14" />
+                <TextBlock Text="Thời lượng" FontWeight="Bold"
+                           FontSize="18" Margin="0,0,0,10" />
                 <TextBlock Grid.Row="2" Grid.Column="1"
-                           Text="{Binding SelectedMovie.Duration, StringFormat={}{0} phút}" Margin="0,0,0,10" />
+                           Text="{Binding SelectedMovie.Duration, StringFormat={}{0} phút}" Margin="0,0,0,20" />
 
-                <TextBlock Text="Diễn viên" FontWeight="Bold" FontSize="14" />
-                <ListView x:Name="actorList" Margin="0,5,0,0"
+                <TextBlock Text="Diễn viên" FontWeight="Bold"
+                           FontSize="18" Margin="0,0,0,10" />
+                <ListView x:Name="actorList" Margin="0,0,0,20"
                           ItemsSource="{Binding SelectedMovie.Actors}"
-                          HorizontalAlignment="Center"
+                          HorizontalAlignment="Stretch"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">    
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -138,7 +215,7 @@
 
                                     <Popup x:Name="ElementPopup" StaysOpen="True" Placement="Center" PlacementTarget="{x:Null}" Width="300"
                                            PopupAnimation="Fade" Focusable="False" SnapsToDevicePixels="True" AllowsTransparency="True">
-                                        <Border CornerRadius="10" Background="WhiteSmoke" Margin="0,5,0,10">
+                                        <Border CornerRadius="10" Background="WhiteSmoke" Margin="7">
                                             <DockPanel Margin="10">
                                                 <Border DockPanel.Dock="Left"
                                                         CornerRadius="10" Margin="0,0,10,0"
@@ -156,7 +233,7 @@
                                             </DockPanel>
 
                                             <Border.Effect>
-                                                <DropShadowEffect Color="DarkGray" ShadowDepth="1" />
+                                                <DropShadowEffect Color="DarkGray" BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1" />
                                             </Border.Effect>
                                         </Border>
                                     </Popup>
@@ -165,6 +242,7 @@
 
                             <DataTemplate.Triggers>
                                 <Trigger SourceName="Item" Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Item" Property="Background" Value="PowderBlue"></Setter>
                                     <Trigger.EnterActions>
                                         <BeginStoryboard x:Name="bsb">
                                             <Storyboard>
@@ -188,7 +266,17 @@
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="Padding" Value="0" />
-                            <Setter Property="Margin" Value="5,0,5,5" />
+                            <Setter Property="Margin" Value="0,0,5,5" />
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListViewItem">
+                                        <Grid Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
                         </Style>
                     </ListView.ItemContainerStyle>
 
