@@ -29,9 +29,10 @@ namespace CineManagement.Views
         {
             InitializeComponent();
             VoucherAddViewModel viewModel = new VoucherAddViewModel(this);
-            this.DataContext = viewModel;
+            DataContext = viewModel;
             addVoucher = viewModel.newVoucher;
         }
+
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsTextAllowed(e.Text);

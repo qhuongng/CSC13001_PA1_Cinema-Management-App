@@ -39,7 +39,6 @@ namespace CineManagement.ViewModels
             voucherManager = new VoucherService();
             userManager = new UserService();
             UserList = userManager.getAllUser();
-            MessageBox.Show(UserList.Count().ToString());
             ListId = new ObservableCollection<string>();
             foreach(User user in UserList)
             {

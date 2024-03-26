@@ -5,28 +5,28 @@ using System.Windows.Input;
 
 namespace CineManagement.ViewModels
 {
-    class VoucherUpdateViewModel:ViewModelBase
+    internal class ShowtimeUpdateViewModel : ViewModelBase
     {
-        private int _discountPercentage;
+        private DateTime _showtime;
         private string _errorMessage;
         private string _successMessage;
 
-        public int DiscountPercentage { get => _discountPercentage; set { _discountPercentage = value; OnPropertyChanged(nameof(DiscountPercentage)); } }
+        public DateTime Showtime { get => _showtime; set { _showtime = value; OnPropertyChanged(nameof(Showtime)); } }
         public string ErrorMessage { get => _errorMessage; set { _errorMessage = value; OnPropertyChanged(nameof(ErrorMessage)); } }
         public string SuccessMessage { get => _successMessage; set { _successMessage = value; OnPropertyChanged(nameof(SuccessMessage)); } }
 
         public ICommand UpdateCommand { get; }
 
-        public Voucher voucher;
-        public VoucherService voucherService;
+        public Projector showtime;
+        public ProjectorService showtimeService;
         public Window window;
 
-        public VoucherUpdateViewModel(Voucher currentVoucher, Window currentWindow)
+        public ShowtimeUpdateViewModel(Projector currentProjector, Window currentWindow)
         {
-            voucher = currentVoucher;
+            showtime = currentProjector;
             window = currentWindow;
-            voucherService = new VoucherService();
-            _discountPercentage = voucher.DiscountPercent;
+            showtimeService = new ProjectorService();
+            _showtime = showtime.ProjectorInfo;
             _errorMessage = "";
             _successMessage = "";
 
@@ -35,32 +35,32 @@ namespace CineManagement.ViewModels
 
         private void ExecutedUpdateCommand(object obj)
         {
-            if (!int.TryParse(_discountPercentage.ToString(), out int discountPercentage))
+            if (Showtime < DateTime.Now)
             {
-                ErrorMessage = "* Giá trị không hợp lệ!";
+                ErrorMessage = "Giá trị không hợp lệ!";
                 SuccessMessage = "";
             }
-            else if (_discountPercentage == voucher.DiscountPercent)
+            else if (_showtime == showtime.ProjectorInfo)
             {
-                ErrorMessage = "* Nothing to update!";
+                ErrorMessage = "Không có thông tin nào thay đổi!";
                 SuccessMessage = "";
             }
             else
             {
-                voucher.DiscountPercent = _discountPercentage;
+                showtime.ProjectorInfo = _showtime;
                 try
                 {
-                    bool checkUpdate = voucherService.updateVoucher(voucher);
+                    bool checkUpdate = showtimeService.updateProjector(showtime);
                     if (checkUpdate)
                     {
-                        SuccessMessage = "Update successfully";
+                        SuccessMessage = "Cập nhật thành công.";
                         window.DialogResult = true;
                         window.Close();
                     }
                 }
                 catch (Exception ex)
                 {
-                    ErrorMessage = "* " + ex.Message;
+                    ErrorMessage = "" + ex.Message;
                     SuccessMessage = "";
                 }
 

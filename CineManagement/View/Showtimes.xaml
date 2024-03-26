@@ -1,10 +1,8 @@
-﻿<UserControl x:Class="CineManagement.View.Services"
-                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<UserControl x:Class="CineManagement.View.Showtimes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:CineManagement.View"
-             xmlns:uc="clr-namespace:CineManagement.UserControls"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:vm="clr-namespace:CineManagement.ViewModels"
              mc:Ignorable="d"
@@ -13,7 +11,7 @@
              Style="{StaticResource Page_Style}">
 
     <UserControl.DataContext>
-        <vm:MovieControlViewModel/>
+        <vm:ShowtimeVM />
     </UserControl.DataContext>
 
     <Border CornerRadius="0 0 10 0" Background="#EFF2F7">
@@ -62,27 +60,16 @@
                 <TextBlock Text="{Binding TotalMovie,StringFormat={}{0} suất chiếu, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" FontSize="18" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                 <!--Members Data Grid-->
-                <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" d:ItemsSource="{d:SampleData}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ItemsSource="{Binding Movies,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedMovie,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource DataGridStyle1}">
+                <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" d:ItemsSource="{d:SampleData}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ItemsSource="{Binding Showtimes,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedShowtime,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource DataGridStyle1}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding Number,UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTemplateColumn Header="Movies" IsReadOnly="True" Width="240">
+                        <DataGridTextColumn Header="ID suất chiếu" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding ProjectorId,UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTemplateColumn Header="Ngày, giờ" IsReadOnly="True" Width="240">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="Cyan">
-                                            <TextBlock Text="{Binding Character,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
-                                        </Border>
-
-                                        <TextBlock Text="{Binding MovieDetail.MovieName, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
-                                    </StackPanel>
+                                    <TextBlock Text="{Binding ProjectorInfo, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Director" Binding="{Binding MovieDetail.Director.DirectorName, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="185"/>
-                        <DataGridTextColumn Header="Release Year" Binding="{Binding MovieDetail.ReleaseYear, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Duration" Binding="{Binding MovieDetail.Duration,StringFormat={}{0} phút, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Imdb Rating" Binding="{Binding MovieDetail.ImdbRating,StringFormat={}{0}/10, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="*"/>
-
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
