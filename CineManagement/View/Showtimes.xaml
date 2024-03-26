@@ -57,7 +57,7 @@
                     </Button>
                 </StackPanel>
                 <!--Counter Title-->
-                <TextBlock Text="{Binding TotalMovie,StringFormat={}{0} suất chiếu, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" FontSize="18" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding TotalShowtime,StringFormat={}{0} suất chiếu, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" FontSize="18" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                 <!--Members Data Grid-->
                 <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" d:ItemsSource="{d:SampleData}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ItemsSource="{Binding Showtimes,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedShowtime,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource DataGridStyle1}">
