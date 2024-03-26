@@ -44,14 +44,7 @@
                            Margin="15 0 0 0" HorizontalAlignment="left"/>
                 </Grid>-->
 
-
-                    <StackPanel Orientation="horizontal" Grid.Column="1" Margin="0 0 0 0 ">
-                        <TextBlock Margin="0 0 10 0" VerticalAlignment="center" Foreground="dimgray"  Text="Welcome Back" FontSize="20"/>
-                        <Button Content="Admin" Command="{Binding UserCommand}" Foreground="dimgray" FontSize="20" Background="Transparent" BorderThickness="0 0 0 0">
-
-                        </Button>
-
-                    </StackPanel>
+                    <StackPanel Orientation="horizontal" Grid.Column="1" Margin="0 0 0 0 "/>
                 </Grid>
 
             <!--middle top section-->

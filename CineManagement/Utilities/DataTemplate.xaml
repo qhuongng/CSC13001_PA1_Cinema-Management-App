@@ -16,21 +16,8 @@
         <view:Movies />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:OrderVM}">
-        <view:Orders />
-    </DataTemplate>
-
     <DataTemplate DataType="{x:Type vm:ShowtimeVM}">
-        <view:Showtime />
+        <view:Showtimes />
     </DataTemplate>
-
-    <DataTemplate DataType="{x:Type vm:ServiceVM}">
-        <view:Services />
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type vm:SettingVM}">
-        <view:Settings />
-    </DataTemplate>
-
 
 </ResourceDictionary>

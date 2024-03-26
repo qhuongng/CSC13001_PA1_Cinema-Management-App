@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CineManagement.View
+namespace CineManagement.Views
 {
     /// <summary>
-    /// Interaction logic for Settings.xaml
+    /// Interaction logic for TicketDetail.xaml
     /// </summary>
-    public partial class Settings : UserControl
+    public partial class TicketDetail : Window
     {
-        public Settings()
+        public TicketDetail()
         {
             InitializeComponent();
         }

@@ -107,7 +107,7 @@
 
                             <uc:BtnMenu Icon="HomeVariant" 
                                         Style="{StaticResource Icon_Style}"/>
-                            <TextBlock Text="Home"
+                            <TextBlock Text="Thống kê"
                                        Style="{StaticResource Text_Style}" />
 
                         </Grid>
@@ -124,7 +124,7 @@
                             <uc:BtnMenu Icon="Movie"
                                         Style="{StaticResource Icon_Style}"/>
 
-                            <TextBlock Text="Movies"
+                            <TextBlock Text="Phim"
                                        Style="{StaticResource Text_Style}" />
 
                         </Grid>
@@ -133,45 +133,18 @@
 
                     <!--// Report of a Movie //-->
 
-                    <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding OrdersCommand}">
-
-                        <Grid>
-
-                            <uc:BtnMenu Icon="Receipt" Style="{StaticResource Icon_Style}"/>
-
-                            <TextBlock Text="Reports"
-                                       Style="{StaticResource Text_Style}" />
-
-                        </Grid>
-
-                    </Menu:Btn>
-
                     <!--// Showtime //-->
+
+                    <!--// Shipments //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
                               Command="{Binding ShowtimesCommand}">
 
                         <Grid>
 
-                            <uc:BtnMenu Icon="Filmstrip" Style="{StaticResource Icon_Style}"/>
-                            <TextBlock Text="Showtimes"
-                                       Style="{StaticResource Text_Style}" />
+                            <uc:BtnMenu Icon="Filmstrip"  Style="{StaticResource Icon_Style}"/>
 
-                        </Grid>
-
-                    </Menu:Btn>
-
-                    <!--// Shipments //-->
-
-                    <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding ServicesCommand}">
-
-                        <Grid>
-
-                            <uc:BtnMenu Icon="Popcorn"  Style="{StaticResource Icon_Style}"/>
-
-                            <TextBlock Text="Services"
+                            <TextBlock Text="Suất chiếu"
                                        Style="{StaticResource Text_Style}" />
 
                         </Grid>
@@ -179,21 +152,6 @@
                     </Menu:Btn>
 
                     <!--// Settings //-->
-
-                    <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding SettingsCommand}">
-
-                        <Grid>
-
-                            <uc:BtnMenu Icon="Wrench"  
-                                        Style="{StaticResource Icon_Style}"/>
-
-                            <TextBlock Text="Settings"
-                                       Style="{StaticResource Text_Style}" />
-
-                        </Grid>
-
-                    </Menu:Btn>
 
                     <!--// Products //-->
 
@@ -205,7 +163,7 @@
                             <uc:BtnMenu Icon="Ticket"
                                         Style="{StaticResource Icon_Style}"/>
 
-                            <TextBlock Text="Vouchers"
+                            <TextBlock Text="Voucher"
                                        Style="{StaticResource Text_Style}" />
 
                         </Grid>

@@ -38,6 +38,7 @@ namespace CineManagement.Views
         private void closeWindowBtn_Click(object sender, RoutedEventArgs e)
         {
             Close();
+            Application.Current.Shutdown();
         }
 
         private void fullSrcBtn_Click(object sender, RoutedEventArgs e)
