@@ -26,7 +26,7 @@ namespace CineManagement.Services
             }
         }
 
-        public bool addVoucher(Voucher voucher) // if exists return null, else return this user
+        public bool addVoucher(Voucher voucher) 
         {
             using (var _context = new CinemaManagementContext())
             {

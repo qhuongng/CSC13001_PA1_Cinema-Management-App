@@ -6,52 +6,39 @@
         xmlns:local="clr-namespace:CineManagement.Views"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="AddVouchers" Height="450" Width="800">
-    <Border CornerRadius="10" Background="White">
-        <ScrollViewer>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+        Title="UpdateVouchers" Height="250" Width="400">
 
-                <Grid Grid.Row="1">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="300 "/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
+    <Grid Margin="10 0 10 0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="180"/>
+        </Grid.ColumnDefinitions>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="70"/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
 
-                        <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
-                            <TextBlock Text="Chỉnh Sửa Thông Tin Voucher" FontSize="25" FontWeight="SemiBold" Margin="20 10 0 0" Foreground="#121518" HorizontalAlignment="Left"/>
-                            <Canvas Margin="0 20 0 0">
-                                <Line X1="20" X2="940" Stroke="DimGray" StrokeThickness="3"/>
-                            </Canvas>
-                        </StackPanel>
 
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Giá Trị Discount(%): " FontSize="20" Margin="20" FontWeight="SemiBold"/>
-                        <TextBox Grid.Row="2" Grid.Column="1" FontSize="20" Margin="20" BorderBrush="Transparent" Background="AliceBlue" PreviewTextInput="TextBox_PreviewTextInput"/>
+        </Grid.RowDefinitions>
 
-                        <Button Style="{StaticResource addButton}" Command="{Binding UpdateCommand}" Margin="50,0,0,0" Background="DarkCyan" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Left">
-                            <StackPanel Orientation="Horizontal">
-                                <Icon:PackIconMaterial Kind="Check" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
-                                <TextBlock Text="Hoàn Tất"/>
-                            </StackPanel>
-                        </Button>
-                    </Grid>
-                </Grid>
-            </Grid>
-        </ScrollViewer>
-    </Border>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+            <TextBlock Text="Chỉnh Sửa Thông Tin Voucher" FontSize="25" FontWeight="SemiBold" Margin="20 10 0 0" Foreground="#121518" HorizontalAlignment="Left"/>
+            <Canvas Margin="0 20 0 0">
+                <Line X1="20" X2="360" Stroke="DimGray" StrokeThickness="3"/>
+            </Canvas>
+        </StackPanel>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Giá Trị Discount(%): " FontSize="20" VerticalAlignment="Center" FontWeight="SemiBold"/>
+        <TextBox Grid.Row="1" Text="{Binding DiscountPercentage, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" FontSize="20" VerticalAlignment="Center" BorderBrush="Transparent" Background="AliceBlue"  PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting"/>
+
+        <Button Style="{StaticResource addButton}" Command="{Binding UpdateCommand}" Margin="0,0,35,0" Background="DarkCyan" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Center" Height="35" Grid.RowSpan="2" Width="100">
+            <StackPanel Orientation="Horizontal">
+                <Icon:PackIconMaterial Kind="Check" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
+                <TextBlock Text="Hoàn Tất"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+
 </Window>

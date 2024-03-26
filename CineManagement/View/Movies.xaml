@@ -13,7 +13,7 @@
              Style="{StaticResource Page_Style}">
 
     <UserControl.DataContext>
-        <vm:MovieControlViewModel />
+        <vm:MovieControlViewModel/>
     </UserControl.DataContext>
 
     <Border CornerRadius="0 0 10 0" Background="#EFF2F7">
