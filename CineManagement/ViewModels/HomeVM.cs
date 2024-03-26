@@ -133,16 +133,5 @@ namespace CineManagement.ViewModels
             _user = user;
             //UserCommand = new ViewModelCommand(ExecutedLoadProfile);
         }
-
-        private void ExecutedLoadProfile(object obj)
-        {
-            MessageBox.Show(_user.UserName);
-            var profileScreen = new AdminProfile(_user);
-            profileScreen.ShowDialog();
-            if(profileScreen.DialogResult == true)
-            {
-                userName = profileScreen.user.UserName;
-            }
-        }
     }
 }
